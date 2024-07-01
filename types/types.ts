@@ -39,7 +39,7 @@ export type ClinicDetailsProps = {
     servicesOffered:string[];
     clinicHours:number;
 
-}
+};
 
 // Response type for getting application by tracking number
 export type GetApplicationByTrackingNumberResponse = {

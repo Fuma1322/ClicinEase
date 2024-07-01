@@ -11,19 +11,21 @@ import {
 } from "@/components/ui/select"
 import { boolean } from "zod"
 
-// type SelectInputProps = {
-//     label: string
-//     register:any;
-//     name: string;
-//     errors:any;
-//     options: string;
-//     className?: string;
-//     multiple?: boolean;
-// };
-// export type SelectOption = {
-//     value: string;
-//     label: string;
-// };
+type Clinics ={
+  name: string;
+  specialization:string[];
+}
+
+const clinic: Clinics[] = [
+  {
+    name: "Mabote Filter Clinic",
+    specialization: ["Cardiology" , " dermatologist"],
+  },
+  {
+    name: "Qoaling Filter Clinic",
+    specialization: ["Dentist" , " Mid Wife"],
+  },
+]
 
  export function SelectInput() {
   return (
@@ -32,11 +34,14 @@ import { boolean } from "zod"
         <SelectValue placeholder="Select Your Primary Specializations" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Mabote Filter Clinic</SelectLabel>
-          <SelectItem value="est">Dentist</SelectItem>
-          <SelectItem value="est">Mid Wife</SelectItem>
-        </SelectGroup>
+        {clinic.map((clinic, index)=>(
+                  <SelectGroup key={index}>
+                  <SelectLabel>{clinic.name}</SelectLabel>
+                  {clinic.specialization.map((specialization, specindex)=>(
+                  <SelectItem key={specindex} value={specialization}>{specialization}</SelectItem>
+                    ))}
+                </SelectGroup>
+        ))}
       </SelectContent>
     </Select>
   )

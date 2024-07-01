@@ -18,7 +18,7 @@ export type StepFormprops = {
   description: string;
   userId?: string;
   nextPage?: string;
-  formId?: String;
+  formId?: string;
 };
 export default function BasicInfo({
   page, 
@@ -32,14 +32,23 @@ export default function BasicInfo({
   console.log(trackingNumber,clinicProfileId);
   const [profileImage,setprofileImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const {basicData, setBasicData}=useOnboardingContext()
+  const {basicData, setBasicData,savedDBData}=useOnboardingContext()
    const {
     register,
     handleSubmit,
     reset,
     formState:{errors},
   } = useForm<BasicInfoProps>({
-    defaultValues: basicData
+    defaultValues: {
+      clinicName: basicData.clinicName || savedDBData.clinicName,
+      email: basicData.email || savedDBData.email,
+      phone: basicData.phone || savedDBData.phone,
+      address: basicData.address || savedDBData.address,
+      profilePicture: basicData.profilePicture || savedDBData.profilePicture,
+      page: basicData.page || savedDBData.page,
+      trackingNumber: basicData.trackingNumber || savedDBData.trackingNumber,
+      userId: basicData.userId || savedDBData.userId,
+    }
   });
   const router = useRouter();
   async function onSubmit (data: BasicInfoProps) {
@@ -47,7 +56,7 @@ export default function BasicInfo({
     data.userId = userId,
     data.trackingNumber = generateTrackingNumber()
     data.page = page;
-    data.profilePicture=profileImage
+    data.profilePicture=profileImage;
     console.log(data);
 
     try {

@@ -12,8 +12,9 @@ import { Plus } from "lucide-react";
 import { useOnboardingContext } from "@/context/context";
 import { StepFormprops } from "./BasicInfoForm";
 import toast from "react-hot-toast"; // For showing success or error messages
-import { createClinicProfile } from "@/actions/registry";
+import { completeProfile, createClinicProfile, updateClinicProfile } from "@/actions/registry";
 import { SelectInput } from "../FormInputs/SelectInput";
+import { number } from "zod";
 
 export default function ClinicDetails({
   page, 
@@ -22,29 +23,41 @@ export default function ClinicDetails({
   userId,
   formId
 }: StepFormprops) {
+  const [services,setServices]=useState([]);
+  const [speciality,setSpeciality]=useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { clinicData, setClinicData } = useOnboardingContext();
+  const { clinicData, setClinicData,savedDBData } = useOnboardingContext();
   const { register, handleSubmit, formState: { errors } } = useForm<ClinicDetailsProps>({
-    defaultValues: clinicData,
+    defaultValues: {
+      duration: clinicData.duration || savedDBData.duration,
+      availability: clinicData.availability || savedDBData.availability,
+      specialization: clinicData.specialization || savedDBData.specialization,
+      servicesOffered: clinicData.servicesOffered || savedDBData.servicesOffered,
+      page: clinicData.page || savedDBData.page
+    }
   });
   const router = useRouter();
 
   async function onSubmit(data: ClinicDetailsProps) {
     data.page = page;
+    data.servicesOffered = services;
+    data.clinicHours = Number(data.clinicHours);
+    // data.specialization = [];
     console.log(data);
+    setIsLoading(true);
 
     try {
-      setIsLoading(true);
-
-      // Save the clinic details
-      const res = await createClinicProfile(data); // Assume this function saves the details
+      const res = await completeProfile(formId,data);
       setClinicData(data);
 
-      if (res.status === 201) {
-        toast.success("Clinic details saved successfully!");
-        router.push(`/login`); // Route to the login or doctor's listing page
+      if (res?.status === 201) {
+        setIsLoading(false);
+        toast.success("Profile Completed Successfully");
+        router.push("/login");
+        console.log(res.data);
       } else {
-        toast.error("Failed to save clinic details. Please try again.");
+        setIsLoading(false);
+        throw new Error("Something went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +80,18 @@ export default function ClinicDetails({
       <form onSubmit={handleSubmit(onSubmit)} className="mx-auto py-4 px-4">
         <div className="grid gap-4 grid-cols-2">
 
-        <SelectInput />
+        <SelectInput  />
+        <TextInput 
+            label="Clinic Hours" 
+            register={register} 
+            name="hours"
+            errors={errors}
+            className="col-span-col-1"/>
+
+          {/* <ArrayItemsInputs setItems={}
+          items={}
+          itemTitle=""/> */}
+
           <TextInput 
             label="What Is The Duration For Your Meetings" 
             register={register} 
@@ -191,7 +215,7 @@ export default function ClinicDetails({
             </div>
           </div>
           <div className="py-4 flex justify-center items-center">
-            <SubmitButton title="Save & Continue" isLoading={isLoading} loadingTitle={"Saving, Please Wait..."} />
+            <SubmitButton title="Complete" isLoading={isLoading} loadingTitle={"Saving, Please Wait..."} />
           </div>
         </div>
       </form>

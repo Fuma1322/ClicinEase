@@ -2,6 +2,7 @@
 import { BasicInfoProps, ClinicDetailsProps } from "@/types/types";
 import { ClinicProfile } from "@prisma/client";
 import { ReactNode, createContext, useContext, useState } from "react";
+import { number } from "zod";
 
 // Wrap the entire app with the provider
 interface IOnBoardingContextData {
@@ -34,6 +35,9 @@ const initialClinicData: ClinicDetailsProps = {
     page: "",
     duration: "",
     availability: "",
+    specialization: "",
+    servicesOffered: [],
+    clinicHours: 0
 };
 
 const initialContextData: IOnBoardingContextData = {
