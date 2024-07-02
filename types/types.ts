@@ -2,7 +2,6 @@ import { ClinicProfile, UserRole } from "@prisma/client";
 
 export type ServiceProps = { 
     title: string; 
-    imageUrl: string; 
     slug: string;
 };
 

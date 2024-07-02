@@ -1,13 +1,10 @@
 import { getServices } from '@/actions/services'
-import Appointments from '@/components/Dashboard/Appointments/Appointments'
 import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel'
-import ListPannel from '@/components/Dashboard/Clinic/ListPannel'
 import NewButton from '@/components/Dashboard/Clinic/NewButton'
 import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
-import ServiceForm from '@/components/Dashboard/ServiceForm'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Briefcase, Calendar, Dot, Icon, LayoutGridIcon, Link } from 'lucide-react'
+import { LayoutGrid, LayoutGridIcon } from 'lucide-react'
 import React from 'react'
 
 export default async function page() {
@@ -37,7 +34,15 @@ export default async function page() {
                     <NewButton title='New Services' href='/dashboard/services/new'/>
       </div>
     </div>
-          <DisplayPannel/>
+    <div className="flex h-1/2 items-center justify-center">
+        <div className=' py-4 px-6 text-center border-white shadow-md rounded-md flex flex-col items-center gap-1 text-sm'>
+            <LayoutGrid/>
+            <div className="py-3">
+            <p>You have {(services.length).toString().padStart(2,"0")} Services today</p>
+            </div>
+            <NewButton title='New Service' href="/dashboard/services/new"/>
+        </div>
+    </div>
         </div>
        </div>
         

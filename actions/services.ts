@@ -21,13 +21,10 @@ export async function createService(data:ServiceProps) {
             };
         }
 
-        const formattedTitle = { set: [data.title] };
+        // const formattedTitle = { set: [data.title] };
 
         const newService = await prismaClient.service.create({
-            data: {
-                ...data,
-                title: formattedTitle,
-            },
+            data,
         });
 
         console.log(newService);
@@ -76,27 +73,25 @@ export async function createManyService() {
             {
                 title: "UTI Consult",
                 slug: "uti-consult",
-                imageUrl: "",
+    
             },
             {
                 title: "video prescription refill",
                 slug: "video-refill",
-                imageUrl: "",
             },
             {
                 title: "In person clinic visit",
                 slug: "in-person-visit",
-                imageUrl: "",
+    
             },
             {
                 title: "Mental Health Consult",
                 slug: "mental-health-consult",
-                imageUrl: "/hero.png",
             },
         ];
         for (const service of services) {
             try {
-                await createService(service);
+                await createService(services);
             } catch (error) {
                 console.log(`Error creating service "${service.title}":`, error);
             }

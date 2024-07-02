@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 
 export type ServiceProps = {
   title: string;
-  imageUrl: string;
   slug:string;
 }
 export default function ServiceForm() {
@@ -24,7 +23,6 @@ export default function ServiceForm() {
   async function onSubmit(data: ServiceProps) {
     setIsLoading(true)
     const slug = generateSlug(data.title);
-    data.imageUrl = imageUrl;
     data.slug=slug;
     console.log(data);
     await createService(data);
