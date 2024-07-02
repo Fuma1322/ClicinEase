@@ -12,6 +12,7 @@ export default function ListPanel() {
     return (
         <ScrollArea className="h-96 w-full">
             {tags.map((tag) => (
+                <>
                 <Link
                     key={tag.id}
                     href="/dashboard/clinic/appointments/view/1"
@@ -32,6 +33,7 @@ export default function ListPanel() {
                         </div>
                     </div>
                 </Link>
+                </>
             ))}
         </ScrollArea>
     );

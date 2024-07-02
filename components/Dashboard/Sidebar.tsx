@@ -30,24 +30,25 @@ export default function Sidebar({session}:{session:Session}) {
   const roles ={
     USER: [
       {title:"Dashboard", path:"/dashboard", icon: Home},
+      {title:"My Apointments", path:"/dashboard/user/apointments", icon: AlarmClock},
       {title:"Settings", path:"/dashboard/user/settings", icon: SettingsIcon}
     ],
     ADMIN: [
       {title:"Dashboard", path:"/dashboard", icon: Home},
       {title:"Clinics", path:"/dashboard/clinic", icon: Users},
       {title:"Patients", path:"/dashboard/patients", icon: Users},
-      {title:"Apointments", path:"/dashboard/appointments", icon: Users},
-      {title:"Services", path:"/dashboard/clinic/services", icon: Users},
-      {title:"Speciality", path:"/dashboard/clinic/speciality", icon: Users},
+      {title:"Appointments", path:"/dashboard/appointments", icon: Users},
+      {title:"Services", path:"/dashboard/services", icon: Users},
+      {title:"Speciality", path:"/dashboard/speciality", icon: Users},
       {title:"Settings", path:"/dashboard/settings", icon: SettingsIcon}
     ],
     CLINIC: [
       {title:"Dashboard", path:"/dashboard", icon: Home},
-      {title:"Patients", path:"/dashboard/clinics/patients", icon: Users},
-      {title:"Apointments", path:"/dashboard/clinics/appointments", icon: AlarmClock},
-      {title:"Tasks", path:"/dashboard/clinics/tasks", icon: Users},
-      {title:"Inbox", path:"/dashboard/clinics/inbox", icon: Mail},
-      {title:"Settings", path:"/dashboard/clinics/settings", icon: SettingsIcon},
+      {title:"Patients", path:"/dashboard/clinic/patients", icon: Users},
+      {title:"Apointments", path:"/dashboard/clinic/appointments", icon: AlarmClock},
+      {title:"Tasks", path:"/dashboard/clinic/tasks", icon: Users},
+      {title:"Inbox", path:"/dashboard/clinic/inbox", icon: Mail},
+      {title:"Settings", path:"/dashboard/clinic/settings", icon: SettingsIcon},
       
       
     ],

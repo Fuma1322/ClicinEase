@@ -2,8 +2,8 @@ import { ClinicProfile, UserRole } from "@prisma/client";
 
 export type ServiceProps = { 
     title: string; 
-    image: string; 
-    slug: string 
+    imageUrl: string; 
+    slug: string;
 };
 
 export type RegisterInputProps = {

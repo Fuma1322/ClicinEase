@@ -5,7 +5,7 @@ import React from 'react'
 import NewButton from './NewButton'
 
 
-export default function PannelHeader({title,count,icon}:{title:string,count:number,icon:LucideIcon}) {
+export default function PannelHeader({title,count,icon}:{title:string,count:string,icon:LucideIcon}) {
   const Icon = icon
   return (
     <div className="py-2 px-6 border-gray-200 flex items-center justify-between">

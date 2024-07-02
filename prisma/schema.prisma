@@ -80,7 +80,7 @@ model Availability {
  model Service {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   clinic        User[]
-  title         String[]
+  title         String
   slug          String @unique
   imageUrl      String
  
