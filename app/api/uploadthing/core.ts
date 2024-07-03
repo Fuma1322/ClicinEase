@@ -13,6 +13,12 @@ export const ourFileRouter = {
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: "ClinicEase" };
     }),
+    serviceImage: f({ image: { maxFileSize: "1MB" } })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("file url", file.url);
+      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+      return { uploadedBy: "ClinicEase" };
+    }),
     patientProfilePicture: f({ image: { maxFileSize: "1MB" } })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url);

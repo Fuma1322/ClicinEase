@@ -1,10 +1,10 @@
-import Clinics from '@/components/Dashboard/Clinics'
+import ServiceForm from '@/components/Dashboard/ServiceForm'
 import React from 'react'
 
 export default function page() {
   return (
     <div>
-        <Clinics />
+        {/* <ServiceForm/> */}
     </div>
   )
 }

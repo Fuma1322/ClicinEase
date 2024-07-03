@@ -8,15 +8,15 @@ import toast from 'react-hot-toast';
 import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 
-export default function Monday({profile,day}:{profile:any,day:string}) {
+export default function Saturday({profile,day}:{profile:any,day:string}) {
   const availability = profile?.availablity || "";
   const initialData:string[] = profile?.availability[day] || [];
   
-  const [selectedTimes, setSelectedTimes]=useState(initialData);
+  const [selectedTimes, setSelectedTimes]=useState<string[]>(initialData);
   // console.log(selectedTimes);
   function handleAddTime(time:string){
     if (!selectedTimes.includes(time)){
-      setSelectedTimes((prevTimes)=>[...prevTimes,time]);
+      setSelectedTimes((prevTimes)=>[...prevTimes,time])
     }else {
       toast.error(`${time} Already Added!`);
     }
@@ -37,7 +37,7 @@ export default function Monday({profile,day}:{profile:any,day:string}) {
    try {
     if (profile?.id && availability?.id){
       const data = {
-        monday: selectedTimes,
+        saturday: selectedTimes,
         clinicProfileId: profile.id
       };
       await updateAvailabilityById(availability?.id,data);
@@ -47,10 +47,11 @@ export default function Monday({profile,day}:{profile:any,day:string}) {
      } else if (profile?.id){
       // console.log("Id not set")
       const data = {
-        tuesday: selectedTimes,
+        saturday: selectedTimes,
         clinicProfileId: profile.id
       };
       await createAvailability(data);
+      toast.success("Settings created Successfully")
       setLoading(false)
      } else {
       // console.log("Profile id not set")

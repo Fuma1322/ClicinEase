@@ -2,8 +2,7 @@ import { ClinicProfile, UserRole } from "@prisma/client";
 
 export type ServiceProps = { 
     title: string; 
-    image: string; 
-    slug: string 
+    slug: string;
 };
 
 export type RegisterInputProps = {
@@ -28,14 +27,18 @@ export type BasicInfoProps = {
     page: string;
     userId?: string | undefined;
     trackingNumber: string;
+    
 }
 
 export type ClinicDetailsProps = { 
     page: string;
     duration: string;
     availability: string;
+    specialization:string;
+    servicesOffered:string[];
+    clinicHours:number;
 
-}
+};
 
 // Response type for getting application by tracking number
 export type GetApplicationByTrackingNumberResponse = {

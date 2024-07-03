@@ -13,7 +13,7 @@ export default function RegistrySteps({ id }:{ id: string }) {
 
     const params = useSearchParams();
     const page = params.get("page")?? "basic";
-    const {trackingNumber,clinicProfileId} = useOnboardingContext();
+    const {trackingNumber,clinicProfileId,savedDBData} = useOnboardingContext();
     console.log(page)
     const deeds = [
         {
@@ -24,9 +24,9 @@ export default function RegistrySteps({ id }:{ id: string }) {
             title="Basic Info" 
             description="Please Fill In The Clinic Basic Info" 
             page={page} 
-            nextPage="final" 
+            nextPage="details" 
             userId={id}
-            formId={clinicProfileId}
+            formId={clinicProfileId?clinicProfileId:savedDBData.id}
             />
             ),
         },
@@ -37,7 +37,7 @@ export default function RegistrySteps({ id }:{ id: string }) {
              page={page} 
              title="Clinic Details" 
              description="Please Fill In The Clinic Details"
-             formId={clinicProfileId}
+             formId={clinicProfileId?clinicProfileId:savedDBData.id}
              />
      },
     ]; 
@@ -60,7 +60,7 @@ export default function RegistrySteps({ id }:{ id: string }) {
             }
         </div>
         <div className='col-span-full sm:col-span-9 bg-neutral-950 p-4'>
-            {trackingNumber&&<p className="border-b border-gray-200 text-teal-600 pb-2">Use this Tracking Number <span className="font-bold">{trackingNumber}</span> to Resume application or Check Status</p>}
+            {trackingNumber || savedDBData.id && <p className="border-b border-gray-200 text-teal-600 pb-2">Use this Tracking Number <span className="font-bold">{trackingNumber ? trackingNumber:savedDBData.trackingNumber}</span> to Resume application or Check Status</p>}
             {
                 currentDeed?.components
             }

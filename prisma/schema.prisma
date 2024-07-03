@@ -54,6 +54,11 @@ model User {
   clinicProfile ClinicProfile?
   isVerfied     Boolean   @default(false)
   token         Int
+  specialityId         String?   @db.ObjectId
+  speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId         String?   @db.ObjectId
+  service           Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -72,7 +77,28 @@ model Availability {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
+ model Service {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  clinic        User[]
+  title         String
+  slug          String @unique
+  imageUrl      String
  
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+ model Speciality {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  clinic        User[]
+  title         String[]
+  slug          String @unique
+ 
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
 model ClinicProfile {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   email         String 
@@ -82,9 +108,15 @@ model ClinicProfile {
   clinicName    String
   trackingNumber String @unique 
   profilePicture String?
-  availability   Availability? 
+  availability   Availability?
+  specialization String?
+  servicesOffered String[]
+  clinicHours    Int? 
   userId         String   @db.ObjectId @unique
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade) 
+  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+ 
+   
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
 } 
