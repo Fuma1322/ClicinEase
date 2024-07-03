@@ -1,15 +1,19 @@
-import { SiteHeader } from '@/components/Frontend/site-header'
+import Footer from "@components/Frontend/Footer";
+import MegaMenu from "@components/Frontend/MegaMenu";
+import Navbar from "@components/Frontend/Navbar";
 import React, { ReactNode } from 'react'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
 
-export default async function Layout({children}:{children:ReactNode}) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user
+export default function Layout({children}: {children:ReactNode}) {
   return (
-    <div>
-    <SiteHeader session={session} />
-      {children}
+    <div className="bg-white">
+        <Navbar />
+        {/* <div className="bg-white mx-auto py-4 fixed top-16 w-full left-0 z-50 right-0 border-t border-blue-400/30 container ">
+           <MegaMenu />
+        </div >         */}
+        <div className="mt-[50px] ">
+        {children}
+        </div>
+        <Footer/>
     </div>
   )
 }

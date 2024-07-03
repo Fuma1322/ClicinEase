@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Loader } from "lucide-react";
-import { updateUserById } from "@/actions/users";
+//import { updateUserById } from "@/actions/users";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,7 +26,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { UserRole } from "@prisma/client";
+import { updateUserById } from "@/actions/users";
  
 const FormSchema = z.object({
   token: z.string().min(6, {
@@ -37,11 +37,9 @@ const FormSchema = z.object({
 export default function VerifyTokenForm({
   userToken,
   id,
-  role
 }: {
   userToken: number | undefined;
   id: string;
-  role: UserRole | undefined
 }) {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -64,12 +62,7 @@ export default function VerifyTokenForm({
         setLoading(false);
         // reset();
         toast.success("Account Verified");
-        if (role === "CLINIC") {
-          router.push(`/registry/${id}`);
-        } else {
-          router.push("/login");
-        }
-        //registry page
+        router.push("/login");
       } catch (error) {
         setLoading(false);
         console.log(error);
@@ -83,7 +76,7 @@ export default function VerifyTokenForm({
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 mr-3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         {showNotification && (
           <Alert color="failure" icon={HiInformationCircle}>
             <span className="font-medium">Wrong Token!</span> Please Check the

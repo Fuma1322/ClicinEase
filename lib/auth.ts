@@ -3,10 +3,13 @@ import { AuthOptions, NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prismaClient } from "@/lib/db";
  
+// import GoogleProvider from "next-auth/providers/google";
+// import EmailProvider from "next-auth/providers/email";
 import type { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 // more providers at https://next-auth.js.org/providers
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prismaClient) as Adapter,
   secret: process.env.NEXTAUTH_SECRET,
@@ -17,6 +20,19 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   providers: [
+    // EmailProvider({
+    //   server: process.env.GMAIL_EMAIL_SERVER || "", // any SMTP server will work
+    //   from: process.env.EMAIL_FROM || "",
+    //   // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
+    // }),
+    // GoogleProvider({
+    //   //Checking if the role exista and if not add USER Bydefault
+    //   // profile(profile) {
+    //   //   return { role: profile.role ?? "USER", ... }
+    //   // },
+    //   clientId: process.env.GOOGLE_CLIENT_ID || "",
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
