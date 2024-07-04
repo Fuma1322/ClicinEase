@@ -75,7 +75,8 @@ export default function LoginForm() {
              register={register} 
              name="email"
              type="email" 
-             errors={errors} 
+             errors={errors}
+             placeholder="Enter your email address"  // Add placeholder here 
             />
   
               <div>

@@ -9,7 +9,7 @@ type TextInputProps={
     name: string;
     errors: any;
     type?: string;
-    placeholder: string; 
+    placeholder?: string; 
 }
 
 export default function TextInput({
@@ -40,8 +40,7 @@ export default function TextInput({
                 name={name}
                 type={type}
                 autoComplete="name"
-                placeholder={placeholder}
-                required
+                placeholder={placeholder?placeholder:""}
               />
               {errors[name]&& <span className="text-red-600 text-sm">{label} is required</span>}
               </div>

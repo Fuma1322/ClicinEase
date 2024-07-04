@@ -59,7 +59,8 @@ export default function RegisterForm({role="USER"}:{role?:UserRole}) {
             label="Full Name" 
             register={register} 
             name="fullName" 
-            errors={errors} 
+            errors={errors}
+            placeholder="Enter your full name" // Add placeholder 
             />
 
            <TextInput 
@@ -67,7 +68,8 @@ export default function RegisterForm({role="USER"}:{role?:UserRole}) {
              register={register} 
              name="email"
              type="email" 
-             errors={errors} 
+             errors={errors}
+             placeholder="Enter your email address" // Add placeholder 
             />
 
             <TextInput 
@@ -75,7 +77,8 @@ export default function RegisterForm({role="USER"}:{role?:UserRole}) {
              register={register} 
              name="phone"
              type="tel" 
-             errors={errors} 
+             errors={errors}
+             placeholder="Enter your phone number" // Add placeholder 
             />
                 
                 <TextInput 
@@ -83,7 +86,8 @@ export default function RegisterForm({role="USER"}:{role?:UserRole}) {
              register={register} 
              name="password"
              type="password" 
-             errors={errors} 
+             errors={errors}
+             placeholder="Enter your password" // Add placeholder 
             />
   
               <div>
