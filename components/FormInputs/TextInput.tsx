@@ -1,3 +1,6 @@
+import { Input } from '@components/ui/input';
+import { Label } from '@components/ui/label';
+import Link from 'next/link';
 import React from 'react'
 
 type TextInputProps={
@@ -6,26 +9,41 @@ type TextInputProps={
     name: string;
     errors: any;
     type?: string;
+    placeholder: string; 
 }
 
-export default function TextInput({label, register, name, errors, type="text" }:TextInputProps) {
+export default function TextInput({
+  label, 
+  register, 
+  name, 
+  errors, 
+  type="text",
+  placeholder 
+}:TextInputProps) {
+  
   return (
-    <div>
-                <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
-                  {label}
-                </label>
-                <div className="mt-2">
-                  <input
-                  {...register(name, { required: '${label} is required'})}
-                    id={name}
-                    name={name}
-                    type={type}
-                    autoComplete="name"
-                    //required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                  {errors[name]&& <span className="text-red-600 text-sm">{label} is required</span>}
-                </div>
+    <div className="grid gap-2">
+                
+                {type==="password"?(<div className="flex items-center">
+                <Label htmlFor={name}>{label}</Label>
+                <Link
+                  href="/forgot-password"
+                  className="ml-auto inline-block text-sm underline"
+                >
+                  Forgot your password?
+                </Link>
+              </div>):(<Label htmlFor={name}>{label}</Label>)}
+                
+                <Input
+                {...register(name, { required: '${label} is required'})}
+                id={name}
+                name={name}
+                type={type}
+                autoComplete="name"
+                placeholder={placeholder}
+                required
+              />
+              {errors[name]&& <span className="text-red-600 text-sm">{label} is required</span>}
               </div>
   )
 }

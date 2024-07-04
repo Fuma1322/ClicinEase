@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import TransitionalText from "./TransitionalText";
 import { Pill } from "lucide-react";
+import { CommandMenu } from "@components/command-menu";
 
 
 const Hero = () => {
@@ -25,7 +26,10 @@ const Hero = () => {
                    transparent healthcare
                 </p>
                 {/* SEARCH BAR HERE */}
-                <SearchBar />
+                {/* <SearchBar /> */}
+                <div className="w-full flex-1 md:flex-none">
+            <CommandMenu />
+          </div>
                 {/* CTA BTNS */}
                 <ul className="flex flex-wrap items-center mt-6">
                   <li>
