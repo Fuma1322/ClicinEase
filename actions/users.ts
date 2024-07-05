@@ -104,3 +104,55 @@ export async function updateUserById(id:string) {
     }
   }
 }
+export async function getClinics() {
+  try {
+    const clinics = await prismaClient.user.findMany({
+      where: {
+        role: "CLINIC"
+      },
+      // include:{
+      //   clinicProfile: true,
+
+      // }
+      select: {
+        id: true,
+        name:true,
+        email:true,
+        slug:true,
+        phone: true,
+        clicicProfile:{
+          select:{
+            id:true,
+            firstName:true,
+            lastName:true,
+            gender:true,
+            bio:true,
+            profilePicture:true,
+            operationMode: true,
+            hourlyWage: true,
+
+            availability:{
+              select:{
+                monday:true,
+                tuesday:true,
+                wednesday:true,
+                thursday:true,
+                friday:true,
+                saturday:true,
+                sunday:true,
+              }
+            }
+
+          }
+        }
+      }
+      })
+      return clinics;
+    } catch (error) {
+      console.log(error);
+      return null;
+      
+    }
+    }
+   
+  

@@ -1,9 +1,10 @@
+import { User } from '@prisma/client';
 import { Stethoscope, Video } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
+export default function ClinicCard({isInPerson=false,clinics }:{isInPerson?:boolean;clinics:User} ) {
 
     const timeStamps =[
         {
@@ -40,7 +41,7 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
      
     className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
         <Link href="/clinic/slug">
-        <h2 className='uppercase font-bold text-2xl tracking-widest'>Vijal Patel, PA-C</h2>
+        <h2 className='uppercase font-bold text-2xl tracking-widest'>{clinics.name}</h2>
         {isInPerson && (<p className='py-3'>3250 Lincoln Highway, Kendall Pack, NJ 08824</p>)}
         <div className="flex items-center gap-4 py-4">
             <div className="relative">
@@ -86,7 +87,7 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
                   })        
                 }
                 <Link className='text-[0.7rem] text-center bg-blue-900 text-white py-2 px-3 truncate' 
-                href="/clinic/slug">More times</Link>
+                href={`/clinic/${clinics.slug}`}>More times</Link>
               </div>
         </div>
     </div>

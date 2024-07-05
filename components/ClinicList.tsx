@@ -4,42 +4,20 @@ import ToggleButton from './ToggleButton'
 import Link from 'next/link'
 import { Map } from 'lucide-react'
 import DoctorsListCarousel from './ClinicListCarousel'
+import { User } from '@prisma/client'
+import ClinicListCarousel from './ClinicListCarousel'
 
 export default function ClinicList({
   title="Telehealth visit", 
   isInPerson,
-  className="bg-pink-100 py-8 lg:py-24"
+  className="bg-pink-100 py-8 lg:py-24",
+  clinics
 }: {
   title?:string;
   isInPerson?:boolean;
   className?:string
+  clinics: User[]
 }) {
-  const clinics =[
-    {
-      name: "Mabote Clinic"
-    },
-    {
-      name: "Khubetsoana Clinic"
-    },
-    {
-      name: "Ts'epong Filter Clinic"
-    },
-    {
-      name: "John"
-    },
-    {
-      name: "John"
-    },
-    {
-      name: "John"
-    },
-    {
-      name: "John"
-    },
-    {
-      name: "John"
-    }
-  ]
   return (
     <div className={className} >
         <div className="max-w-6xl mx-auto">
@@ -57,7 +35,7 @@ export default function ClinicList({
             
            </div>
            <div className="py-6">
-             <DoctorsListCarousel clinics={clinics} isInperson={isInPerson} />
+             <ClinicListCarousel clinics={clinics} isInperson={isInPerson} />
           </div>
         </div>
     </div>

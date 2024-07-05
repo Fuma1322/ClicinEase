@@ -1,4 +1,4 @@
-import { ClinicDetailsProps } from "@/types/types";
+import { AppointmentProps, ClinicDetailsProps } from "@/types/types";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
 import SubmitButton from "../FormInputs/SubmitButton";
@@ -15,36 +15,9 @@ import toast from "react-hot-toast"; // For showing success or error messages
 import { completeProfile, createClinicProfile, updateClinicProfile } from "@/actions/registry";
 import { SelectInput } from "../FormInputs/SelectInput";
 import { number } from "zod";
+import { useSession } from "next-auth/react";
 
-export default function ClinicDetails({
-  page, 
-  title, 
-  description,
-  userId,
-  formId
-}: StepFormprops) {
-  const [services,setServices]=useState([]);
-  const [speciality,setSpeciality]=useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { clinicData, setClinicData,savedDBData } = useOnboardingContext();
-  const { register, handleSubmit, formState: { errors } } = useForm<ClinicDetailsProps>({
-    defaultValues: {
-      duration: clinicData.duration || savedDBData.duration,
-      availability: clinicData.availability || savedDBData.availability,
-      specialization: clinicData.specialization || savedDBData.specialization,
-      servicesOffered: clinicData.servicesOffered || savedDBData.servicesOffered,
-      page: clinicData.page || savedDBData.page
-    }
-  });
-  const router = useRouter();
-
-  async function onSubmit(data: ClinicDetailsProps) {
-    data.page = page;
-    data.servicesOffered = services;
-    data.clinicHours = Number(data.clinicHours);
-    // data.specialization = [];
-    console.log(data);
-    setIsLoading(true);
+export default function ClinicDetails(    setIsLoading(true);
 
     try {
       const res = await completeProfile(formId,data);
