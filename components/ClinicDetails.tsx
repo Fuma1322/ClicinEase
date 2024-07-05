@@ -20,7 +20,7 @@ import { useSession } from "next-auth/react";
 import { FileProps } from "./FormInputs/MultipleFileUploads";
 import { createAppointments } from "@/actions/appointments";
 
-export default function ClinicDetails({ clinic }: ClinicDetailsProps) {
+export default function DoctorDetails({ doctor }: ClinicDetailsProps) {
   const [isActive, setIsActive] = useState("availability");
   const { data: session } = useSession();
   const patient = session?.user;
@@ -54,8 +54,8 @@ export default function ClinicDetails({ clinic }: ClinicDetailsProps) {
     data.appointmentDate = date;
     data.appointmentFormattedDate = longDate;
     data.appointmentTime = selectedTimes;
-    data.clinicId = clinic.id;
-    data.charge = clinic.clinicProfile?.hourlyWage ?? 0;
+    data.doctorId = doctor.id;
+    data.charge = doctor.doctorProfile?.hourlyWage ?? 0;
     data.dob = dob;
     data.patientId = patient?.id;
     console.log(data);
@@ -64,6 +64,8 @@ export default function ClinicDetails({ clinic }: ClinicDetailsProps) {
       const res = await createAppointments(data);
       const appointment = res.data;
       setLoading(false);
+      toast.success("Appointment Created Successfully")
+      router.push("/dashboard/user/appointments")
       console.log(appointment);
     } catch (error) {
       setLoading(false);

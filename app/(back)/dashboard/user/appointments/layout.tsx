@@ -1,4 +1,4 @@
-import { getAppointments,getDoctorAppointments } from '@/actions/appointments';
+import { getAppointments, getPatientAppointments } from '@/actions/appointments';
 import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel';
 import ListPannel from '@/components/Dashboard/Clinic/ListPannel';
 import NewButton from '@/components/Dashboard/Clinic/NewButton';
@@ -11,13 +11,13 @@ import React, { ReactNode } from 'react'
 
 export default async function AppointmentLayout({children}:{children: ReactNode;}) {
     const session = await getServerSession(authOptions);
-    const user = session?.user
-    if (user?.role !=="DOCTOR"){
-      return (
-        <NotAuthorised/>
-      )
-    }
-    const appointments = (await getDoctorAppointments(user.id)).data || [];
+  const user = session?.user
+  if (user?.role !=="USER"){
+    return (
+      <NotAuthorised/>
+    )
+  }
+  const appointments = (await getPatientAppointments(user.id)).data || [];
     return (
     <div>
       
@@ -25,7 +25,7 @@ export default async function AppointmentLayout({children}:{children: ReactNode;
     <div className="col-span-4 py-3 border-r border-gray-100">
      <PannelHeader title='Appointments' count={appointments.length??0} icon={Calendar}/>
     <div className="px-3">
-    <ListPannel appointments={appointments} role={user?.role}/>
+    <ListPannel appointments={appointments}/>
     </div>
     </div>
      <div className="col-span-8"> 

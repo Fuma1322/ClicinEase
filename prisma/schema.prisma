@@ -37,7 +37,7 @@ model Session {
 enum UserRole {
   USER
   ADMIN
-  CLINIC
+  DOCTOR
 }
  
 model User {
@@ -51,7 +51,7 @@ model User {
   password      String
   accounts      Account[]
   sessions      Session[]
-  clinicProfile ClinicProfile?
+  doctorProfile DoctorProfile?
   isVerfied     Boolean   @default(false)
   token         Int
   specialityId         String?   @db.ObjectId
@@ -64,8 +64,8 @@ model User {
 }
 model Availability {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinicProfileId         String   @db.ObjectId @unique
-  clinicProfile           ClinicProfile @relation(fields: [clinicProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfileId         String   @db.ObjectId @unique
+  doctorProfile           DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   monday        String[]
   tuesday       String[]
   wednesday     String[]
@@ -79,7 +79,7 @@ model Availability {
 }
  model Service {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctor        User[]
   title         String
   slug          String @unique
   imageUrl      String
@@ -88,11 +88,17 @@ model Availability {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
+
+enum AppointmentStatus {
+  PENDING
+  REJECTED
+  APPROVED
+}
 model Appointment {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   appointmentDate DateTime?
   appointmentFormattedDate String
-  clinicId String?
+  doctorId String?
   patientId  String?
   charge Int
   appointmentTime: String?
@@ -107,6 +113,9 @@ model Appointment {
   appointmentReason String?
   medicalDocuments String[]
   occupation String?
+  status  AppointmentStatus @default(PENDING)
+  meetingLink String @default("")
+  meetingProvider String @default("zoom")
 
 
   createdAt     DateTime  @default(now())
@@ -114,7 +123,7 @@ model Appointment {
 }
  model Speciality {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctor        User[]
   title         String[]
   slug          String @unique
  
@@ -123,7 +132,7 @@ model Appointment {
   updatedAt     DateTime  @updatedAt
 }
 
-model ClinicProfile {
+model DoctorProfile {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   email         String 
   phone         String 
