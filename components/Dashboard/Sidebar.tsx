@@ -1,5 +1,5 @@
 "use client"
-import {Bell, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
+import {Bell, Globe, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import {
@@ -49,12 +49,12 @@ export default function Sidebar() {
       path: "/dashboard/settings",
       icon: Settings,
     },
-    // {
-    //   name: "Logout",
-    //   path: "/logout",
-    //   icon: Bell,
-    // },
-  ];
+    {
+      name: "Online",
+      path: "/",
+      icon: Globe,
+    },
+];
   return (
     <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
