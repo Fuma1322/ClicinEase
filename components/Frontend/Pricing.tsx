@@ -6,6 +6,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
   } from "@/components/ui/tooltip"
+import Link from 'next/link';
 
 export default function Pricing() {
     const plans = [
@@ -21,6 +22,7 @@ export default function Pricing() {
                 "Email notifications for appointments"
 
             ],
+            getStarted: "/register?role=DOCTOR&plan=free"
         },
         {
             name: "Professional",
@@ -34,6 +36,7 @@ export default function Pricing() {
                 "SMS reminders for appointments",
                 "Customizable clinic profile",
             ],
+            getStarted: "/register?role=DOCTOR&plan=professional"
         },
         {
             name: "Enterprise",
@@ -47,6 +50,7 @@ export default function Pricing() {
                 "Priority customer support",
                 "Integration with electronic health records (EHR) systems",
             ],
+            getStarted: "/register?role=DOCTOR&plan=enterprise"
         },
     ];
 
@@ -54,11 +58,11 @@ export default function Pricing() {
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
                 <div className='relative max-w-xl mx-auto sm:text-center'>
-                    <h3 className='text-gray-800 text-3xl font-semibold sm:text-4xl'>
+                    <h3 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-gray-800 dark:text-slate-300 sm:text-4xl'>
                         Pricing for all sizes
                     </h3>
                     <div className='mt-3 max-w-xl'>
-                        <p>
+                        <p className="leading-7 [&:not(:first-chid)]:mt-6 dark:text-slate-400">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur consequat nunc.
                         </p>
                     </div>
@@ -73,11 +77,12 @@ export default function Pricing() {
                                     ) : ""
                                 }
                                 <div className="p-8 space-y-4 border-b">
-                                    <span className='text-indigo-600 font-medium uppercase tracking-widest '>
+                                    <span className='text-indigo-600 font-bold uppercase tracking-widest '>
                                         {item.name}
                                     </span>
-                                    <div className='text-gray-800 text-3xl font-semibold'>
-                                        ${item.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
+                                    <div className='text-gray-800 dark:text-gray-300 text-3xl font-semibold'>
+                                        ${item.price}{" "} 
+                                        <span className="text-xl text-gray-600 font-normal">/mo</span>
                                     </div>
                                     <p className="text-xs" >
                                         {item.desc}
@@ -98,12 +103,12 @@ export default function Pricing() {
                              </TooltipProvider>
                                     
                             </div>
-                              <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                              <Link href={item.getStarted} className='px-3 block text-center py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
                                 Get Started
-                              </button>
+                              </Link>
                                 </div>
                                 <ul className='p-8 space-y-3'>
-                                    <li className="pb-2 text-gray-800 font-medium">
+                                    <li className="pb-2 text-gray-800 dark:text-gray-500 font-medium">
                                         <p>Features</p>
                                     </li>
                                     {
