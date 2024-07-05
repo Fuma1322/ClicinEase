@@ -9,35 +9,10 @@ import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
 import { Microscope } from "lucide-react"
+import { docsConfig } from "@/config/docs"
 
 export function MainNav() {
   const pathname = usePathname();
-  const mainNavLinks = [
-    {
-      name: "Home",
-      path: "/"
-    },
-    {
-      name: "Find Doctor",
-      path: "/find-doctor", 
-    },
-    {
-      name: "Telehealth Visit",
-      path: "/telehealth"
-    },
-    {
-      name: "Inperson Visit",
-      path: "/inperson",
-    },
-    {
-      name: "About",
-      path: "/about",
-    },
-    {
-      name: "Be service provider",
-      path: "/about",
-    },
-  ]
 
   return (
     <div className="mr-4 hidden md:flex">
@@ -49,16 +24,18 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center gap-4 text-sm lg:gap-6">
         {
-          mainNavLinks.map((item,i)=>{
+          docsConfig.mainNav?.map((item,i)=>{
             return(
               <Link key={i}
           href="/docs"
           className={cn(
             "transition-colors hover:text-foreground/80",
-            pathname === item.path ? "text-foreground" : "text-foreground/60"
+            pathname === item.href
+            ?"text-foreground" 
+            : "text-foreground/60"
           )}
         >
-          {item.name}
+          {item.title}
         </Link>
             )
           })

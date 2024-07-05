@@ -14,7 +14,33 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function MobileNav() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
+  const mobileNavLinks = [
+    {
+      name: "Home",
+      path: "/"
+    },
+    {
+      name: "Find Doctor",
+      path: "/find-doctor", 
+    },
+    {
+      name: "Telehealth Visit",
+      path: "/telehealth"
+    },
+    {
+      name: "Inperson Visit",
+      path: "/inperson",
+    },
+    {
+      name: "About",
+      path: "/about",
+    },
+    {
+      name: "Be service provider",
+      path: "/about",
+    },
+  ];
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
