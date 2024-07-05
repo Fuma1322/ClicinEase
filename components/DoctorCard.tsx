@@ -38,7 +38,7 @@ export default function DoctorCard({isInPerson=false }:{isInPerson?:boolean} ) {
   return (
     <div 
      
-    className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
+    className='border border-gray-200 dark:border-gray-600 bg-white dark:bg-slate-800 inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
         <Link href="/doctors/slug">
         <h2 className='uppercase font-bold text-2xl tracking-widest'>Vijal Patel, PA-C</h2>
         {isInPerson && (<p className='py-3'>3250 Lincoln Highway, Kendall Pack, NJ 08824</p>)}
@@ -60,15 +60,15 @@ export default function DoctorCard({isInPerson=false }:{isInPerson?:boolean} ) {
                 <Stethoscope className='w-4 h-4 mr-2 flex-shrink-0'/>
                 <span>Family Medicine</span>
               </p>
-              <p className="bg-green-200 py-3 px-6 uppercase">
+              <p className="bg-green-200 dark:text-slate-900 py-3 px-6 uppercase">
                 Available today
              </p>  
             </div>
         </div>
         </Link>
-        <div className="pt-6 border-t border-gray-400">
+        <div className="pt-6 border-t border-gray-400 dark:border-gray-600">
             <h3 className='flex gap-4 justify-between items-center'>
-              <span className='text-gray-600'>Tue, Mar 12</span>{" "}
+              <span className='text-gray-600 dark:text-gray-400'>Tue, Mar 12</span>{" "}
               <span className='fond-bold'>$137</span>
         
             </h3>

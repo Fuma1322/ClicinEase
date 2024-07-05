@@ -67,7 +67,7 @@ export default function TabbedItems() {
   ];
 
   return (
-    <Tabs aria-label="Default tabs" style="default">
+    <Tabs aria-label="Tabs with underline" style="underline">
       {tabs.map((tab, i) => (
         <Tabs.Item key={i} active title={tab.title} icon={tab.icon}>
           {tab.component}

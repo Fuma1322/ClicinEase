@@ -1,6 +1,7 @@
 import React from 'react';
 import ServiceCard from './ServiceCard';
-import { ServiceProps } from '../../../../types/types'; // Adjust the import path according to your project structure
+import { ServiceProps } from '@/types/types';
+
 
 export default function ServiceList({ data }: { data: ServiceProps[] }) {
   return (
