@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { RegisterInputProps } from "@/types/types";
 import { Button } from "@components/ui/button";
 import Image from 'next/image';
+import { useRouter } from "next/navigation";
 
 
 export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
@@ -20,6 +21,7 @@ export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
     reset,
     formState:{errors},
   }=useForm<RegisterInputProps>();
+  const router = useRouter()
   async function onSubmit (data: RegisterInputProps){
    // console.log(data)
    setIsLoading(true);
@@ -32,6 +34,7 @@ export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
       reset();
       setIsLoading(false);
       toast.success("User Created successfully");
+      router.push('/verify-account/${user.data?.id}')
       console.log(user.data);
       
     }else{
@@ -69,6 +72,16 @@ export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
              errors={errors}
              placeholder="Eg. thetele@gmail.com" 
             />
+
+            <TextInput 
+             label="Phone Number" 
+             register={register} 
+             name="phone"
+             type="tel" 
+             errors={errors}
+             placeholder="Enter your phone number" // Add placeholder 
+            />
+
             <TextInput 
              label="Password" 
              register={register} 
@@ -78,9 +91,9 @@ export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
              placeholder="******" 
             />
             
-            <SubmitButton title="Login" 
+            <SubmitButton title="Sign Up" 
                 isLoading={isLoading} 
-                loadingTitle="Logging you in please waiting..." />
+                loadingTitle="Creating Account please waiting..." />
             <Button variant="outline" className="w-full">
               Sign up with Google
             </Button>

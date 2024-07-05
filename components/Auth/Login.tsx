@@ -78,7 +78,8 @@ export default function LoginFormWithBg() {
             />
             <TextInput 
              label="Password" 
-             register={register} 
+             register={register}
+             page="login" 
              name="password"
              type="password" 
              errors={errors}

@@ -2,7 +2,7 @@
  
 import React from "react";
 import Image from "next/image";
-import { Avatar, Dropdown } from "flowbite-react";
+import { Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { AlignJustify, Bell, CircleUser, Home, LineChart, Mail, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
@@ -20,12 +20,19 @@ import { Badge } from "@components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
 import { Input } from "@components/ui/input";
 import ModeToggle from "@components/ModeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@components/ui/avatar";
+import { User } from "@prisma/client";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
+// import { User } from "next-auth";
 
  
-export default function Navbar() {
+export default function Navbar({session}:{session:Session}) {
+  const user = session.user;
   const router = useRouter();
   async function handleLogout() {
-    router.push("/");
+    await signOut()
+    router.push("/login");
   }
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -121,18 +128,20 @@ export default function Navbar() {
           <ModeToggle/>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
+            <Avatar className="cursor-pointer">
+              {user.image?<AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />:<AvatarFallback>CN</AvatarFallback>}
+              
+              
+            </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel className="">{user.name}</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-center font-light text-sm text-slate-500">{user.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={()=>handleLogout()}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
