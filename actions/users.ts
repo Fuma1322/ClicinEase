@@ -1,14 +1,13 @@
 "use server"
-
-import { prismaClient } from "@/lib/db";
-import { RegisterInputProps } from "@/types/types";
 import bcrypt from "bcrypt";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/Emails/emailstemplate";
+import { RegisterInputProps } from "@/types/types";
+import { prismaClient } from "@/lib/db";
 
 export async function createUser (formdata:RegisterInputProps) {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { fullName, email, phone, password, role } = formdata;
+    const { fullName, email, phone, password, role, plan } = formdata;
     try {
         const existingUser = await prismaClient.user.findUnique({
             where: {
@@ -38,6 +37,7 @@ export async function createUser (formdata:RegisterInputProps) {
         phone,
         password: hashedPassword,
         role,
+        plan,
         token: userToken,
       },
     });

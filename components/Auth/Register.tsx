@@ -13,7 +13,13 @@ import Image from 'next/image';
 import { useRouter } from "next/navigation";
 
 
-export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
+export default function RegisterWithbBg({
+  role="USER",
+  plan = "",
+}:{
+  role?:string | string[] | undefined; 
+  plan?: string | string[] | undefined;
+}) {
   const [isLoading, setIsLoading]=useState(false)
   const {
     register,
@@ -25,8 +31,8 @@ export default function RegisterWithbBg({role="USER"}:{role?:UserRole}) {
   async function onSubmit (data: RegisterInputProps){
    // console.log(data)
    setIsLoading(true);
-
-   data.role = role;    
+   data.role = role;
+   data.plan = plan;    
     try{
      const user = await createUser(data);
     if(user &&user.status===200) {
