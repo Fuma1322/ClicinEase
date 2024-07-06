@@ -24,7 +24,7 @@ export default function SubmitButton({title, buttontype="submit", isLoading=fals
        <Loader2 className="w-4 h-4 mr-2 flex-shrink-0 animate-spin" /> {loadingTitle}
     </button>
     ):(
-      <Button type={buttontype} className="w-full" >
+      <Button type={buttontype}>
         {title}
       </Button>
     )}

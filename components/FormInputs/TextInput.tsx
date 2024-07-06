@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { Input } from '@components/ui/input';
 import { Label } from '@components/ui/label';
 import Link from 'next/link';
@@ -10,7 +11,8 @@ type TextInputProps={
     errors: any;
     type?: string;
     page?: string;
-    placeholder?: string; 
+    placeholder?: string;
+    className?: string ;
 }
 
 export default function TextInput({
@@ -20,11 +22,12 @@ export default function TextInput({
   errors, 
   type="text",
   placeholder,
-  page 
+  page,
+  className="col-span-2" 
 }:TextInputProps) {
   
   return (
-    <div className="grid gap-2">
+    <div className={cn("grid gap-2",className)}>
                 
                 {type==="password" && page==="login" ?(<div className="flex items-center">
                 <Label htmlFor={name}>{label}</Label>
