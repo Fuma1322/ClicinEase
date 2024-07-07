@@ -11,10 +11,13 @@ import { RegisterInputProps } from "@/types/types";
 import { Button } from "@components/ui/button";
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
+import { DatePickerInput } from "@components/FormInputs/DatePickerInput";
 
 
 export default function BioDataForm() {
-  const [isLoading, setIsLoading]=useState(false)
+  const [isLoading, setIsLoading]=useState(false);
+  const [date, setDate] = useState<Date>();
+  console.log(date)
   const {
     register,
     handleSubmit,
@@ -40,46 +43,40 @@ export default function BioDataForm() {
             
           <div className="grid gap-4 grid-cols-2">
           <TextInput 
-            label="Full Name" 
+            label="First Name" 
             register={register} 
-            name="fullName" 
+            name="firstName" 
             errors={errors}
-            placeholder="Enter your full name" // Add placeholder 
+            placeholder="Enter your first name" // Add placeholder
+            className="col-span-full sm:col-span-1"
             />
             <TextInput 
-             label="Email Address" 
+             label="Last Name" 
              register={register} 
-             name="email"
-             type="email" 
+             name="lastName"
              errors={errors}
-             placeholder="Eg. thetele@gmail.com"
+             placeholder="Eg. Ramoonyane"
              className="col-span-full sm:col-span-1" 
             />
             <TextInput 
-             label="Email Address" 
+             label="Middle Name (Optional)" 
              register={register} 
-             name="email"
-             type="email" 
+             name="middleName" 
              errors={errors}
-             placeholder="Eg. thetele@gmail.com"
+             placeholder="Eg. Joseph"
              className="col-span-full sm:col-span-1" 
             />
-            <TextInput 
-             label="Email Address" 
-             register={register} 
-             name="email"
-             type="email" 
-             errors={errors}
-             placeholder="Eg. thetele@gmail.com"
-             className="col-span-full sm:col-span-1" 
+            <DatePickerInput
+            className="col-span-full sm:col-span-1" 
+            date={date} 
+            setDate={setDate} 
             />
             <TextInput 
-             label="Phone Number" 
+             label="Mdical License" 
              register={register} 
-             name="phone"
-             type="tel" 
+             name="medicalLicense"
              errors={errors}
-             placeholder="Enter your phone number" // Add placeholder
+             placeholder="" // Add placeholder
              className="col-span-full sm:col-span-1" 
             />
           </div>
