@@ -12,6 +12,7 @@ import SelectInput from "@components/FormInputs/SelectInput";
 import MultipleFile, { File } from "@components/FormInputs/MultipleFile";
 import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
+import { useOnboardingContext } from "@/context/context";
 
 export default function EducationInfo({
   page,
@@ -21,12 +22,15 @@ export default function EducationInfo({
   userId,
   nextPage,
 }: StepFormProps) {
+  const {educationData, savedDBData, setEducationData} = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);  
   const {register, 
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<EducationFormProps>();
+} = useForm<EducationFormProps>({
+  defaultValues: educationData || savedDBData,
+});
 const specialities = [
   {
       label: "Medicine",
@@ -37,8 +41,10 @@ const specialities = [
       value: "mental-health",
     },
 ];
-const [otherSpecialities, setOtherSpecialities] = useState([]);
-const [docs, setDocs] = useState<File[]>([]);
+const initialSpecialities = educationData.otherSpecialities || savedDBData.otherSpecialities;
+const [otherSpecialities, setOtherSpecialities] = useState(initialSpecialities);
+const initialDocs = educationData.docCertificates || savedDBData.docCertificates;
+const [docs, setDocs] = useState<File[]>(initialDocs);
 console.log(docs);
 
 const router = useRouter();
@@ -52,6 +58,7 @@ const router = useRouter();
   
     try {
       const res = await updateDoctorProfile(formId, data);
+      setEducationData(data);
       if (res?.status === 201) {
         setIsLoading(false);
         toast.success("Education Info Updated Successfully")

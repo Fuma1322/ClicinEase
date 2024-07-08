@@ -1,7 +1,7 @@
 "use client";
  
 import { zodResolver } from "@hookform/resolvers/zod";
-import { tuple, z } from "zod";
+import { z } from "zod";
 import { HiInformationCircle } from "react-icons/hi";
 import { Alert } from "flowbite-react";
 import { useRouter } from "next/navigation";
@@ -11,19 +11,15 @@ import toast from "react-hot-toast";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { updateUserById } from "@/actions/users";
 import SubmitButton from "../FormInputs/SubmitButton";
-import { UserRole } from "@prisma/client";
 import { Input } from "@components/ui/input";
-import { Button } from "@components/ui/button";
-import Link from "next/link";
 import { getApplicationByTrack } from "@/actions/onboarding";
+import { useOnboardingContext } from "@/context/context";
  
 const FormSchema = z.object({
   token: z.string().min(6, {
@@ -32,6 +28,7 @@ const FormSchema = z.object({
 });
  
 export default function TrackingForm() {
+  const { setSavedDBData} = useOnboardingContext();
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const router = useRouter();
@@ -53,6 +50,8 @@ export default function TrackingForm() {
       try {
        //make request
        const res = await getApplicationByTrack(data.trackingNumber)
+       //SAVE THIS TO THE CONTEXT API
+        setSavedDBData(res?.data)
        if(res?.status===404) {
        setShowNotification(true)
        setLoading(false)

@@ -11,6 +11,7 @@ import { ShadSelectInput } from "@components/FormInputs/ShadSelectInput";
 import { StepFormProps } from "./BioDataForm";
 import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
+import { useOnboardingContext } from "@/context/context";
 
 export default function PracticeInfo({
   page,
@@ -20,6 +21,7 @@ export default function PracticeInfo({
   userId,
   nextPage,
 }: StepFormProps) {
+  const {practiceData, savedDBData, setPracticeData} = useOnboardingContext();
   const insuranceOptions = [
     {
         label: "Yes",
@@ -30,18 +32,24 @@ export default function PracticeInfo({
         value: "no",
       },
   ];
+  const initialServices = practiceData.servicesOffered || savedDBData.servicesOffered;
+  const initialLanguages = practiceData.languagesSpoken || savedDBData.languagesSpoken;
+  const initialInsuranceAccepted = practiceData.insuranceAccepted || savedDBData. insuranceAccepted;
   const [isLoading, setIsLoading] = useState(false)
-  const [services, setServices] = useState([]);
-  const [insuranceAccepted, setInsuranceAccepted] = useState("");
-  const [languages, setLanguages] = useState([]);
+  const [services, setServices] = useState(initialServices);
+  const [insuranceAccepted, setInsuranceAccepted] = useState(initialInsuranceAccepted);
+  const [languages, setLanguages] = useState(initialLanguages);
   const {register, 
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<PracticeFormProps>();
+} = useForm<PracticeFormProps>({
+  defaultValues: practiceData || savedDBData,
+});
 const router = useRouter()
 
   async function onSubmit (data: PracticeFormProps){
+    
     data.page = page;
     data.insuranceAccepted = insuranceAccepted;
     data.servicesOffered = services;
@@ -51,6 +59,7 @@ const router = useRouter()
     
     try {
       const res = await updateDoctorProfile(formId, data);
+      setPracticeData(data);
       if (res?.status === 201) {
         setIsLoading(false);
         toast.success("Practice Info Updated Successfully")

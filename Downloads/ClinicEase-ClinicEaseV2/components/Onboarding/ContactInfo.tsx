@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { StepFormProps } from "./BioDataForm";
 import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
+import { useOnboardingContext } from "@/context/context";
 
 export default function ContactInfo({
   page,
@@ -18,12 +19,15 @@ export default function ContactInfo({
   userId,
   nextPage,
 }: StepFormProps) {
+  const {contactData, savedDBData, setContactData} = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);  
   const {register, 
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<ContactFormProps>();
+} = useForm<ContactFormProps>({
+  defaultValues: contactData || savedDBData,
+});
 const router = useRouter()
 
   async function onSubmit (data: ContactFormProps){
@@ -33,6 +37,7 @@ const router = useRouter()
 
     try {
       const res = await updateDoctorProfile(formId, data);
+      setContactData(data);  // update the state with the new form data
       if (res?.status === 201) {
         setIsLoading(false);
         toast.success("Contact Info Updated Successfully")

@@ -10,6 +10,7 @@ import MultipleFile, { File } from "@components/FormInputs/MultipleFile";
 import { StepFormProps } from "./BioDataForm";
 import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
+import { useOnboardingContext } from "@/context/context";
 
 export default function AdditionalInfo({
   page,
@@ -19,14 +20,18 @@ export default function AdditionalInfo({
   userId,
   nextPage,
 }: StepFormProps) {
+  const {additionalData, savedDBData, setAdditionalData} = useOnboardingContext();
+  const initialDocs = additionalData.additionalDocs || savedDBData.additionalDocs;
   const [isLoading, setIsLoading] = useState(false);
-  const [additionalDocs, setAdditionalDocs] = useState<File[]>([]);
+  const [additionalDocs, setAdditionalDocs] = useState<File[]>(initialDocs);
 
   const {register, 
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<AdditionalFormProps>();
+} = useForm<AdditionalFormProps>({
+  defaultValues: additionalData || savedDBData,
+});
 const router = useRouter()
 
   async function onSubmit (data: AdditionalFormProps){
@@ -37,6 +42,7 @@ const router = useRouter()
 
     try {
       const res = await updateDoctorProfile(formId, data);
+      setAdditionalData(data);
       if (res?.status === 201) {
         setIsLoading(false);
         // extract the profile form data from the updated profile

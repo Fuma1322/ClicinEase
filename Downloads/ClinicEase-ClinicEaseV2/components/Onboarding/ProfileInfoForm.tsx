@@ -23,20 +23,27 @@ export default function ProfileInfoForm({
   nextPage,   
 }: StepFormProps) {
   const [isLoading, setIsLoading] = useState(false);  
-  const [expiry, setExpiry] = useState<Date>();
-  const [profileImage,setProfileImage] = useState("");
-  const {trackingNumber, doctorProfileId} = useOnboardingContext();
+  const {profileData, savedDBData, setProfileData} = useOnboardingContext();
+
+  const initialExpiryDate = profileData.medicalLicenseExpiry || savedDBData.medicalLicenseExpiry;
+  const initialProfileImage = profileData.profilePicture || savedDBData.profilePicture;
+  const [expiry, setExpiry] = useState<Date>(initialExpiryDate);
+  const [profileImage,setProfileImage] = useState(initialProfileImage);
+  
   const {register, 
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<ProfileFormProps>();
+} = useForm<ProfileFormProps>({
+  defaultValues: profileData || savedDBData,
+});
 const router = useRouter();
 
   async function onSubmit (data: ProfileFormProps){
     setIsLoading(true);
     if (!expiry) {
         toast.error("Please select your medical license expiry.");
+        setIsLoading(false);
         return;
     }
     data.medicalLicenseExpiry = expiry;
@@ -47,6 +54,7 @@ const router = useRouter();
 
     try {
       const res = await updateDoctorProfile(formId, data);
+      setProfileData(data)
       if (res?.status === 201) {
         setIsLoading(false);
         toast.success("Profile Info Updated Successfully")
@@ -108,7 +116,7 @@ const router = useRouter();
                 label ="Professional Profile Image"
                 imageUrl = {profileImage}
                 setImageUrl = {setProfileImage}
-                endpoint = "doctorProfilePicture"
+                endpoint = "doctorProfileImage"
                 />
               
             </div>

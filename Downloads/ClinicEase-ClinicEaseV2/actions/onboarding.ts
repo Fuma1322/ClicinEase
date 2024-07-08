@@ -1,5 +1,5 @@
 "use server"
-import { prismaClient } from "@/lib/db";
+import  prismaClient  from "@/lib/db";
 
 export async function createDoctorProfile(formdata: any) {
     // const resend = new Resend(process.env.RESEND_API_KEY);
@@ -74,7 +74,7 @@ export async function updateDoctorProfile(id:string | undefined, data: any) {
      try {
        const existingProfile = await prismaClient.doctorProfile.findUnique({
          where:{
-           trackingNumber
+           trackingNumber,
          }
        })
 
@@ -101,36 +101,36 @@ export async function updateDoctorProfile(id:string | undefined, data: any) {
     } 
    }
 
-  //  export async function getDoctorById(id:string) {
-  //   if(id){
-  //    try {
-  //      const existingProfile = await prismaClient.doctorProfile.findUnique({
-  //        where:{
-  //          id
-  //        }
-  //      })
+   export async function getDoctorById(id:string) {
+    if(id){
+     try {
+       const existingProfile = await prismaClient.doctorProfile.findUnique({
+         where:{
+           id
+         }
+       })
 
-  //      if(!existingProfile) {
-  //       return {
-  //         data: null,
-  //         status: 404,
-  //         error: "Wrong Tracking Number",
-  //     };
-  //      }
-  //      return {
-  //       data: existingProfile,
-  //       status: 200,
-  //       error: null,
-  //   };
-  //    } catch (error) {
-  //      console.log(error)
-  //      return {
-  //       data: null,
-  //       status: 500,
-  //       error: "Something went wrong",
-  //   };
-  //    }
-  //   } 
-  //  }
+       if(!existingProfile) {
+        return {
+          data: null,
+          status: 404,
+          error: "Wrong Tracking Number",
+      };
+       }
+       return {
+        data: existingProfile,
+        status: 200,
+        error: null,
+    };
+     } catch (error) {
+       console.log(error)
+       return {
+        data: null,
+        status: 500,
+        error: "Something went wrong",
+    };
+     }
+    } 
+   }
 
    

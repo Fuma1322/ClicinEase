@@ -24,20 +24,20 @@ export type BioDataFormProps = {
     page: string;
     firstName: string;
     lastName: string;
-    middleName?: string;
-    dob?: Date;
+    middleName: any;
+    dob: any;
     gender: string;
-    userId?: string | undefined;
+    userId: string;
     trackingNumber: string;
 };
 
 export type ProfileFormProps = {
-    profilePicture?: string;
+    profilePicture: string;
     bio: string;
     yearsOfExperience: number;
     page: string;
     medicalLicense: string;
-    medicalLicenseExpiry?: Date;
+    medicalLicenseExpiry: any;
 };
 
 export type ContactFormProps={
@@ -54,17 +54,17 @@ export type EducationFormProps = {
     graduationYear: number;
     primarySpecialization: string;
     otherSpecialities: string[];
-    docCertificates: string[];
+    docCertificates: any;
     page: string;
 };
 
 export type PracticeFormProps = {
     clinicName: string;
-    clinicAddress: number;
+    clinicAddress: any;
     clinicContactNumber: string;
     clinicEmailAddress: string;
-    clinicWebsite?: string;
-    clinicHoursOfOperarion: string;
+    clinicWebsite: any;
+    clinicHoursOfOperarion: any;
     servicesOffered: string[];
     insuranceAccepted: string;
     languagesSpoken: string[];
@@ -75,7 +75,7 @@ export type AdditionalFormProps = {
     educationHistory: string;
     research: string;
     accomplishments: string;
-    additionalDocs: string[];
+    additionalDocs: any;
     page: string;
 };
 
