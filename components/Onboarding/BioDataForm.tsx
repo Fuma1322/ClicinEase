@@ -7,27 +7,51 @@ import { useState } from "react";
 import { createUser } from "@/actions/users";
 import { UserRole } from "@prisma/client";
 import toast from "react-hot-toast";
-import { RegisterInputProps } from "@/types/types";
+import { BioDataFormProps, RegisterInputProps } from "@/types/types";
 import { Button } from "@components/ui/button";
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
 import { DatePickerInput } from "@components/FormInputs/DatePickerInput";
+import { TextAreaInput } from "@components/FormInputs/TextAreaInput";
+import RadioInput from "@components/FormInputs/RadioInput";
 
 
-export default function BioDataForm() {
+export default function BioDataForm({page}:{page:string}) {
   const [isLoading, setIsLoading]=useState(false);
-  const [date, setDate] = useState<Date>();
-  console.log(date)
+  const [dob, setDOB] = useState<Date>();
+  const [expiry, setExpiry] = useState<Date>();
+  const genderOptions = [
+    {
+        label: "Male",
+        value: "male"
+    },
+    {
+        label: "Female",
+        value: "female",
+    }
+]
+ // console.log(date)
   const {
     register,
     handleSubmit,
     reset,
     formState:{errors},
-  }=useForm<RegisterInputProps>();
+  }=useForm<BioDataFormProps>();
   const router = useRouter()
-  async function onSubmit (data: RegisterInputProps){
-   // console.log(data)
-   setIsLoading(true);
+  async function onSubmit (data: BioDataFormProps){
+    if(!dob){
+      toast.error("Please select your date of birth");
+      return;
+    }
+    if(!expiry){
+      toast.error("Please select your License Expiry Date");
+      return;
+    }
+    data.dob = dob;
+    data.medicalLicenseExpiry = expiry;
+    data.page = page
+   console.log(data)
+   //setIsLoading(true);
 }
     return (
 <div className="w-full">
@@ -68,16 +92,37 @@ export default function BioDataForm() {
             />
             <DatePickerInput
             className="col-span-full sm:col-span-1" 
-            date={date} 
-            setDate={setDate} 
+            date={dob} 
+            setDate={setDOB} 
+            title="Date of Birth"
             />
             <TextInput 
              label="Mdical License" 
              register={register} 
              name="medicalLicense"
              errors={errors}
-             placeholder="" // Add placeholder
+             placeholder="Enter Medical License" // Add placeholder
              className="col-span-full sm:col-span-1" 
+            />
+            <DatePickerInput
+            className="col-span-full sm:col-span-1" 
+            date={expiry} 
+            setDate={setExpiry} 
+            title="Medical License Expiry"
+            />
+            <RadioInput
+            radioOptions={genderOptions} 
+            errors={errors} 
+            title="Gender" 
+            name="gender" 
+            register={register}
+            />
+            <TextAreaInput
+             label="Enter your Biography" 
+             register={register} 
+             name="bio"
+             errors={errors}
+             placeholder="Enter your Biography" // Add placeholder
             />
           </div>
             <div className="mt-8 flex justify-center items-center">

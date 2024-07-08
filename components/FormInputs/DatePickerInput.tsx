@@ -17,12 +17,19 @@ type DatePickerInputProps = {
     date: Date | undefined,
     setDate: any
     className?: string;
+    title: string;
 }
 
-export function DatePickerInput({date,setDate,className=""}:DatePickerInputProps) {
+export function DatePickerInput({
+  date,
+  setDate,
+  className="col-span-full",
+  title
+}:DatePickerInputProps) {
 
   return (
-    <div className={cn("grid gap-2",className)}>
+    <div className={cn("grid",className)}>
+      <h2 className="text-base font-normal">{title}</h2>
     <Popover>
       <PopoverTrigger asChild>
         <Button
