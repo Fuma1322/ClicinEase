@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getAppointmentsByPatientId } from '@/actions/appointments';
 import DoctorDetails from '@/components/DoctorDetails';
+import FixedBookButton from '@/components/FixedBookButton';
 
 export default async function page({
   params: { slug },

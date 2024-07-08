@@ -1,29 +1,27 @@
 "use client"
+
 import { useForm } from "react-hook-form"
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { useState } from "react";
-import ImageInput from "@/components/FormInputs/ImageInput";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
-import { createManyServices, createService } from "@/actions/services";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Service } from "@prisma/client";
+import { Speciality } from "@prisma/client";
 
-export type ServiceProps = {
+export type SpecialityProps = {
   title: string;
-  imageUrl: string;
   slug:string;
 }
-export default function ServiceForm({
+export default function SpecialityForm({
   title,
   initialData,
 }:{
   title: string;
-  initialData?: Service;
+  initialData?: Speciality;
 }) {
   const edititingId = initialData?.id || "";
   const [isLoading, setIsLoading]=useState(false);
@@ -34,32 +32,31 @@ export default function ServiceForm({
     handleSubmit,
     reset,
     formState:{errors},
-  } = useForm<ServiceProps>({
+  } = useForm<SpecialityProps>({
     defaultValues: {
       title: initialData?.title,
     },
   });
   const router = useRouter();
-  async function onSubmit(data: ServiceProps) {
+  async function onSubmit(data: SpecialityProps) {
     setIsLoading(true)
     const slug = generateSlug(data.title);
-    data.imageUrl = imageUrl;
     data.slug=slug;
     console.log(data);
-    if (edititingId{
-      await UpdateService(edititingId, data);
-      toast.success("Service Updated Successfully");
+    if (edititingId){
+      await UpdateSpeciality(edititingId, data);
+      toast.success("Speciality Updated Successfully");
     }else {
-      await createService(data);
-      toast.success("Service Created Successfully");
+      await createSpeciality(data);
+      toast.success("Speciality Updated Successfully");
     }
     reset();
-    router.push("/dashboard/services")
+    router.push("/dashboard/speciality")
   }
 async function handleCreateMany(){
   setIsLoading(true);
   try {
-    await createManyServices()
+    await createManySpecialities()
     setIsLoading(false)
   } catch (error) {
     console.log(error);
@@ -77,7 +74,7 @@ async function handleCreateMany(){
               {isLoading ? "Creating...." : "Create Many"}
             </Button> */}
             <Button type="button" asChild variant={"outline"}>
-              <Link href="/dashboard/services">
+              <Link href="/dashboard/specialities">
               <X className="w-4 h-4"/>
               </Link>
             </Button>
@@ -86,28 +83,23 @@ async function handleCreateMany(){
           <form onSubmit={handleSubmit(onSubmit)} className="py-4 px-4 mx-auto">
               <div className="grid gap-4 grid-cols-2">
               <TextInput 
-              label="Service Title" 
+              label="Speciality Title" 
               register={register} 
               name="title" 
               errors={errors} 
-              placeholder="Enter Service title"
+              placeholder="Enter Speciality title"
               />
-              <ImageInput 
-                label ="Professional Profile Image"
-                imageUrl = {imageUrl}
-                setImageUrl = {setImageUrl}
-                endpoint = "serviceImage"
-                />
               </div>
-              
+        
               <div className="mt-8 flex justify-between gap-4 items-center">
               <Button asChild variant={"outline"}>
-              <Link href="/dashboard/services">
+              <Link href="/dashboard/specialities">
               Cancel
               </Link>
             </Button>
+            <Button asChild variant={"outline"}>Create Many specialities</Button>
             <SubmitButton 
-            title={edititingId ? "Update Service" : "Create Service"} 
+            title={edititingId ? "Update Speciality" : "Create Speciality"} 
             isLoading={isLoading} 
             loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>

@@ -5,6 +5,7 @@ import { RegisterInputProps } from "@/types/types";
 import bcrypt from "bcrypt";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/Emails/emailstemplate";
+import generateSlug from "@/utils/generateSlug";
 
 export async function createUser (formdata:RegisterInputProps) {
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -34,10 +35,12 @@ export async function createUser (formdata:RegisterInputProps) {
     const newUser = await prismaClient.user.create({
       data: {
         name: fullName,
+        slug: generateSlug(fullName),
         email,
         phone,
         password: hashedPassword,
         role,
+        plan,
         token: userToken,
       },
     });
@@ -104,20 +107,16 @@ export async function updateUserById(id:string) {
     }
   }
 }
-export async function getDoctorss() {
+export async function getDoctors() {
   try {
     const doctors = await prismaClient.user.findMany({
       where: {
         role: "DOCTOR"
       },
-      // include:{
-      //   clinicProfile: true,
-
-      // }
       select: {
         id: true,
         name:true,
-        email:true,
+        email:true,  
         slug:true,
         phone: true,
         doctorProfile:{

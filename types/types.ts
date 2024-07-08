@@ -17,12 +17,24 @@ export type RegisterInputProps = {
 export type LoginInputProps = {
     email: string;
     password: string;
-}
+};
+export type stats = {
+  doctors: string;
+  patients: string;
+  appointments: string;
+  services: string;
+};
 
 export type DoctorProfileAvailability = {
+    monday: string[];
+    tueday: string[];
+    wednesday: string[];
+    thursday: string[];
+    friday: string[];
+    saturday: string[];
+    sunday: string[];
     
-    
-}
+};
 
 export type DoctorDetail = { 
     id: string;
@@ -43,8 +55,6 @@ export type Doctor = {
 
 };
 
-
-// Response type for getting application by tracking number
 export type GetApplicationByTrackingNumberResponse = {
     data: DoctorProfile | null;
     status: number;

@@ -1,14 +1,10 @@
 "use client"
-import {updateDoctorProfile} from "@/actions/onboarding";
 import {updateDoctorProfileWithService} from "@/actions/services";
 
 import {Button} from "@/components/ui/button";
 import {CardContent, CardFooter} from "@/components/ui/card";
-import {cn} from "@/lib/utils";
 import {DoctorProfile, Service, Speciality, Symptom} from "@prisma/client";
-import {Loader, Map, PictureInPicture2, Video} from "lucide-react";
-import {useSession} from "next-auth/react";
-import Image from "next-auth/react";
+import {Loader, Map,Video} from "lucide-react";
 import React , {useState} from "react";
 import toast from "react-hot-toast";
 
@@ -62,7 +58,7 @@ export default function UpdateServiceForm({
 async function handleUpdateservice() {
     setSavingServices(true);
     const = {
-        serviceId: selectedServicId,
+        serviceId: selectedServiceId,
     };
     try {
         await updateDoctorProfileWithService(profileId,data);
