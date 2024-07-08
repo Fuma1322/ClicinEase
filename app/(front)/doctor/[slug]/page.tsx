@@ -1,14 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
-import ClinicDetails from '@/components/ClinicDetails'
+import ClinicDetails from '@/components/DoctorDetails'
 import {getClinicByslug} from "@/actions/users"
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { getAppointmentsByPatientId } from '@/actions/appointments';
+import DoctorDetails from '@/components/DoctorDetails';
 
-export default function page({
+export default async function page({
   params: { slug },
 }:{
   params: {slug:string};
 }) {
-  const doctor = (await getClinicByslug(slug)) || null;
+  const session = await getServerSession(authOptions)
+  const doctor = (await getDoctorByslug(slug)) || null;
+  const user = session?.user
+  const appointment = await getAppointmentsByPatientId(user?.id??"")
+
   return (
     <>
     {doctor && doctor.id ? (
@@ -30,19 +38,19 @@ export default function page({
             </div>
               </div>
               <Image 
-            src={doctor.doctorProfile?.doctorPicture ?? "/hero1.jpeg"} 
-            width={1024} 
-            height={1024}  
-            alt='doctor' 
+            src={doctor.doctorProfile?.doctorPicture ?? "/doc-profile.jpeg"} 
+            width={243} 
+            height={207}  
+            alt="Doctor"
             className='w-36 h-36 rounded-full object-cover' 
             />
             </div>
-
           </div>
           <div className="">
-          <ClinicDetails doctor={doctor}/>
+          <DoctorDetails appointment={appointment as Appointment| null} doctor={doctor}/>
           </div>
-        </div>
+        </div> 
+        <FixedBookButton price={doctor.doctorProfile?.hourlyWage}/>
     </div>
     ):(
       <div className="min-h-screen flex items-center justify-center">

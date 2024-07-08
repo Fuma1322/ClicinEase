@@ -1,4 +1,4 @@
-import { ClinicProfile, UserRole } from "@prisma/client";
+import { doctorProfile, UserRole } from "@prisma/client";
 import { FileProps } from "@/components/FormInputs/MultipleFileUploads";
 
 export type ServiceProps = { 
@@ -19,40 +19,34 @@ export type LoginInputProps = {
     password: string;
 }
 
-export type BasicInfoProps = {
-    clinicName: string;
-    email: string;
-    phone: string;
-    address: string;
-    profilePicture: any;
-    page: string;
-    userId?: string | undefined;
-    trackingNumber: string;
+export type DoctorProfileAvailability = {
+    
     
 }
 
-export type ClinicDetails = { 
+export type DoctorDetail = { 
     id: string;
     name: string;
     email: string;
     phone:string;
     slug:string[];
-    clinicProfile:ClinicProfile|null;
+    doctorProfile:DoctorProfile|null;
 
 };
-export type Clinic = { 
+export type Doctor = { 
     id: string;
     name: string;
     email: string;
     phone:string;
     slug:string[];
-    clinicProfile:ClinicProfile|null;
+    doctorProfile:DoctorProfile|null;
 
 };
+
 
 // Response type for getting application by tracking number
 export type GetApplicationByTrackingNumberResponse = {
-    data: ClinicProfile | null;
+    data: DoctorProfile | null;
     status: number;
     error: string | null;
   };
@@ -60,7 +54,7 @@ export type GetApplicationByTrackingNumberResponse = {
     appointmentDate: Date | undefined;
     appointmentFormattedDate: string;
     appointmentMonth: string;
-    clinicId: string;
+    doctorId: string;
     charge: number;
     appointmentTime: string;
     //Patient details
@@ -74,20 +68,22 @@ export type GetApplicationByTrackingNumberResponse = {
     appointmentReason:string;
     medicalDocuments:string[];
     occupation:string;
-    patientId?:string;
-    
+    patientId:string;
+    status: AppointmentStatus;
+    meetingLink: string;
+    meetingProvider: string;
   }
-  export interface ClinicProfile{
+  export interface DoctorProfile{
     firstName:string;
     lastName:string;
     gender:string;
     bio:string | null;
     operationMode:string | null;
     hourlyWage:number;
-    availability:ClinicProfileAvailability | null;
+    availability:DoctorProfileAvailability | null;
 
   }
-  interface ClinicProfileDetails extends ClinicProfile {
+  interface DoctorProfileDetails extends DoctorProfile {
     id:string | null;
     yearOfExperience:number | null;
     country:string | null;

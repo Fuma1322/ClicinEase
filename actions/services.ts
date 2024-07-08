@@ -66,7 +66,7 @@ export async function getServices() {
     };
     }
 }
-export async function createManyService() {
+export async function createManyServices() {
    
     try {
         const services = [

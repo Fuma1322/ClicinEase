@@ -3,11 +3,12 @@ import SectionHeading from './SectionHeading'
 import ToggleButton from './ToggleButton'
 import Link from 'next/link'
 import { Map } from 'lucide-react'
-import DoctorsListCarousel from './ClinicListCarousel'
+import DoctorsListCarousel from './DoctorListCarousel'
 import { User } from '@prisma/client'
-import ClinicListCarousel from './ClinicListCarousel'
+import ClinicListCarousel from './DoctorListCarousel'
+import { Button } from './ui/button'
 
-export default function ClinicList({
+export default function DoctorList({
   title="Telehealth visit", 
   isInPerson,
   className="bg-pink-100 py-8 lg:py-24",
@@ -31,13 +32,16 @@ export default function ClinicList({
            ):(
             <ToggleButton/>
            )}
-           <Link className='py-3 px-6 border border-blue-600 bg-white' href="#" >See All</Link>
-            
+            <Button asChild>
+            <Link className='' href="#" >
+           See All
+           </Link>
+            </Button>
            </div>
            <div className="py-6">
-             <ClinicListCarousel clinics={clinics} isInperson={isInPerson} />
+             <DoctorsListCarousel doctors={doctors} isInperson={isInPerson} />
           </div>
         </div>
     </div>
-  )
+  );
 }

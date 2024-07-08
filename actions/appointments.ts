@@ -8,9 +8,9 @@ import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export async function createAppointments(data:AppointmentProps) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    
     try {
         const doctor = await prismaClient.user.findUnique({
             where:{
@@ -57,7 +57,7 @@ export async function updateAppointment(id:string,data:AppointmentProps) {
             },
             data,
         });
-        revalidatePath("/dashboard/clinic/appointments");
+        revalidatePath("/dashboard/doctor/appointments");
         console.log(updateAppointment);
         return {
             data:updateAppointment,
@@ -156,6 +156,28 @@ export async function getPatientAppointments(patientId:string) {
         };
     }
 }
+export async function getAppointmentsByPatientId(patientId:string | undefined) {
+   if (patientId){
+    try {
+        const appointments = await prismaClient.appointment.findFirst({
+        where:{
+            patientId
+        }
+        });
+        if (!appointments) {
+            return null;
+        };
+        return appointments as Appointment;
+    } catch (error) {
+        console.log(error);
+        return{
+            data: null,
+            status:500,
+            error,
+        };
+    }
+   }
+}
 
 export async function getDoctorAppointments(doctorId:string) {
     try {
@@ -179,5 +201,48 @@ export async function getDoctorAppointments(doctorId:string) {
             status:500,
             error,
         };
+    }
+}
+
+export async function updateAppointmentById(id:string,data:AppointmentUpdateProps) {
+    try {
+        const updateAppointment = await prismaClient.appointment.update({
+            where: {
+                id,
+            },
+            data,
+        });
+        const patientId = updateAppointment.patientId;
+        const Patient = await prismaClient.user.findUnique({
+            where:{
+                id: patientId,
+            },
+        });
+        const firstName = Patient?.name;
+        const doctorMail = Patient?.email;
+        const link = `${baseUrl}/dashboard/user/appointments/view/${updateAppointment.id}`;
+        const message =
+       "Your appointment has been approved. You can view the Details here";
+        const sendMail = await resend.emails.send({
+       from: "ClinicEase <bookings@clinicease.tech>",
+       to: doctorMail??"",
+       subject: "Appointment Approved",
+       react: NewAppointmentEmail({ firstName, link, message }),
+        });
+        revalidatePath("/dashboard/doctor/appointments");
+        revalidatePath("/dashboard/user/appointments");
+        console.log(updateAppointment);
+        return {
+            data:updateAppointment,
+            status: 200,
+            error:null,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+    };
     }
 }

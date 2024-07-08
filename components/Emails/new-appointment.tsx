@@ -36,9 +36,9 @@ export const NewAppointmentEmail = ({
           alt="Claridy"
         />
  
-        <Text style={title}>
+        {/* <Text style={title}>
           <strong>Dear Dr.{firstName}</strong>, You have a new Appointment
-        </Text>
+        </Text> */}
  
         <Section style={section}>
           <Text style={text}>
@@ -46,11 +46,10 @@ export const NewAppointmentEmail = ({
           </Text>
           <Text style={text}>{message}</Text>
  
-          <Button style={button}>
-            <Link  href={link}>
-            View the Appointment
-            </Link>
-          </Button>
+          <Button href={link} style={button}>
+            
+            View Appointment
+                      </Button>
           <Text style={text}>
             If you have any questions, feel free to reach out.
           </Text>

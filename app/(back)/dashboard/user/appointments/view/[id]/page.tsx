@@ -28,7 +28,7 @@ export default async function page({params:{id}:{params:{id:string}}}) {
       </h2>
     </div>
     </div>
-    {appointment?.status ==="APPROVED" ? (
+    {appointment?.status ==="approved" ? (
        <div className="border-2 border-green-600 shadow rounded-md p-4 mx-4 my-4">
        <div className="sm:col-span-4">
            <div className="flex items-center justify-between border-b">

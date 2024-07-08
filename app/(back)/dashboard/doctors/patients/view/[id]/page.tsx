@@ -1,22 +1,27 @@
-"use client"
-import React from 'react';
-import { ScrollArea } from "@/components/ui/scroll-area";
-import Link from 'next/link';
-import { Briefcase, CalendarCheck, Check, CircleEllipsis, Dot, History, X } from 'lucide-react';
-import timeAgo from '@/utils/timeAgo';
-import { usePathname } from 'next/navigation';
+import { getAppointmentById, getPatientAppointments } from '@/actions/appointments'
+import UpdatedAppointmentForm from '@/components/Dashboard/Clinic/UpdatedApointmentForm';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import timeAgo from '@/utils/timeAgo';
+import { Item } from '@radix-ui/react-dropdown-menu';
+import { Calendar, CalendarCheck, Check, CircleEllipsis, History, X } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react'
 
-export default function ListPanel({appointments,role}:{appointments:Appointment[]; role:string}) {
-    const pathname = usePathname()
-    return (
-        <ScrollArea className="h-96 w-full">
-            {appointments.map((item) => (
-                <Link
+export default async function page({params:{id}:{params:{id:string}}}) {
+  const appointments = (await getPatientAppointments(id)).data || [];
+  return (
+  <div className="p-4">
+   <h2 className="border-b pb-3 mab-3">Appointments({appointments.length.toString().padStart(2, "0")})</h2>
+   <div className="grid grid-col-1 gap-4 md:gridd-cols-2">
+    {appointments.map((item)=>{
+        return (
+          <Link
                     key={item.id}
-                    href={`/dashboard/${role==="USER"?"user":"doctor"}/appointments/view/${item.id}`}  
-                    className={cn('border mb-2 border-gray-100 shadow-sm text-xs bg-slate-900 py-3 px-2 inline-block w-full rounded-md',pathname===`/dashboard/clinic/appointments/view/${item.id}`&& "border-green-700 bg-green-50 border-2")}
-                >
+                    href={`/dashboard/doctor/appointments/view/${item.id}`}  
+                    className={cn('border mb-2 border-gray-100 shadow-sm text-xs bg-slate-900 py-3 px-2 inline-block w-full rounded-md'
+                    )}
+                      >
                     <div className="flex justify-between items-center pb-2">
                         <h2>{item.firstName} {item.lastName}</h2>
                         <div className="flex items-center">
@@ -45,7 +50,10 @@ export default function ListPanel({appointments,role}:{appointments:Appointment[
                         <span>{item.status}</span>
                     </div>
                 </Link>
-            ))}
-        </ScrollArea>
-    );
+        )
+      })
+    }
+   </div>
+  </div>
+  ); 
 }

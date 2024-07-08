@@ -43,6 +43,7 @@ enum UserRole {
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String
+  slug          String @default("slug")
   email         String   @unique
   phone         String
   emailVerified DateTime?
@@ -51,8 +52,9 @@ model User {
   password      String
   accounts      Account[]
   sessions      Session[]
+  symptomsIds   String[]
   doctorProfile DoctorProfile?
-  isVerfied     Boolean   @default(false)
+  isVerified    Boolean   @default(false)
   token         Int
   specialityId         String?   @db.ObjectId
   speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -79,10 +81,11 @@ model Availability {
 }
  model Service {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctor        User[]
+  doctors        User[]
   title         String
   slug          String @unique
   imageUrl      String
+  doctorProfile DoctorProfile[]
  
 
   createdAt     DateTime  @default(now())
@@ -90,9 +93,9 @@ model Availability {
 }
 
 enum AppointmentStatus {
-  PENDING
-  REJECTED
-  APPROVED
+  pending
+  rejected
+  approved
 }
 model Appointment {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
@@ -113,7 +116,7 @@ model Appointment {
   appointmentReason String?
   medicalDocuments String[]
   occupation String?
-  status  AppointmentStatus @default(PENDING)
+  status  AppointmentStatus @default(pending)
   meetingLink String @default("")
   meetingProvider String @default("zoom")
 
@@ -126,6 +129,17 @@ model Appointment {
   doctor        User[]
   title         String[]
   slug          String @unique
+  doctorProfile DoctorProfile[]
+ 
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+ model Symptom {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String[]
+  slug          String @unique
  
 
   createdAt     DateTime  @default(now())
@@ -134,19 +148,52 @@ model Appointment {
 
 model DoctorProfile {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  email         String 
-  phone         String 
+  userId        String   @unique @db.ObjectId
+  user          User     @relation(fields: [userId], references:[id], onDelete: Cascade, onUpdate: Cascade)
+  firstName     String
+  lastName      String
+  middleName    String?
+  dob           DateTime?
+  gender        String  
   page          String 
-  address       String 
-  clinicName    String
+  bio            String?
   trackingNumber String @unique 
   profilePicture String?
   availability   Availability?
-  specialization String?
+  medicalLicense String?
+  medicalLicenseExpiry DateTime?
+  yearsOfExperience Int?
+
+  email           String?
+  phone           String?
+  country         String?
+  city            String?
+  state           String?
+  medicalSchool   String?
+  graduationYear  String?
+  primarySpecialization String?
+  otherSpecialties      String[]
+  boardCertificates     String[]
+  hospitalName          String?
+  hospitalAddress       String?
+  hospitalContactNumber String?
+  hospitalEmailAddress  String?
+  hospitalWebsite       String?
+  hospitalHoursOfOperation  String?
+  insuranceAccepted         String?
   servicesOffered String[]
-  clinicHours    Int? 
-  userId         String   @db.ObjectId @unique
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  educationHistory      String?
+  research              String?
+  accomplishments       String?
+  operationMode          String? @default("Telehealth visit")
+  hourlyWage            Int @default(100)
+
+  specialityId         String?   @db.ObjectId
+  speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId         String?   @db.ObjectId
+  service           Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  
 
  
    

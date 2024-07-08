@@ -1,7 +1,5 @@
-import { getAppointments,getDoctorAppointments } from '@/actions/appointments';
-import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel';
+import { getDoctorAppointments } from '@/actions/appointments';
 import ListPannel from '@/components/Dashboard/Clinic/ListPannel';
-import NewButton from '@/components/Dashboard/Clinic/NewButton';
 import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader';
 import NotAuthorised from '@/components/NotAuthorised';
 import { authOptions } from '@/lib/auth';

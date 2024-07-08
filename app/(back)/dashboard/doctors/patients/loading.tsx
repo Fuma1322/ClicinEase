@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function page() {
+export default function Loading() {
   return (
     <div>
-        <h2>Patients</h2>
+        <h2>loading</h2>
     </div>
   )
 }

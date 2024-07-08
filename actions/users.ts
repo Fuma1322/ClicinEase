@@ -104,11 +104,11 @@ export async function updateUserById(id:string) {
     }
   }
 }
-export async function getClinics() {
+export async function getDoctorss() {
   try {
-    const clinics = await prismaClient.user.findMany({
+    const doctors = await prismaClient.user.findMany({
       where: {
-        role: "CLINIC"
+        role: "DOCTOR"
       },
       // include:{
       //   clinicProfile: true,
@@ -120,7 +120,7 @@ export async function getClinics() {
         email:true,
         slug:true,
         phone: true,
-        clicicProfile:{
+        doctorProfile:{
           select:{
             id:true,
             firstName:true,
@@ -140,19 +140,74 @@ export async function getClinics() {
                 friday:true,
                 saturday:true,
                 sunday:true,
-              }
-            }
-
-          }
-        }
+              },
+            },
+          },
+        },
       }
       })
-      return clinics;
+      return doctors;
     } catch (error) {
       console.log(error);
       return null;
       
     }
     }
+
+export async function getDoctorBySlug(slug:string){
+  if (slug){
+    try {
+      const doctor = await prismaClient.user.findFirst({
+        where:{
+          role:"DOCTOR",
+          slug,
+        },
+        select: {
+          id:true,
+          name:true,
+          email:true,
+          slug:true,
+          phone:true,
+          doctorProfile:{
+            select:{
+              firstName:true,
+              lastName:true,
+              gender:true,
+              bio:true,
+              profilePicture:true,
+              operationMode:true,
+              hourlyWage:true,
+              uearsOfExperience:true,
+              country:true,
+              city:true,
+              state:true,
+              primarySpecialization:true,
+              otherSpecialities:true,
+              hospitalName:true,
+              hospitalAddress:true,
+              hospitalContactNumber: true,
+              hospitalEmailAddress: true,
+              hospitalWebsite: true,
+              hospitalHoursOfOperation: true,
+              serviceOffered:true,
+              insuranceAccepted:true,
+              educatioHistory:true,
+              research: true,
+              accomplishments:true
+
+            }
+          }
+
+        }
+      })
+      if (!doctor){
+        return null;
+      }
+      return doctor DoctorDetal;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
    
   

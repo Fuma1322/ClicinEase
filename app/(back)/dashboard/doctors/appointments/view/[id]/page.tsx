@@ -1,6 +1,8 @@
 import { getAppointmentById } from '@/actions/appointments'
+import UpdatedAppointmentForm from '@/components/Dashboard/Clinic/UpdatedApointmentForm';
 import { Button } from '@/components/ui/button';
 import { Item } from '@radix-ui/react-dropdown-menu';
+import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
@@ -21,7 +23,7 @@ export default async function page({params:{id}:{params:{id:string}}}) {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         {appointment?.appointmentFormattedDate}
         <div className="flex items-center text-sm">
-          <Calender  className="w-4 h-4 mr-2"/> 
+          <Calendar  className="w-4 h-4 mr-2"/> 
           <span>{appointment?.appointmentTime}</span>
         </div>
       </h2>
@@ -60,7 +62,39 @@ export default async function page({params:{id}:{params:{id:string}}}) {
         </div>
       </div>
       <div className="">
-      
+      <div className="border shadow rounded-md p-4 mt-4">
+            <div className="sm:col-spin-4">
+                <div className="flex items-center justify-between border-b">
+                    <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
+                        Update Hour Price
+                    </h2>
+                    <Button disabled={} onClick={}>
+                        {savingPrice ? "Saving please wait..." : "Update Price"}
+                    </Button>
+                </div>
+                <div className="mt-2">
+                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+                            M
+                        </span>
+                        <input 
+                        type="number" 
+                        name="price" 
+                        id="price" 
+                        value={price} 
+                        onChange={(e) => setPrice(+e.target.value)}
+                        autoComplete="price" 
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 
+                        focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="100"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div className="">
+      {appointment && appointment.id && <UpdatedAppointmentForm appointment={appointment}/>}
       </div>
     </div>
   </div>

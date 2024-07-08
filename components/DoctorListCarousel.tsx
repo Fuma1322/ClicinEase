@@ -5,13 +5,14 @@ import Link from "next/link";
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import ClinicCard from "./ClinicCard";
+import ClinicCard from "./DoctorCard";
+import DoctorCard from "./DoctorCard";
 
-export default function ClinicListCarousel({ 
-    clinics,
+export default function DoctorsListCarousel({ 
+    doctors,
     isInperson,
  }: {
-    clinics:any;
+    doctors:Doctor[];
     isInperson?:boolean;
 }) {
   const responsive = {
@@ -50,11 +51,9 @@ export default function ClinicListCarousel({
       dotListClass="custom-dot-list-style"
       itemClass="px-4"
     >
-      {
-              clinics.map((doctor:any,i:number)=>{
-                return(<ClinicCard key={i} isInPerson={isInperson} />)
-              })
-            }
+      {doctors.map((doctor:Doctor,i:number)=>{
+        return <DoctorCard doctor={doctor} key={i} isInPerson={isInperson} />;
+              })}
     </Carousel>
   );
 }

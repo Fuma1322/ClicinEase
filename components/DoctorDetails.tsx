@@ -1,5 +1,5 @@
 "use client"
-import { AppointmentProps, ClinicDetailsProps } from "@/types/types";
+import { AppointmentProps, ClinicDetailsProps, DoctorDetail } from "@/types/types";
 import { useForm } from "react-hook-form";
 import TextInput from "../FormInputs/TextInput";
 import SubmitButton from "../FormInputs/SubmitButton";
@@ -20,7 +20,7 @@ import { useSession } from "next-auth/react";
 import { FileProps } from "./FormInputs/MultipleFileUploads";
 import { createAppointments } from "@/actions/appointments";
 
-export default function DoctorDetails({ doctor }: ClinicDetailsProps) {
+export default function DoctorDetails({ doctor,appointment}: DoctorDetail, appointment?:Appointment | null) {
   const [isActive, setIsActive] = useState("availability");
   const { data: session } = useSession();
   const patient = session?.user;
@@ -30,11 +30,18 @@ export default function DoctorDetails({ doctor }: ClinicDetailsProps) {
   const longDate = getLongDate(date!.toDateString());
   const [dob, setDob] = useState<Date | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const times = clinic.clinicProfile?.availability?.[day] ?? null;
+  const times = doctor.doctoProfile?.availability?.[day] ?? null;
   const [medicalDocs, setMedicalDocs] = useState<FileProps[]>([]);
   const { register, handleSubmit, formState: { errors } } = useForm<AppointmentProps>({
     defaultValues: {
-      email: patient?.email ?? "",
+      email: appointment?.email ?? "",
+      firstName: appointment?.firstName ?? "",
+      lastName: appointment?.lastName ?? "",
+      phone: appointment?.phone ?? "",
+      occupation: appointment?.occupation ?? "",
+      location: appointment?.location ?? "",
+      gender: appointment?.gender ?? "",
+
     }
   });
   const genderOptions = [
@@ -50,14 +57,14 @@ export default function DoctorDetails({ doctor }: ClinicDetailsProps) {
   const router = useRouter();
 
   async function onSubmit(data: AppointmentProps) {
-    data.medicaldocuments = medicalDocs.map((item) => item.url);
+    data.medicalDocuments = medicalDocs.map((item) => item.url);
     data.appointmentDate = date;
     data.appointmentFormattedDate = longDate;
     data.appointmentTime = selectedTimes;
     data.doctorId = doctor.id;
     data.charge = doctor.doctorProfile?.hourlyWage ?? 0;
     data.dob = dob;
-    data.patientId = patient?.id;
+    data.patientId = patient?.id??"";
     console.log(data);
     try {
       setLoading(true);
@@ -148,7 +155,7 @@ export default function DoctorDetails({ doctor }: ClinicDetailsProps) {
                         dark:focus:ring-[#FF9119]/40 me-2 mb-2"
                     >
                       Book Appointment ($
-                      {clinic.clinicProfile?.hourlyWage})
+                      {doctor.doctorProfile?.hourlyWage})
                       <MoveRight className="w-6 h-6 ml-3" />
                     </button>
                   </div>

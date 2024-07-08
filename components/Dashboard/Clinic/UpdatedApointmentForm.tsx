@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 
 export type AppointmentProps = {
-    status: string;
+    status: AppointmentStatus;
     meetingLink:string;
     meetingProvider:string;
 };
@@ -85,7 +85,7 @@ export default function UpdatedAppointmentForm({
                     label="Add Meeting Link"
                     register={register}
                     name="meetingLink"
-                    placeholder="https://meet.google.com"
+                    placeholder="https://meet.google.com/nvg-vvvd-uyj"
                     />
                 </div>
                 <div className="py-2">
@@ -111,5 +111,4 @@ export default function UpdatedAppointmentForm({
 
         </form>
     )
-
 }
