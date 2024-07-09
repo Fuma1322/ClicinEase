@@ -10,7 +10,7 @@ import { DatePickerInput } from "@components/FormInputs/DatePickerInput";
 import RadioInput from "@components/FormInputs/RadioInput";
 import toast from "react-hot-toast";
 import generateTrackingNumber from "@/lib/generatetracking";
-import { createDoctorProfile, updateDoctorProfile } from "@/actions/onboarding";
+import { createDoctorProfile } from "@/actions/onboarding";
 import { useOnboardingContext } from "@/context/context";
 
 export type StepFormProps = {
@@ -38,11 +38,8 @@ export default function BioDataForm({
     setDoctorProfileId, 
   } = useOnboardingContext();
   console.log(trackingNumber,doctorProfileId);
-  const [isLoading, setIsLoading] = useState(false);
-  const {bioData, savedDBData,setBioData} = useOnboardingContext();
-  const initialDateOfBirth = bioData.dob || savedDBData.dob;
-  
-  const [dob, setDOB] = useState<Date>(initialDateOfBirth);
+  const [isLoading, setIsLoading] = useState(false)
+  const [dob, setDOB] = useState<Date>();
   const genderOptions = [
     {
         label: "Male",
@@ -57,28 +54,16 @@ export default function BioDataForm({
     handleSubmit, 
     reset, 
     formState:{errors},
-} = useForm<BioDataFormProps>({
-  defaultValues: {
-    page: bioData.page || savedDBData.page,
-    firstName: bioData.firstName || savedDBData.firstName,
-    lastName: bioData.lastName || savedDBData.lastName,
-    middleName: bioData.middleName || savedDBData.middleName,
-    dob: bioData.dob || savedDBData.dob, 
-    gender: bioData.gender || savedDBData.gender,
-    userId: bioData.userId || savedDBData.userId,
-    trackingNumber: bioData.trackingNumber || savedDBData.trackingNumber,
-  }
-});
-const router = useRouter();
+} = useForm<BioDataFormProps>();
+const router = useRouter()
 
   async function onSubmit (data: BioDataFormProps){
     setIsLoading(true);
     if (!dob) {
         toast.error("Please select your date of birth.");
-        setIsLoading(false);
         return;
     }
-    data.userId = userId as string;
+    data.userId = userId;
     data.trackingNumber = generateTrackingNumber();
     data.dob = dob;
     data.page = page;
@@ -86,26 +71,11 @@ const router = useRouter();
     // setIsLoading(true) 
 
     try {
-      if(formId) {
-        const res = await updateDoctorProfile(formId,data);
-        if (res && res?.status === 201) {
-          setIsLoading(false);
-          toast.success("Bio Data Updated Successfully");
-          setTrackingNumber(res.data?.trackingNumber??"");
-          setDoctorProfileId(res.data?.id??"");
-          router.push(`/onboarding/${userId}?page=${nextPage}`);
-          console.log(res.data);
-        } else {
-          setIsLoading(false);
-          throw new Error("Something went wrong");
-        }
-      } else {
-        const res = await createDoctorProfile(data);
-        //save data to context api
-      setBioData(data);
+      const res = await createDoctorProfile(data);
+      
       if (res?.status === 201) {
         setIsLoading(false);
-        toast.success("Doctor Profile Created");
+        toast.success("Profile Completed Successfully");
         setTrackingNumber(res.data?.trackingNumber??"");
         setDoctorProfileId(res.data?.id??"");
         router.push(`/onboarding/${userId}?page=${nextPage}`);
@@ -114,8 +84,6 @@ const router = useRouter();
         setIsLoading(false);
         throw new Error("Something went wrong");
       }
-      }
-      
     } catch (error) {
       setIsLoading(false);
       console.log(error);

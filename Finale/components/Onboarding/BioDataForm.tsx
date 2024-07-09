@@ -6,8 +6,8 @@ import TextInputs from "../FormInputs/TextInput";
 import SubmitButton from "../FormInputs/SubmitButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { DatePickerInput } from "@components/FormInputs/DatePickerInput";
-import RadioInput from "@components/FormInputs/RadioInput";
+import { DatePickerInput } from "../FormInputs/DatePickerInput";
+import RadioInput from "../FormInputs/RadioInput";
 import toast from "react-hot-toast";
 import generateTrackingNumber from "@/lib/generatetracking";
 import { createDoctorProfile, updateDoctorProfile } from "@/actions/onboarding";
@@ -40,6 +40,7 @@ export default function BioDataForm({
   console.log(trackingNumber,doctorProfileId);
   const [isLoading, setIsLoading] = useState(false);
   const {bioData, savedDBData,setBioData} = useOnboardingContext();
+  const defaultData = bioData || savedDBData;
   const initialDateOfBirth = bioData.dob || savedDBData.dob;
   
   const [dob, setDOB] = useState<Date>(initialDateOfBirth);
@@ -126,7 +127,7 @@ const router = useRouter();
   }
     return (
         <div className="w-full">
-            <div className="text-center border-b border-gray-200 pb-4">
+            <div className="text-center border-b border-gray-200 dark:border-slate-600 pb-4">
               <h1 className="scroll-m-20 text-4xl mb-2 font-extrabold tracking-tight lg:text-5x">
                 {title}
               </h1>
