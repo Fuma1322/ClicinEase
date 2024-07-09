@@ -5,7 +5,7 @@ import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
-export default async function pagepage({ params }: { params: { id: string } })  {
+export default async function page({ params }: { params: { id: string } })  {
   const appointment = await getAppointmentById(params.id);
   return (
   <div className="">

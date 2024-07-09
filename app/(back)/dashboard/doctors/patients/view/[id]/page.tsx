@@ -8,8 +8,8 @@ import { Calendar, CalendarCheck, Check, CircleEllipsis, History, X } from 'luci
 import Link from 'next/link';
 import React from 'react'
 
-export default async function page({params:{id}:{params:{id:string}}}) {
-  const appointments = (await getPatientAppointments(id)).data || [];
+export default async function page({ params }: { params: { id: string } }) {
+  const appointments = (await getPatientAppointments(params.id)).data || [];
   return (
   <div className="p-4">
    <h2 className="border-b pb-3 mab-3">Appointments({appointments.length.toString().padStart(2, "0")})</h2>
@@ -26,7 +26,7 @@ export default async function page({params:{id}:{params:{id:string}}}) {
                         <h2>{item.firstName} {item.lastName}</h2>
                         <div className="flex items-center">
                             <History className='w-4 h-4 mr-2' />
-                            <span>{timeAgo(item.CreatedAt)}</span>
+                            <span>{timeAgo(item.createdAt)}</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">

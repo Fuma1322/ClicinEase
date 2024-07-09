@@ -1,4 +1,4 @@
-import DoctorDashboard from '@components/Dashboard/DoctorDashboard';
+import DoctorDashboard from '@/components/Dashboard/DoctorDashboard';
 import  Dashboard  from '@/components/Dashboard/Dashboard'
 import PatientsDashboard from '@/components/Dashboard/UserDashboard';
 import { authOptions } from '@/lib/auth'
