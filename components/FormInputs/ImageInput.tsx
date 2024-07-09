@@ -1,9 +1,7 @@
 import { UploadDropzone } from "@/utils/uploadthing";
-import { error } from "console";
-import { Pencil, Plus, Watch } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
 import toast from "react-hot-toast";
 
 export default function ImageInput({

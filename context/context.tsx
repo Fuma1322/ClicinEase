@@ -1,91 +1,155 @@
+//context => useSTate to a global Level 
 "use client"
-import { BasicInfoProps, ClinicDetailsProps } from "@/types/types";
-import { ClinicProfile } from "@prisma/client";
-import { ReactNode, createContext, useContext, useState } from "react";
-import { number } from "zod";
 
-// Wrap the entire app with the provider
+import { AdditionalFormProps, BioDataFormProps, ContactFormProps, EducationFormProps, PracticeFormProps, ProfileFormProps } from "@/types/types";
+import DoctorProfile  from "@prisma/client";
+import { createContext, ReactNode, useContext, useState } from "react";
+
 interface IOnBoardingContextData {
     trackingNumber: string;
+    doctorProfileId: string; 
     setTrackingNumber: (value: string) => void;
-    clinicProfileId: string;
-    setClinicProfileId: (value: string) => void;
+    setDoctorProfileId: (value: string) => void;
 
     // TRACK THE FORM DATA
-    basicData: BasicInfoProps;
-    clinicData: ClinicDetailsProps
-    savedDBData:any
-    setSavedDBData:(data:any)=>void
-    setBasicData: (data: BasicInfoProps) => void;
-    setClinicData: (data:ClinicDetailsProps) => void;
+    bioData: BioDataFormProps;
+    profileData: ProfileFormProps;
+    contactData: ContactFormProps;
+    educationData: EducationFormProps;
+    practiceData: PracticeFormProps;
+    additionalData: AdditionalFormProps;
+    savedDBData: any;
+    setSavedDBData: (data:any) => void;
+    setBioData: (data: BioDataFormProps) => void;
+    setProfileData: (data: ProfileFormProps) => void;
+    setContactData: (data: ContactFormProps) => void;
+    setEducationData: (data: EducationFormProps) => void;
+    setPracticeData: (data: PracticeFormProps) => void;
+    setAdditionalData: (data: AdditionalFormProps) => void;
 }
 
-const initialBasicData: BasicInfoProps = {
-    clinicName: "",
-    email: "",
-    phone: "",
-    address: "",
-    profilePicture: "",
+
+const initialBioData: BioDataFormProps = {
     page: "",
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    dob: "",
+    gender: "",
     userId: "",
-    trackingNumber: "",
+    trackingNumber: "",  
 };
 
-const initialClinicData: ClinicDetailsProps = {
+const initialProfileData: ProfileFormProps = {
+    profilePicture: "",
+    bio: "",
+    yearsOfExperience: 0,
     page: "",
-    duration: "",
-    availability: "",
-    specialization: "",
+    medicalLicense: "",
+    medicalLicenseExpiry: "", 
+};
+
+const initialContactData: ContactFormProps = {
+    email: "",
+    phone: "",
+    country: "",
+    city: "",
+    state: "",
+    page: "",
+};
+
+const initialEducationData: EducationFormProps = {
+    medicalSchool: "",
+    graduationYear: 0,
+    primarySpecialization: "",
+    otherSpecialities: [],
+    docCertificates: [],
+    page: "",
+};
+
+const initialPracticeData: PracticeFormProps = {
+    organizationName: "",
+    organizationAddress: "",
+    organizationContactNumber: "",
+    organizationEmailAddress: "",
+    organizationWebsite: "",
+    organizationHoursOfOperarion: 0,
     servicesOffered: [],
-    clinicHours: 0
+    insuranceAccepted: "",
+    page: "",
+};
+
+const initialAdditionalData: AdditionalFormProps = {
+    educationHistory: "",
+    research: "",
+    accomplishments: "",
+    additionalDocs: [],
+    page: "",
 };
 
 const initialContextData: IOnBoardingContextData = {
-    trackingNumber: "",
-    clinicProfileId: "",
     setTrackingNumber: () => {},
-    setClinicProfileId: () => {},
-    setBasicData: () => {},
-    setClinicData: () => {},
-    basicData: initialBasicData,
-    clinicData: initialClinicData,
-    savedDBData:{},
-    setSavedDBData:()=>{}
+    setDoctorProfileId: () => {},
+    setBioData: () => {},
+    setProfileData: () => {},
+    setContactData: () => {},
+    setEducationData: () => {},
+    setPracticeData: () => {}, // Corrected typo here
+    setAdditionalData: () => {},
+    savedDBData: {},
+    setSavedDBData: () => {},
+    trackingNumber: "",
+    doctorProfileId: "",
+    bioData: initialBioData,
+    profileData: initialProfileData,
+    contactData: initialContactData,
+    educationData: initialEducationData,
+    practiceData: initialPracticeData,
+    additionalData: initialAdditionalData,
 };
 
 const OnBoardingContext = createContext<IOnBoardingContextData>(initialContextData);
 
-// Creating and exporting the context provider
-export function OnboardingContextProvider({ children }: { children: ReactNode }) {
-    const [trackingNumber, setTrackingNumber] = useState("");
-    const [clinicProfileId, setClinicProfileId] = useState("");
-    const [basicData, setBasicData] = useState<BasicInfoProps>(initialBasicData);
-    const [clinicData, setClinicData] = useState<ClinicDetailsProps>(
-        initialClinicData);
-     
+export function OnboardingContextProvider({
+    children,
+}: {
+    children: ReactNode;
+}) {
+    const [trackingNumber, setTrackingNumber] = useState<string>("");
+    const [doctorProfileId, setDoctorProfileId] = useState<string>("");
+    const [bioData, setBioData] = useState<BioDataFormProps>(initialBioData);
+    const [profileData, setProfileData] = useState<ProfileFormProps>(initialProfileData);
+    const [contactData, setContactData] = useState<ContactFormProps>(initialContactData);
+    const [educationData, setEducationData] = useState<EducationFormProps>(initialEducationData);
+    const [practiceData, setPracticeData] = useState<PracticeFormProps>(initialPracticeData);
+    const [additionalData, setAdditionalData] = useState<AdditionalFormProps>(initialAdditionalData);
     const [savedDBData, setSavedDBData] = useState<any>({});
+    console.log(savedDBData);
 
     const contextValues = {
         trackingNumber,
         setTrackingNumber,
-        clinicProfileId,
-        setClinicProfileId,
-        basicData,
-        setBasicData,
-        clinicData,
-        setClinicData,
-        savedDBData, 
-        setSavedDBData
+        doctorProfileId,
+        setDoctorProfileId,
+        bioData,
+        setBioData,
+        profileData,
+        setProfileData,
+        contactData,
+        setContactData,
+        educationData,
+        setEducationData,
+        practiceData,
+        setPracticeData,
+        additionalData,
+        setAdditionalData,
+        savedDBData,
+        setSavedDBData,
     };
 
-    return (
-        <OnBoardingContext.Provider value={contextValues}>
-            {children}
-        </OnBoardingContext.Provider>
-    );
+    return <OnBoardingContext.Provider value={contextValues}>{children}</OnBoardingContext.Provider>;
 }
 
-// Creating and exporting useContext
 export function useOnboardingContext() {
     return useContext(OnBoardingContext);
 }

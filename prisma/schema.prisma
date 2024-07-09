@@ -1,12 +1,12 @@
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -20,12 +20,12 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -33,16 +33,17 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
- 
+
 enum UserRole {
   USER
   ADMIN
-  CLINIC
+  DOCTOR
 }
- 
+
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String
+  slug          String @default("slug")
   email         String   @unique
   phone         String
   emailVerified DateTime?
@@ -51,21 +52,23 @@ model User {
   password      String
   accounts      Account[]
   sessions      Session[]
-  clinicProfile ClinicProfile?
-  isVerfied     Boolean   @default(false)
+  symptomsIds   String[]
+  doctorProfile DoctorProfile?
+  isVerified    Boolean   @default(false)
   token         Int
-  specialityId         String?   @db.ObjectId
-  speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  serviceId         String?   @db.ObjectId
-  service           Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  specialityId  String?   @db.ObjectId
+  speciality    Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId     String?   @db.ObjectId
+  service       Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
+
 model Availability {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinicProfileId         String   @db.ObjectId @unique
-  clinicProfile           ClinicProfile @relation(fields: [clinicProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfileId         String   @db.ObjectId @unique
+  doctorProfile           DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   monday        String[]
   tuesday       String[]
   wednesday     String[]
@@ -77,76 +80,126 @@ model Availability {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
- model Service {
+
+model Service {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctors       User[]
   title         String
   slug          String @unique
   imageUrl      String
- 
+  doctorProfile DoctorProfile[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
- model Speciality {
+
+enum AppointmentStatus {
+  pending
+  rejected
+  approved
+}
+
+model Appointment {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentDate DateTime?
+  appointmentFormattedDate String
+  doctorId String?
+  patientId  String?
+  charge Int
+  appointmentTime String?
+
+  firstName  String
+  lastName   String?
+  gender     String?
+  phone      String?
+  email      String?
+  dob        DateTime?
+  location   String?
+  appointmentReason String?
+  medicalDocuments String[]
+  occupation String?
+  status     AppointmentStatus @default(pending)
+  meetingLink String @default("")
+  meetingProvider String @default("zoom")
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Speciality {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctor        User[]
   title         String[]
   slug          String @unique
- 
+  doctorProfile DoctorProfile[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
 
-model ClinicProfile {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  email         String 
-  phone         String 
-  page          String 
-  address       String 
-  clinicName    String
-  trackingNumber String @unique 
-  profilePicture String?
-  availability   Availability?
-  specialization String?
-  servicesOffered String[]
-  clinicHours    Int? 
-  userId         String   @db.ObjectId @unique
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+model Symptom {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String[]
+  slug          String @unique
 
- 
-   
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime? @updatedAt
-} 
- 
-model Category {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  slug        String    @unique
-  imageUrl    String?
-  demoLink    String?
-  description String?
-  products    Product[]
- 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
- 
-model Product {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  slug          String   @unique
-  price         Float?
-  qty           Int?
-  imageUrl      String?
-  productImages String[]
-  features String[]
-  description   String?
-  categoryId    String   @db.ObjectId
-  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
- 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+
+model DoctorProfile {
+  id                       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId                   String   @db.ObjectId @unique
+  user                     User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  trackingNumber           String @unique
+  firstName                String
+  lastName                 String
+  middleName               String?
+  dob                      DateTime?
+  gender                   String
+
+  bio                      String?
+  page                     String
+  medicalLicense           String?
+  profilePicture           String?
+  yearsOfExperience        Int?
+  medicalLicenseExpiry     DateTime?
+
+  email                    String?
+  phone                    String?
+  country                  String?
+  city                     String?
+  state                    String?
+
+  medicalSchool            String?
+  graduationYear           String?
+  primarySpecialization    String?
+  otherSpecialities        String[]
+  docCertificates          String[]
+
+  organizationName         String?
+  organizationAddress      String?
+  organizationContactNumber String?
+  organizationEmailAddress String?
+  organizationWebsite      String?
+  organizationHoursOfOperarion Int?
+  servicesOffered          String[]
+  insuranceAccepted        String?
+
+  educationHistory         String?
+  research                 String?
+  accomplishments          String?
+  additionalDocs           String[]
+  operationMode            String? @default("Telehealth visit")
+  hourlyWage               Int @default(100)
+
+  specialityId             String?   @db.ObjectId
+  speciality               Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId                String?   @db.ObjectId
+  service                  Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  availability             Availability[]  // Add this line to establish the relation
+
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime? @updatedAt
 }

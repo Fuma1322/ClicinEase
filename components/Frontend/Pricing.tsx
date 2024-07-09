@@ -1,57 +1,56 @@
-import React from 'react'
+import { Check, HelpCircle } from 'lucide-react';
+import React from 'react';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip"
+import Link from 'next/link';
 
 export default function Pricing() {
-
     const plans = [
         {
-            name: "Free forever",
-            desc: "Ideal for clinics that are starting out",
+            name: "Free Forever",
+            desc: "Ideal for individual practitioners starting out.",
             price: 0,
-            fee: 5,
+            fee:5,
             isMostPop: false,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "Manage up to 50 appointments per month",
+                "Basic patient record management",
+                "Email notifications for appointments"
 
             ],
-            getStarted: "/register?role=CLINIC&plan=free",
+            getStarted:"/register?role=DOCTOR&plan=free",
         },
         {
-            name: "Startup",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 35,
-            fee: 2,
+            name: "Professional",
+            desc: "Perfect for small to medium-sized clinics.",
+            price: 59.9,
+            fee:2,
             isMostPop: true,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "Unlimited appointments",
+                "Advanced patient record management",
+                "SMS reminders for appointments",
+                "Customizable clinic profile",
             ],
+            getStarted:"/register?role=DOCTOR&plan=professional",
         },
         {
             name: "Enterprise",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 60,
+            desc: "Tailored for large healthcare institutions and hospistals.",
+            price: 99,
             fee: 0,
             isMostPop: false,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "All features from the Standard Plan",
+                "Multi-provider support",
+                "Priority customer support",
+                "Integration with electronic health records (EHR) systems",
             ],
+            getStarted:"/register?role=DOCTOR&plan=enterprise",
         },
     ];
 
@@ -59,11 +58,11 @@ export default function Pricing() {
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
                 <div className='relative max-w-xl mx-auto sm:text-center'>
-                    <h3 className='text-gray-800 text-3xl font-semibold sm:text-4xl'>
+                    <h3 className='scroll-m-20 text-4xl dark:text-slate-300 dark:font-extrabold tracking-tight lg:text-5xl text-gray-800 sm:text-4xl'>
                         Pricing for all sizes
                     </h3>
                     <div className='mt-3 max-w-xl'>
-                        <p>
+                        <p className='leading-7 [&:not(:first-child)]:mt-6 dark:text-slate-400'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur consequat nunc.
                         </p>
                     </div>
@@ -78,36 +77,43 @@ export default function Pricing() {
                                     ) : ""
                                 }
                                 <div className="p-8 space-y-4 border-b">
-                                    <span className='text-indigo-600 font-medium'>
+                                    <span className='text-indigo-600 font-bold uppercase tracking-widest '>
                                         {item.name}
                                     </span>
-                                    <div className='text-gray-800 text-3xl font-semibold'>
+                                    <div className='text-gray-800 text-3xl font-semibold dark:text-gray-300'>
                                         ${item.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
                                     </div>
-                                    <p>
+                                    <p className="text-xs" >
                                         {item.desc}
                                     </p>
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
-                                        Get Started
+                                    <div className="flex">
+                                    <p>+5% transaction fee</p>
+                                    <TooltipProvider>
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                    <button>
+                                        <HelpCircle className="w-4 h-4 ms-2" />
                                     </button>
+                                 </TooltipTrigger>
+                                 <TooltipContent className="bg-slate-900 text-white text-xs">
+                                   <p>Paypal/Stripe will charge their regular transaction Fee</p>
+                                 </TooltipContent>
+                               </Tooltip>
+                             </TooltipProvider>
+                                    
+                            </div>
+                              <Link href={item.getStarted} className='px-3 py-3 block text-center rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                                Get Started
+                              </Link>
                                 </div>
                                 <ul className='p-8 space-y-3'>
-                                    <li className="pb-2 text-gray-800 font-medium">
+                                    <li className="pb-2 text-gray-800 font-medium dark:text-gray-500">
                                         <p>Features</p>
                                     </li>
                                     {
                                         item.features.map((featureItem, idx) => (
                                             <li key={idx} className='flex items-center gap-5'>
-                                                <svg
-                                                    xmlns='http://www.w3.org/2000/svg'
-                                                    className='h-5 w-5 text-indigo-600'
-                                                    viewBox='0 0 20 20'
-                                                    fill='currentColor'>
-                                                    <path
-                                                        fill-rule='evenodd'
-                                                        d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                                                        clip-rule='evenodd'></path>
-                                                </svg>
+                                                <Check className='h-5 w-5 text-indigo-600 flex-shrink-0'/>
                                                 {featureItem}
                                             </li>
                                         ))
@@ -120,4 +126,5 @@ export default function Pricing() {
             </div>
         </section>
     );
-};
+}
+

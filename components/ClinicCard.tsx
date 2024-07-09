@@ -1,10 +1,17 @@
+import { User } from '@prisma/client';
 import { Stethoscope, Video } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
-
+export default function ClinicCard({
+  isInPerson=false,
+  clinic 
+}:{
+  isInPerson?:boolean;
+  clinic:User;
+} ) {
+  console.log(clinic)
     const timeStamps =[
         {
             time: "8:30",
@@ -38,10 +45,10 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
   return (
     <div 
      
-    className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
-        <Link href="/clinic/slug">
-        <h2 className='uppercase font-bold text-2xl tracking-widest'>Vijal Patel, PA-C</h2>
-        {isInPerson && (<p className='py-3'>3250 Lincoln Highway, Kendall Pack, NJ 08824</p>)}
+    className='border border-gray-800 bg-black inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
+        <Link href="/details">
+        <h2 className='uppercase font-bold text-2xl tracking-widest'>{clinic.name}</h2>
+        {isInPerson && (<p className='py-3'>Ha Mabote, Maseru</p>)}
         <div className="flex items-center gap-4 py-4">
             <div className="relative">
             <Image 
@@ -51,17 +58,17 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
             alt='nurse' 
             className='w-24 h-24 rounded-full object-cover' 
             />
-             {!isInPerson && (<p className='absolute bottom-0 right-2 bg-blue-200 w-10 h-10 flex items-center justify-center rounded-full 
-             text-blue-700'><Video className='w-6 h-6' />
+             {!isInPerson && (<p className='absolute bottom-0 right-2 w-10 h-10 flex items-center justify-center rounded-full 
+             text-blue-700'>
              </p>)}
             </div>
             <div className="flex flex-col gap-2">
               <p className='flex items-center'>
-                <Stethoscope className='w-4 h-4 mr-2 flex-shrink-0'/>
-                <span>Family Medicine</span>
+                <Stethoscope className='text-red-600 w-4 h-4 mr-2 flex-shrink-0'/>
+                <span>General Health Care</span>
               </p>
-              <p className="bg-green-200 py-3 px-6 uppercase">
-                Available today
+              <p className="bg-gray-700 py-3 px-4 uppercase rounded-md">
+                Open Now
              </p>  
             </div>
         </div>
@@ -69,14 +76,13 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
         <div className="pt-6 border-t border-gray-400">
             <h3 className='flex gap-4 justify-between items-center'>
               <span className='text-gray-600'>Tue, Mar 12</span>{" "}
-              <span className='fond-bold'>$137</span>
         
             </h3>
             <div className="py-3 grid grid-cols-3 gap-2">
                 {
                   timeStamps.slice(0,5).map((item,i)=>{
                     return(
-                    <Link className='bg-blue-600 text-sm text-white p-2 text-center' 
+                    <Link className='bg-sky-500 text-sm text-white p-2 text-center' 
                     key={i} 
                     href="#">
                         {item.time}
@@ -85,7 +91,7 @@ export default function ClinicCard({isInPerson=false }:{isInPerson?:boolean} ) {
                     ); 
                   })        
                 }
-                <Link className='text-[0.7rem] text-center bg-blue-900 text-white py-2 px-3 truncate' 
+                <Link className='text-[0.7rem] text-center bg-sky-600 text-white py-2 px-3 truncate' 
                 href="/clinic/slug">More times</Link>
               </div>
         </div>

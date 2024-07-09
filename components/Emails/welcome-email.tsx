@@ -12,15 +12,15 @@ import {
   Text,
 } from "@react-email/components";
 interface EmailTemplateProps {
-  clinicName?: string;
+  firstName?: string;
   message: string;
-  previewText:string;
+  previewText: string;
 }
  
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
  
 export const WelcomeEmail = ({
-  clinicName = "",
+  firstName = "",
   message,
   previewText
 }: EmailTemplateProps) => (
@@ -37,12 +37,12 @@ export const WelcomeEmail = ({
         />
  
         <Text style={title}>
-          <strong>@{clinicName}</strong>, thank you for Joining Us
+          <strong>@{firstName}</strong>, thank you for Joining Us
         </Text>
  
         <Section style={section}>
           <Text style={text}>
-            Hey <strong>{clinicName}</strong>!
+            Hey <strong>{firstName}</strong>!
           </Text>
           <Text style={text}>{message}</Text>
  

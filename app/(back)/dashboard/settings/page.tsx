@@ -1,10 +1,9 @@
-import Settings from "@/components/Dashboard/Settings/Settings"
-
+import Settings from "@components/Dashboard/Settings/Settings";
 
 export default function Page() {
   return (
-    <div>
-        <Settings />
-    </div>
+   <div className="">
+    <Settings/>
+   </div>
   )
 }

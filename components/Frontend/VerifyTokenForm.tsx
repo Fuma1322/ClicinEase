@@ -8,13 +8,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Loader } from "lucide-react";
-import { updateUserById } from "@/actions/users";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,22 +22,24 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { updateUserById } from "@/actions/users";
+import SubmitButton from "../FormInputs/SubmitButton";
 import { UserRole } from "@prisma/client";
  
 const FormSchema = z.object({
   token: z.string().min(6, {
-    message: "Your Token must be 6 characters.",
+    message: "Your token must be 6 characters.",
   }),
 });
  
 export default function VerifyTokenForm({
   userToken,
   id,
-  role
+  role,
 }: {
   userToken: number | undefined;
   id: string;
-  role: UserRole | undefined
+  role: UserRole | undefined;
 }) {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -64,12 +62,12 @@ export default function VerifyTokenForm({
         setLoading(false);
         // reset();
         toast.success("Account Verified");
-        if (role === "CLINIC") {
-          router.push(`/registry/${id}`);
-        } else {
+        if (role === "DOCTOR") {
+          router.push(`/onboarding/${id}`);
+        }else {
           router.push("/login");
         }
-        //registry page
+        //onboarding page
       } catch (error) {
         setLoading(false);
         console.log(error);
@@ -78,12 +76,12 @@ export default function VerifyTokenForm({
       setShowNotification(true);
       setLoading(false);
     }
-    console.log(userInputToken);
+         console.log(userInputToken);
   }
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 mr-3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         {showNotification && (
           <Alert color="failure" icon={HiInformationCircle}>
             <span className="font-medium">Wrong Token!</span> Please Check the
@@ -111,15 +109,19 @@ export default function VerifyTokenForm({
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 Please enter the 6-figure pass code sent to your email.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
  
-        <Button type="submit">Submit</Button>
+            <SubmitButton 
+              title="Verify Token" 
+              isLoading={loading} 
+              LoadingTitle="Verifying, please wait...."
+              />
       </form>
     </Form>
   );

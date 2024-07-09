@@ -59,7 +59,7 @@ export const EmailTemplate = ({
         </Text>
  
         <Text style={footer}>
-          GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
+          Clinic Ease, Inc. ・03 Machache, Khubetsoana ・Maseru
         </Text>
       </Container>
     </Body>

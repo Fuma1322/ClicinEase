@@ -8,39 +8,36 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Loader } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-//import { UserRole } from "@prisma/client";
-import { Input } from "../ui/input";
-//import Link from "next/link";
-import { getApplicationByTrackingNumber } from "@/actions/registry";
 import SubmitButton from "../FormInputs/SubmitButton";
+import { Input } from "@/components/ui/input";
+import { getApplicationByTrack } from "@/actions/onboarding";
 import { useOnboardingContext } from "@/context/context";
  
 const FormSchema = z.object({
-  trackingNumber: z.string().min(2, {
-    message: "Tracking Number must be at least 10 characters.",
+  token: z.string().min(6, {
+    message: "Your token must be 6 characters.",
   }),
 });
-
  
 export default function TrackingForm() {
-  const {savedDBData, setSavedDBData} = useOnboardingContext()
+  const { setSavedDBData} = useOnboardingContext();
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  
-
   const router = useRouter();
+  const FormSchema = z.object({
+    trackingNumber: z.string().min(2, {
+      message: "Tracking Number must be at least 10 characters.",
+    }),
+  })
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -50,63 +47,62 @@ export default function TrackingForm() {
  
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
-    try {
-      // make request
-      const res = await getApplicationByTrackingNumber(data.trackingNumber)
-      //SAVE THIS TO THE CONTEXT API
-      setSavedDBData(res?.data)
-      if (res?.status===404){
-        setShowNotification(true)
-        setLoading(false)
-      }
-      if (res?.status===200){
-        toast.success("Redirecting you")
+      try {
+       //make request
+       const res = await getApplicationByTrack(data.trackingNumber)
+       //SAVE THIS TO THE CONTEXT API
+        setSavedDBData(res?.data)
+       if(res?.status===404) {
+       setShowNotification(true)
+       setLoading(false)
+       }
+       if(res?.status===200) {
+        toast.success("Redirecting You")
         // setUserId(res.data?.userId!)
         // setPage(res.data?.page!)
-        // setTrackingSuccessful(true)
-        // setShowNotification(true)
+        // setTrackingSuccess(true)
+        router.push(`/onboarding/${res.data?.userId}?page=${res.data?.page}`)
         setLoading(false)
-        router.push(`/registry/${res.data?.userId}?page=${res.data?.page}`)
-        
-      } else {
-        throw new Error("Something went wrong")
+        } else {
+          throw new Error("Something Went Wrong")
+        }
+        //onboarding page
+      } catch (error) {
+        toast.error("Something Went Wrong, Try Again")
+        setLoading(false);
+        console.log(error);
       }
-      //registry page or onboarding
-    } catch (error) {
-      toast.error("Something went wrong, Try Again")
-      setLoading(false);
-      console.log(error);
-    }
-  }
+      }
+  
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mr-3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         {showNotification && (
           <Alert color="failure" icon={HiInformationCircle}>
-            <span className="font-medium">Wrong Traking Number!</span> Please Check the
-            Tracking number and Enter again
+            <span className="font-medium">Wrong Tracking Number!</span> Please Check the
+            nummber and Enter again
           </Alert>
         )}
-       <FormField
+       
+        <FormField
           control={form.control}
           name="trackingNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Tracking Number</FormLabel>
               <FormControl>
-                <Input placeholder="eg. NKBNMPTRPP" {...field} />
+                <Input placeholder="Eg. O2E550EQV1" {...field} />
               </FormControl>
-              <FormDescription>
-                {/* Enter Tracking Number */}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        />
- 
-        <SubmitButton title="Submit to Resume" isLoading={loading}loadingTitle="Fetching please wait..." 
-        />
+        /> 
+            <SubmitButton 
+              title="Submit To Resume" 
+              isLoading={loading} 
+              LoadingTitle="Fetching, please wait...."
+              />
       </form>
     </Form>
   );

@@ -36,7 +36,7 @@ export default function NavBar({session}:{session:Session}) {
   const router = useRouter();
   async function handleLogout() {
     await signOut()
-    router.push("/");
+    router.push("/login");
   }
   const pathName = usePathname()
   const sideBarLinks =[
@@ -131,7 +131,7 @@ export default function NavBar({session}:{session:Session}) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel className='text-center'>{user.name}</DropdownMenuLabel>
+        <DropdownMenuLabel className='text-center font-extrabold uppercase'>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>

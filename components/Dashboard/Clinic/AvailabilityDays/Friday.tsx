@@ -9,9 +9,11 @@ import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 
 export default function Friday({profile,day}:{profile:any,day:string}) {
+  let initialData: string[] = ["7:00 AM"];
+  if (profile && profile?.availability){
+   initialData = profile?.availability[day]|| [];
+  }
   const availability = profile?.availablity || "";
-  const initialData:string[] = profile?.availability[day] || [];
-
   const [selectedTimes, setSelectedTimes]=useState<string[]>(initialData);
   // console.log(selectedTimes);
   function handleAddTime(time:string){
@@ -38,7 +40,7 @@ export default function Friday({profile,day}:{profile:any,day:string}) {
     if (profile?.id && availability?.id){
       const data = {
         friday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id
       };
       await updateAvailabilityById(availability?.id,data);
       setLoading(false)
@@ -48,7 +50,7 @@ export default function Friday({profile,day}:{profile:any,day:string}) {
       // console.log("Id not set")
       const data = {
         friday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id
       };
       await createAvailability(data);
       toast.success("Settings created Successfully")
