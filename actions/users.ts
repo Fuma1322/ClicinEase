@@ -97,7 +97,7 @@ export async function updateUserById(id:string) {
           id
         },
         data:{
-          isVerfied:true,
+          isVerified:true,
         }
       });
       return updatedUser;

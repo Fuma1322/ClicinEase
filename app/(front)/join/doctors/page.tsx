@@ -3,7 +3,6 @@ import CustomAccordion, { FAQItem } from '@/components/Frontend/CustomAccordion'
 import Pricing from '@/components/Frontend/Pricing';
 import { Check } from 'lucide-react';
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
 export default function page() {

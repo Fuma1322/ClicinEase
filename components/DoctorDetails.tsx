@@ -16,8 +16,9 @@ import { Button } from "./ui/button";
 import TextInput from "./FormInputs/TextInput";
 import { getDayFromDate } from "@/utils/getDayFromDate";
 import { getLongDate } from "@/utils/getLongDate";
+import { Appointment } from "@prisma/client";
 
-export default function DoctorDetails({ doctor,appointment}: DoctorDetail, appointment?:Appointment | null) {
+export default function DoctorDetails({ doctor,appointment}: {DoctorDetail: any, appointment?:Appointment | null}) {
   const [isActive, setIsActive] = useState("availability");
   const { data: session } = useSession();
   const patient = session?.user;

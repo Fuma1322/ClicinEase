@@ -46,7 +46,7 @@ export default function ServiceForm({
     data.imageUrl = imageUrl;
     data.slug=slug;
     console.log(data);
-    if (edititingId{
+    if (edititingId) {
       await UpdateService(edititingId, data);
       toast.success("Service Updated Successfully");
     }else {
@@ -109,10 +109,14 @@ async function handleCreateMany(){
             <SubmitButton 
             title={edititingId ? "Update Service" : "Create Service"} 
             isLoading={isLoading} 
-            loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
+            LoadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>
             </form>
         </div>
     );
   }
+
+function UpdateService(edititingId: string, data: ServiceProps) {
+  throw new Error("Function not implemented.");
+}
   

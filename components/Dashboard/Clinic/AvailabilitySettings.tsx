@@ -1,8 +1,9 @@
 "use client"
+
 import React from 'react'
 import { Tabs } from "flowbite-react";
 import Monday from './AvailabilityDays/Monday';
-import { ClinicProfile } from '@prisma/client';
+import { DoctorProfile } from '@prisma/client';
 import Tuesday from './AvailabilityDays/Tuesday';
 import Wednesday from './AvailabilityDays/Wednesday';
 import Thursday from './AvailabilityDays/Thursday';
@@ -11,7 +12,7 @@ import Saturday from './AvailabilityDays/Saturday';
 import Sunday from './AvailabilityDays/Sunday';
 
 
-export default function AvailabilitySettings({profile,}:{profile:ClinicProfile|undefined|null;}) {
+export default function AvailabilitySettings({profile,}:{profile:DoctorProfile|undefined|null;}) {
    console.log(profile);
     const tabs = [
         {

@@ -182,7 +182,7 @@ model DoctorProfile {
   organizationContactNumber String?
   organizationEmailAddress String?
   organizationWebsite      String?
-  organizationHoursOfOperarion Int?
+  organizationHoursOfOperarion String?
   servicesOffered          String[]
   insuranceAccepted        String?
 
