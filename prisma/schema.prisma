@@ -37,12 +37,13 @@ model Session {
 enum UserRole {
   USER
   ADMIN
-  CLINIC
+  DOCTOR
 }
  
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String
+  slug          String @default("slug")
   email         String   @unique
   phone         String
   emailVerified DateTime?
@@ -51,8 +52,9 @@ model User {
   password      String
   accounts      Account[]
   sessions      Session[]
-  clinicProfile ClinicProfile?
-  isVerfied     Boolean   @default(false)
+  symptomsIds   String[]
+  doctorProfile DoctorProfile?
+  isVerified    Boolean   @default(false)
   token         Int
   specialityId         String?   @db.ObjectId
   speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -64,8 +66,8 @@ model User {
 }
 model Availability {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinicProfileId         String   @db.ObjectId @unique
-  clinicProfile           ClinicProfile @relation(fields: [clinicProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfileId         String   @db.ObjectId @unique
+  doctorProfile           DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   monday        String[]
   tuesday       String[]
   wednesday     String[]
@@ -79,18 +81,63 @@ model Availability {
 }
  model Service {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctors        User[]
   title         String
   slug          String @unique
   imageUrl      String
+  doctorProfile DoctorProfile[]
  
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum AppointmentStatus {
+  pending
+  rejected
+  approved
+}
+model Appointment {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentDate DateTime?
+  appointmentFormattedDate String
+  doctorId String?
+  patientId  String?
+  charge Int
+  appointmentTime: String?
+
+  firstName  string;
+  lastName  String?
+  gender String?
+  phone String?
+  email String?
+  dob DateTime?
+  location string?
+  appointmentReason String?
+  medicalDocuments String[]
+  occupation String?
+  status  AppointmentStatus @default(pending)
+  meetingLink String @default("")
+  meetingProvider String @default("zoom")
+
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
  model Speciality {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  clinic        User[]
+  doctor        User[]
+  title         String[]
+  slug          String @unique
+  doctorProfile DoctorProfile[]
+ 
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+ model Symptom {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title         String[]
   slug          String @unique
  
@@ -99,21 +146,54 @@ model Availability {
   updatedAt     DateTime  @updatedAt
 }
 
-model ClinicProfile {
+model DoctorProfile {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  email         String 
-  phone         String 
+  userId        String   @unique @db.ObjectId
+  user          User     @relation(fields: [userId], references:[id], onDelete: Cascade, onUpdate: Cascade)
+  firstName     String
+  lastName      String
+  middleName    String?
+  dob           DateTime?
+  gender        String  
   page          String 
-  address       String 
-  clinicName    String
+  bio            String?
   trackingNumber String @unique 
   profilePicture String?
   availability   Availability?
-  specialization String?
+  medicalLicense String?
+  medicalLicenseExpiry DateTime?
+  yearsOfExperience Int?
+
+  email           String?
+  phone           String?
+  country         String?
+  city            String?
+  state           String?
+  medicalSchool   String?
+  graduationYear  String?
+  primarySpecialization String?
+  otherSpecialties      String[]
+  boardCertificates     String[]
+  hospitalName          String?
+  hospitalAddress       String?
+  hospitalContactNumber String?
+  hospitalEmailAddress  String?
+  hospitalWebsite       String?
+  hospitalHoursOfOperation  String?
+  insuranceAccepted         String?
   servicesOffered String[]
-  clinicHours    Int? 
-  userId         String   @db.ObjectId @unique
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  educationHistory      String?
+  research              String?
+  accomplishments       String?
+  operationMode          String? @default("Telehealth visit")
+  hourlyWage            Int @default(100)
+
+  specialityId         String?   @db.ObjectId
+  speciality           Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId         String?   @db.ObjectId
+  service           Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  
 
  
    

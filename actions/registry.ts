@@ -4,26 +4,28 @@ import WelcomeEmail from "@/components/Emails/welcome-email";
 import { prismaClient } from "@/lib/db";
 import { Resend } from "resend";
 
-export async function createClinicProfile(formdata: any) {
+export async function createDoctorProfile(formdata: any) {
     // const resend = new Resend(process.env.RESEND_API_KEY);
     const { 
-        address, 
-        clinicName, 
-        email, 
+        gender, 
+        firstName,
+        lastName,
+        middleName, 
+        dob, 
         page, 
-        phone, 
         trackingNumber, 
         userId
         
     } = formdata;
     try {
-        const newProfile = await prismaClient.clinicProfile.create({
+        const newProfile = await prismaClient.doctorProfile.create({
             data: {
-                address, 
-                clinicName, 
-                email, 
+                gender, 
+                firstName,
+                lastName,
+                middleName, 
+                dob, 
                 page, 
-                phone, 
                 trackingNumber, 
                 userId
             },
@@ -43,9 +45,9 @@ export async function createClinicProfile(formdata: any) {
         };
     }
 }
-export async function updateClinicProfile(id:string|undefined,data:any){
+export async function updateDoctorProfile(id:string|undefined,data:any){
     try{
-        const updatedProfile = await prismaClient.clinicProfile.update({
+        const updatedProfile = await prismaClient.doctorProfile.update({
             where:{
                 id,
             },
@@ -70,7 +72,7 @@ export async function updateClinicProfile(id:string|undefined,data:any){
 export async function getApplicationByTrackingNumber(trackingNumber: string) {
     if (trackingNumber) {
         try {
-            const existingProfile = await prismaClient.clinicProfile.findUnique({
+            const existingProfile = await prismaClient.doctorProfile.findUnique({
                 where: {
                     trackingNumber,
                 },
@@ -97,10 +99,10 @@ export async function getApplicationByTrackingNumber(trackingNumber: string) {
         }
     }
 }
-export async function getClinicProfileById(userId: string | undefined) {
+export async function getDoctorProfileById(userId: string | undefined) {
     if (userId){
         try {
-            const profile = await prismaClient.clinicProfile.findUnique({
+            const profile = await prismaClient.doctorProfile.findUnique({
                 where: {
                     userId,
                 },
@@ -168,7 +170,7 @@ export async function updateAvailabilityById(id: string |undefined, data:any ) {
         const resend = new Resend(process.env.RESEND_API_KEY);
         if (id){
             try{
-                const existingProfile = await prismaClient.clinicProfile.findUnique({
+                const existingProfile = await prismaClient.doctorProfile.findUnique({
                     where:{
                         id,
                     }
@@ -182,7 +184,7 @@ export async function updateAvailabilityById(id: string |undefined, data:any ) {
 
                 }
                 // send welcome email
-                const clinicName = existingProfile.clinicName;
+                const firstName = existingProfile.firstName;
                 const email = existingProfile.email
                 const previewText = "Welcome to ClinicEase";
                 const message =
@@ -191,9 +193,9 @@ export async function updateAvailabilityById(id: string |undefined, data:any ) {
                 from: "ClinicEase <bookings@clinicease.tech>",
                 to: email,
                 subject: "Welcome to ClinicEase",
-                react: WelcomeEmail({ clinicName,previewText, message }),
+                react: WelcomeEmail({ firstName,previewText, message }),
      });
-                const updatedProfile = await prismaClient.clinicProfile.update({
+                const updatedProfile = await prismaClient.doctorProfile.update({
                     where:{
                         id,
                     },

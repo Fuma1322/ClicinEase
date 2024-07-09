@@ -9,9 +9,11 @@ import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 
 export default function Saturday({profile,day}:{profile:any,day:string}) {
-  const availability = profile?.availablity || "";
-  const initialData:string[] = profile?.availability[day] || [];
-  
+  let initialData: string[] = ["7:00 AM"];
+  if (profile && profile?.availability){
+   initialData = profile?.availability[day]|| [];
+  }
+  const availability = profile?.availablity || "";  
   const [selectedTimes, setSelectedTimes]=useState<string[]>(initialData);
   // console.log(selectedTimes);
   function handleAddTime(time:string){
@@ -33,31 +35,31 @@ export default function Saturday({profile,day}:{profile:any,day:string}) {
     setSelectedTimes([]);
   }
   async function handleSubmit() {
-    setLoading(true)
+    setLoading(true);
    try {
     if (profile?.id && availability?.id){
       const data = {
         saturday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id,
       };
       await updateAvailabilityById(availability?.id,data);
-      setLoading(false)
-      toast.success("Settings Updated Successfully")
+      setLoading(false);
+      toast.success("Settings Updated Successfully");
       // console.log(data);
      } else if (profile?.id){
       // console.log("Id not set")
       const data = {
         saturday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id,
       };
       await createAvailability(data);
-      toast.success("Settings created Successfully")
-      setLoading(false)
+      toast.success("Settings created Successfully");
+      setLoading(false);
      } else {
       // console.log("Profile id not set")
      }
    } catch (error) {
-    setLoading(false)
+    setLoading(false);
     console.log(error);
    }
   }

@@ -1,13 +1,26 @@
+import { getClinics } from '@/actions/users'
+import DoctorList from '@/components/DoctorList'
 import Accordion from '@/components/Frontend/FAQ'
 import Footer from '@/components/Frontend/Footer'
 import Hero from '@/components/Frontend/Hero'
 
-export default function Home() {
-  return (
-<div className='bg-black'>
+export default async function Home() {
+  const doctors = await getDoctors() || [];
+  const telhealthDoctors = doctors.filter(
+  (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
+  );
+  const inpersonDoctors = doctors.filter(
+    (doctor) => doctor.doctorProfile?.operationMode === "In-person visit"
+  );
+  console.log(inpersonDoctors)
+  return ( 
+    <section className="">
     <Hero />
-    <Accordion />
-    <Footer />
-    </div>
+    <DoctorList doctors={telhealthDoctors}/>
+    <DoctorList className="bg-blue-50 dark:bg-slate-900 py-8 lg:py-24"
+     title="In-person doctor visit" 
+     isInPerson={true}
+     doctors={telhealthDoctors}/>
+    </section>
   )
 }

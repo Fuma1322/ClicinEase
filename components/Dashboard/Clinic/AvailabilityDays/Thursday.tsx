@@ -9,15 +9,16 @@ import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 
 export default function Thursday({profile,day}:{profile:any,day:string}) {
+  let initialData: string[] = ["7:00 AM"];
+  if (profile && profile?.availability){
+   initialData = profile?.availability[day]|| [];
+  }
   const availability = profile?.availablity || "";
-  const initialData:string[] = profile?.availability[day] || [];
-  console.log(profile)
-
   const [selectedTimes, setSelectedTimes]=useState<string[]>(initialData);
   // console.log(selectedTimes);
   function handleAddTime(time:string){
     if (!selectedTimes.includes(time)){
-      setSelectedTimes((prevTimes)=>[...prevTimes,time])
+      setSelectedTimes((prevTimes)=>[...prevTimes,time]);
     }else {
       toast.error(`${time} Already Added!`);
     }
@@ -25,7 +26,7 @@ export default function Thursday({profile,day}:{profile:any,day:string}) {
   }
   function handleRemoveTime(index:number){
     const updatedTimes = selectedTimes.filter((_,i)=>i!==index)
-    setSelectedTimes(updatedTimes)
+    setSelectedTimes(updatedTimes);
   }
   function handleAddAll(){
     setSelectedTimes([...timesArray]);
@@ -34,31 +35,31 @@ export default function Thursday({profile,day}:{profile:any,day:string}) {
     setSelectedTimes([]);
   }
   async function handleSubmit() {
-    setLoading(true)
+    setLoading(true);
    try {
     if (profile?.id && availability?.id){
       const data = {
         thursday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id,
       };
       await updateAvailabilityById(availability?.id,data);
-      setLoading(false)
-      toast.success("Settings Updated Successfully")
+      setLoading(false);
+      toast.success("Settings Updated Successfully");
       // console.log(data);
      } else if (profile?.id){
       // console.log("Id not set")
       const data = {
         thursday: selectedTimes,
-        clinicProfileId: profile.id
+        doctorProfileId: profile.id,
       };
       await createAvailability(data);
-      toast.success("Settings created Successfully")
-      setLoading(false)
+      toast.success("Settings Updated Successfully");
+      setLoading(false);
      } else {
       // console.log("Profile id not set")
      }
    } catch (error) {
-    setLoading(false)
+    setLoading(false);
     console.log(error);
    }
   }

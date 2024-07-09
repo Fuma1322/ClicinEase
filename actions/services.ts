@@ -2,6 +2,7 @@
 
 import { prismaClient } from "@/lib/db";
 import { ServiceProps } from "@/types/types";
+import { error } from "console";
 import { revalidatePath } from "next/cache";
 
 
@@ -66,7 +67,7 @@ export async function getServices() {
     };
     }
 }
-export async function createManyService() {
+export async function createManyServices() {
    
     try {
         const services = [
@@ -104,4 +105,34 @@ export async function createManyService() {
             error,
         };
     }
+}
+
+export async function updateDoctorProfileWithService(
+    id: string | undefined,
+    data:any
+) {
+    if (id) {
+        try {
+        const updatedProfile = await prismaClient.doctorProfile.update({
+            where: {
+                id,
+            },
+            data,
+        });
+        console.log(updatedProfile);
+        revalidatePath("/dashboard/doctor/settings");
+        return {
+            data: updatedProfile,
+            status: 201,
+            error: null,
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            data: null,
+            status:500,
+            error: "Profile was not updated",
+        };
+    }
+}
 }
