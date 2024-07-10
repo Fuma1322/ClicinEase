@@ -131,7 +131,8 @@ model Speciality {
   doctor        User[]
   title         String[]
   slug          String @unique
-  doctorProfile DoctorProfile[]
+  doctorProfileId String? @db.ObjectId
+  doctorProfile DoctorProfile? @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -141,7 +142,8 @@ model Symptom {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title         String[]
   slug          String @unique
-  doctorProfile DoctorProfile[]
+  doctorProfileId String? @db.ObjectId
+  doctorProfile DoctorProfile? @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
