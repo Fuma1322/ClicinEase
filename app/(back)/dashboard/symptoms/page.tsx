@@ -1,4 +1,4 @@
-import { getSymptoms } from "@/actions/specialities";
+// import { getSymptoms } from "@/actions/specialities";
 import NewButton from '@/components/Dashboard/Clinic/NewButton'
 import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
