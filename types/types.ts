@@ -1,9 +1,11 @@
 // import { doctorProfile, UserRole } from '@prisma/client';
 
+import { AppointmentStatus } from "@prisma/client";
+
 
 export type ServiceProps={
     title:string;
-    image:string; 
+    imageUrl:string; 
     slug:string;
 }
 

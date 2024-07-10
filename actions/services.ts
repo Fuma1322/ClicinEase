@@ -2,7 +2,6 @@
 
 import { prismaClient } from "@/lib/db";
 import { ServiceProps } from "@/types/types";
-import { error } from "console";
 import { revalidatePath } from "next/cache";
 
 
