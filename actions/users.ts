@@ -185,10 +185,10 @@ export async function getDoctorBySlug(slug:string){
               organizationContactNumber: true,
               organizationEmailAddress: true,
               organizationWebsite: true,
-              organizationHoursOfOperation: true,
+              // organizationHoursOfOperation: true,
               servicesOffered:true,
               insuranceAccepted:true,
-              educatioHistory:true,
+              educationHistory:true,
               research: true,
               accomplishments:true
 
