@@ -1,5 +1,5 @@
 import { getServices } from '@/actions/services'
-import { getSpecialities } from "@/actions/specialities";
+// import { getSpecialities } from "@/actions/specialities";
 import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel'
 import NewButton from '@/components/Dashboard/Clinic/NewButton'
 import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
