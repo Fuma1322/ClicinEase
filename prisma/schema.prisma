@@ -57,7 +57,8 @@ model User {
   isVerified    Boolean   @default(false)
   token         Int
   specialityId  String?   @db.ObjectId
-  speciality    Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  speciality    Speciality? @relation(fields: [specialityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   serviceId     String?   @db.ObjectId
   service       Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -131,8 +132,7 @@ model Speciality {
   doctor        User[]
   title         String[]
   slug          String @unique
-  doctorProfileId String? @db.ObjectId
-  doctorProfile DoctorProfile? @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfile DoctorProfile[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -196,8 +196,9 @@ model DoctorProfile {
   operationMode            String? @default("Telehealth visit")
   hourlyWage               Int @default(100)
 
-  specialityId             String?   @db.ObjectId
+ specialityId             String?   @db.ObjectId
   speciality               Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
   serviceId                String?   @db.ObjectId
   service                  Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   symptomIds               String[]   @db.ObjectId
