@@ -38,7 +38,6 @@ export async function createUser (formdata:RegisterInputProps) {
         phone,
         password: hashedPassword,
         role,
-        plan,
         token: userToken,
       },
     });
