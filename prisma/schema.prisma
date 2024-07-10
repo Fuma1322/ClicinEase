@@ -142,8 +142,7 @@ model Symptom {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title         String[]
   slug          String @unique
-  doctorProfileId String? @db.ObjectId
-  doctorProfile DoctorProfile? @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfile DoctorProfile[] @relation(fields: [symptomIds], references: [id])
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -201,8 +200,8 @@ model DoctorProfile {
 
   serviceId                String?   @db.ObjectId
   service                  Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  symptomIds               String[]   @db.ObjectId
-  symptom                  Symptom[] @relation(fields: [symptomIds], references: [id])
+  symptomIds               String[] @db.ObjectId
+  symptom                  Symptom[]
 
   availability             Availability[]  // Add this line to establish the relation
 
