@@ -5,7 +5,6 @@ import { RegisterInputProps } from "@/types/types";
 import bcrypt from "bcrypt";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/Emails/emailstemplate";
-import generateSlug from "@/utils/generateSlug";
 
 export async function createUser (formdata:RegisterInputProps) {
     const resend = new Resend(process.env.RESEND_API_KEY);

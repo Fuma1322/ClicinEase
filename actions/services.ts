@@ -73,25 +73,29 @@ export async function createManyServices() {
             {
                 title: "UTI Consult",
                 slug: "uti-consult",
+                imageUrl: "",
     
             },
             {
                 title: "video prescription refill",
                 slug: "video-refill",
+                imageUrl: "",
             },
             {
                 title: "In person clinic visit",
                 slug: "in-person-visit",
+                imageUrl: "",
     
             },
             {
                 title: "Mental Health Consult",
                 slug: "mental-health-consult",
+                imageUrl: "",
             },
         ];
         for (const service of services) {
             try {
-                await createService(services);
+                await createService(service);
             } catch (error) {
                 console.log(`Error creating service "${service.title}":`, error);
             }
