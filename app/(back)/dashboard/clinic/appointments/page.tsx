@@ -12,9 +12,9 @@ export default function page() {
       
        <div className="grid grid-cols-12">
        <div className="col-span-4 py-3 border-r border-gray-100">
-        <PannelHeader title='Appointments' count="11" icon={Calendar}/>
+        <PannelHeader title='Appointments' count={appointments.length} icon={Calendar}/>
        <div className="px-3">
-       <ListPannel/>
+       <ListPannel appointments={[]} role={''}/>
        </div>
        </div>
         <div className="col-span-8">
@@ -23,7 +23,7 @@ export default function page() {
                     <NewButton title='New Apointment' href='#'/>
       </div>
     </div>
-          <DisplayPannel/>
+          <DisplayPannel count={0} newAppointmentLink={''} title={''}/>
         </div>
        </div>
         
