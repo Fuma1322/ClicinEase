@@ -1,22 +1,18 @@
 import { getAppointmentById } from '@/actions/appointments'
-import UpdatedAppointmentForm from '@/components/Dashboard/Clinic/UpdatedApointmentForm';
-import { Button } from '@/components/ui/button';
-import { Calendar } from 'lucide-react';
-import Link from 'next/link';
 import React from 'react'
 
 export default async function page({ params }: { params: { id: string } })  {
   const appointment = await getAppointmentById(params.id);
 
-    // State variables and handlers
-    const [price, setPrice] = React.useState<number>(100); // Default price
-    const [savingPrice, setSavingPrice] = React.useState<boolean>(false);
+    // // State variables and handlers
+    // const [price, setPrice] = React.useState<number>(100); // Default price
+    // const [savingPrice, setSavingPrice] = React.useState<boolean>(false);
   
-    const handleUpdatePrice = async () => {
-      setSavingPrice(true);
-      // Perform price update logic here
-      setSavingPrice(false);
-    };
+    // const handleUpdatePrice = async () => {
+    //   setSavingPrice(true);
+    //   // Perform price update logic here
+    //   setSavingPrice(false);
+    // };
     
   
   return (
