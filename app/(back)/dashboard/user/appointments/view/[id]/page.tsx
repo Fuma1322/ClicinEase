@@ -5,8 +5,8 @@ import { Mail, Phone, Video } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
-export default async function page({params:{id}:{params:{id:string}}}) {
-  const appointment = await getAppointmentById(id);
+export default async function page({ params }: { params: { id: string } }) {
+  const appointment = await getAppointmentById(params.id);
   return (
   <div className="">
     <div className="flex items-center justify-between px-4 py-4 border-b">

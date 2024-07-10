@@ -1,6 +1,5 @@
 import { ServiceProps } from '@/types/types'
-import { Briefcase, Dot, Link, Pencil, Trash } from 'lucide-react'
-import Image from 'next/image'
+import { Link, Pencil, Trash } from 'lucide-react'
 import React from 'react'
 
 export default function ServiceCard({service}:{service:ServiceProps}) {

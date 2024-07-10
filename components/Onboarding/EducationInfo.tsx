@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { StepFormProps } from "./BioDataForm";
 import ArrayItemsInput from "../FormInputs/ArrayItemsInput";
 import SelectInput from "../FormInputs/SelectInput";
-import MultipleFile, { File } from "../FormInputs/MultipleFile";
+import MultipleFile from "../FormInputs/MultipleFile";
 import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
 import { useOnboardingContext } from "@/context/context";
@@ -57,7 +57,7 @@ const router = useRouter();
   async function onSubmit (data: EducationFormProps){
     data.page = page;
     data.otherSpecialities = otherSpecialities;
-    data.docCertificates = docs.map((doc) => doc.url);
+    data.docCertificates = docs.map((doc: any) => doc.url);
     console.log(data);
     setIsLoading(true); 
   
@@ -123,7 +123,7 @@ const router = useRouter();
               />
               <MultipleFile 
               label="Upload Your Academic Documents (Max of 4 docs)" 
-              files={docs} 
+              files={docs as any} 
               setFiles={setDocs}
               endpoint="doctorProfessionDocs"
               />

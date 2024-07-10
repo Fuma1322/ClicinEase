@@ -6,7 +6,7 @@ import SubmitButton from "../FormInputs/SubmitButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TextAreaInput } from "../FormInputs/TextAreaInput";
-import MultipleFile, { File } from "../FormInputs/MultipleFile";
+import MultipleFile from "../FormInputs/MultipleFile";
 import { StepFormProps } from "./BioDataForm";
 import { completeProfile, updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
@@ -41,7 +41,7 @@ const router = useRouter()
 
   async function onSubmit (data: AdditionalFormProps){
     data.page = page;
-    data.additionalDocs = additionalDocs.map((docs) =>docs.url);
+    data.additionalDocs = additionalDocs.map((docs: any) =>docs.url);
     console.log(data);
     setIsLoading(true); 
 
@@ -103,7 +103,7 @@ const router = useRouter()
              />
              <MultipleFile 
               label="Upload Any Additional Documents (CV, Medical Certifications, etc.)" 
-              files={additionalDocs} 
+              files={additionalDocs as any} 
               setFiles={setAdditionalDocs}
               endpoint="additionalDocs"
               />

@@ -1,6 +1,6 @@
 "use client"
 
-import { BioDataFormProps, ProfileFormProps } from "@/types/types";
+import { ProfileFormProps } from "@/types/types";
 import {useForm} from "react-hook-form"
 import TextInputs from "../FormInputs/TextInput";
 import SubmitButton from "../FormInputs/SubmitButton";

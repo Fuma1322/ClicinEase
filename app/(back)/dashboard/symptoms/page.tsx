@@ -1,14 +1,13 @@
-import { getServices } from '@/actions/services'
-import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel'
+import { getSymptoms } from "@/actions/specialities";
 import NewButton from '@/components/Dashboard/Clinic/NewButton'
 import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { LayoutGrid, LayoutGridIcon } from 'lucide-react'
+import { Activity, LayoutGrid } from 'lucide-react'
 import React from 'react'
 
 export default async function page() {
-  const services = (await getServices()).data || [];
+  const symptoms = (await getSymptoms()).data || [];
   return (
     <div>
       
@@ -16,18 +15,18 @@ export default async function page() {
        <div className="lg:col-span-4 col-span-full py-3 border-r border-gray-100">
         <div className="flex items-center justify-between">
         <PannelHeader 
-         title='Services' 
-         count={services.length} 
-         icon={LayoutGridIcon}
+         title='Symptoms' 
+         count={symptoms.length} 
+         icon={Activity}
         />
         <div className="lg:hidden">
-        <NewButton title='New Services' href='/dashboard/services/new'/>
+        <NewButton title='New Symptoms' href='/dashboard/symptoms/new'/>
         </div>
         </div>
        <div className="px-3">
        <ScrollArea className="h-96 w-full">
-            {services.map((service) => (
-                <ServiceCard  key={service.title} service={service}/>
+            {symptoms.map((symptoms) => (
+                <ServiceCard  key={symptoms.title} symptoms={symptoms}/>
             ))}
         </ScrollArea>
        </div>
@@ -35,7 +34,7 @@ export default async function page() {
         <div className="lg:col-span-8 col-span-full hidden lg:block">
             <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
                 <div className="flex items-center gap-4">
-                    <NewButton title='New Services' href='/dashboard/services/new'/>
+                    <NewButton title='New Symptoms' href='/dashboard/symptoms/new'/>
       </div>
     </div>
     <div className="flex h-1/2 items-center justify-center">
@@ -43,9 +42,9 @@ export default async function page() {
             <LayoutGrid/>
             <div className="py-3">
                 {" "}
-            <p>You have {services.length.toString().padStart(2,"0")}{" "} Services today.</p>
+            <p>You have {symptoms.length.toString().padStart(2,"0")}{" "} Symptoms today.</p>
             </div>
-            <NewButton title='New Service' href="/dashboard/services/new"/>
+            <NewButton title='New Symptoms' href="/dashboard/symptoms/new"/>
         </div>
     </div>
         </div>

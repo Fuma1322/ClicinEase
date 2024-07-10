@@ -12,8 +12,11 @@ import Saturday from './AvailabilityDays/Saturday';
 import Sunday from './AvailabilityDays/Sunday';
 
 
-export default function AvailabilitySettings({profile,}:{profile:DoctorProfile|undefined|null;}) {
-   console.log(profile);
+export default function AvailabilitySettings({
+   profile,
+}:{
+   profile:DoctorProfile|undefined|null;
+}) {
     const tabs = [
         {
            title: "Monday",

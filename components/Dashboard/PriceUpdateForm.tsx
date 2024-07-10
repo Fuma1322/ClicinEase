@@ -5,7 +5,6 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";

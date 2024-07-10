@@ -77,7 +77,7 @@ export async function getAppointments() {
     try {
         const appointments = await prismaClient.appointment.findMany({
         orderBy: {
-            createAt: "desc",
+            createdAt: "desc",
         },
         });
         return {
