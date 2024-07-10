@@ -205,7 +205,7 @@ export async function getDoctorAppointments(doctorId:string) {
     }
 }
 
-export async function updateAppointmentById(id:string,data:AppointmentUpdateProps) {
+export async function updateAppointmentById(id:string,data:AppointmentProps) {
     try {
         const updateAppointment = await prismaClient.appointment.update({
             where: {
