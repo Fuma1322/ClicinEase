@@ -3,6 +3,7 @@
 import NewAppointmentEmail from "@/components/Emails/new-appointment";
 import { prismaClient } from "@/lib/db";
 import { AppointmentProps, ServiceProps } from "@/types/types";
+import { Appointment } from "@prisma/client";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
@@ -183,7 +184,7 @@ export async function getDoctorAppointments(doctorId:string) {
     try {
         const appointments = await prismaClient.appointment.findMany({
         orderBy: {
-            createAt: "desc",
+            createdAt: "desc",
         },
         where:{
             doctorId
