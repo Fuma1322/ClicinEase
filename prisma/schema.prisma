@@ -141,7 +141,7 @@ model Symptom {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   title         String[]
   slug          String @unique
-  doctorProfiles DoctorProfile[] @relation("DoctorSymptom", references: [id])
+  doctorProfile DoctorProfile[] @relation("DoctorSymptom", references: [id])
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
