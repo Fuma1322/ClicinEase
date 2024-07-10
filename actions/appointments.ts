@@ -136,7 +136,7 @@ export async function getPatientAppointments(patientId:string) {
     try {
         const appointments = await prismaClient.appointment.findMany({
         orderBy: {
-            createAt: "desc",
+            createdAt: "desc",
         },
         where:{
             patientId
