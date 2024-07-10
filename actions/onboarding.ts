@@ -192,4 +192,29 @@ export async function updateDoctorProfile(id:string | undefined, data: any) {
                 }
             }
             }
+
+            export async function getDoctorProfileById(id:string | undefined) {
+              if (id) {
+                try {
+                  const profile = await prismaClient.doctorProfile.findUnique({
+                    where: {
+                      id,
+                    },
+                  });
+                  console.log(profile);
+                  return {
+                      data: profile,
+                      status: 201,
+                      error: null,
+                  };
+                } catch (error) {
+                  return {
+                      data: null,
+                      status: 500,
+                      error: "Profile was not fetched."
+                  };
+                  console.log(error)
+                }
+              }
+            }
    

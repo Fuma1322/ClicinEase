@@ -43,7 +43,7 @@ export default function PriceUpdateForm({
     data.imageUrl = imageUrl;
     data.slug=slug;
     console.log(data);
-    if (edititingId{
+    if (edititingId) {
       await UpdateService(edititingId, data);
       toast.success("Speciality Updated Successfully");
     }else {

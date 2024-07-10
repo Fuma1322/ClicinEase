@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 // import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from '@components/ui/button';
+import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 //import GeneralSettings from "./GeneralSettings";
 const GeneralSettings = dynamic(() => import("./GeneralSettings"), { ssr: false });
