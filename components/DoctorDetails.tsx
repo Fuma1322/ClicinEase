@@ -18,7 +18,14 @@ import { getDayFromDate } from "@/utils/getDayFromDate";
 import { getLongDate } from "@/utils/getLongDate";
 import { Appointment } from "@prisma/client";
 
-export default function DoctorDetails({ doctor,appointment}: {DoctorDetail: any, appointment?:Appointment | null}) {
+export default function DoctorDetails({ 
+  doctor,
+  appointment
+}: {
+  doctor: DoctorDetail; 
+  appointment: Appointment | null
+}) {
+
   const [isActive, setIsActive] = useState("availability");
   const { data: session } = useSession();
   const patient = session?.user;
@@ -28,7 +35,7 @@ export default function DoctorDetails({ doctor,appointment}: {DoctorDetail: any,
   const longDate = getLongDate(date!.toDateString());
   const [dob, setDob] = useState<Date | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const times = doctor.doctoProfile?.availability?.[day] ?? null;
+  const times = doctor.doctorProfile?.availability?.[day] ?? null;
   const [medicalDocs, setMedicalDocs] = useState<File[]>([]);
   const { register, handleSubmit, formState: { errors } } = useForm<AppointmentProps>({
     defaultValues: {

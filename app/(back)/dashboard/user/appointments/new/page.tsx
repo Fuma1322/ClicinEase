@@ -1,6 +1,5 @@
 import { getDoctors } from '@/actions/users'
 import DoctorCard from '@/components/DoctorCard';
-import DoctorList from '@/components/DoctorList'
 
 
 export default async function NewAppointment() {
@@ -8,7 +7,7 @@ export default async function NewAppointment() {
   const telhealthDoctors = doctors.filter(
   (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
   );
-  const inpersonDoctors = doctor.filter(
+  const inpersonDoctors = doctors.filter(
     (doctor) => doctor.doctorProfile?.operationMode === "In-person visit"
   );
   console.log(inpersonDoctors)

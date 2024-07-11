@@ -9,10 +9,12 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function DoctorCard({
-  isInPerson=false,doctor }:{
+  isInPerson=false,
+  doctor, 
+}:{
     isInPerson?:boolean;
-    doctor:Doctor
-  } ) {
+    doctor:Doctor;
+  }) {
    
     const today: keyof DoctorProfileAvailability = getDayName();
     const times = doctor.doctorProfile?.availability?.[today] ?? null;

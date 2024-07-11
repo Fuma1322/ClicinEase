@@ -15,8 +15,8 @@ export default function DoctorList({
 }: {
   title?:string;
   isInPerson?:boolean;
-  className?:string
-  doctors: User[]
+  className?:string;
+  doctors: User[];
 }) {
   return (
     <div className={className} >

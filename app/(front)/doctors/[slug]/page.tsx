@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import ClinicDetails from '@/components/DoctorDetails'
 import {getDoctorBySlug} from "@/actions/users"
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getAppointmentsByPatientId } from '@/actions/appointments';
 import DoctorDetails from '@/components/DoctorDetails';
 import FixedBookButton from '@/components/FixedBookButton';
+import { Appointment } from '@prisma/client';
 
 export default async function page({
   params: { slug },
@@ -31,15 +31,15 @@ export default async function page({
             <p className='text-gray-500 text-xs uppercase '>Adult Health</p>
             </div>
             <div className="py-3">
-            <p>{doctor.doctorProfile?.opertionMode}</p>
+            <p>{doctor.doctorProfile?.operationMode}</p>
             <p>{doctor.doctorProfile?.state},{" "}
                 {doctor.doctorProfile?.city},{" "}
-                {doctor.doctroProfile?.country}
+                {doctor.doctorProfile?.country}
             </p>
             </div>
               </div>
               <Image 
-            src={doctor.doctorProfile?.doctorPicture ?? "/doc-profile.jpeg"} 
+            src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"} 
             width={243} 
             height={207}  
             alt="Doctor"

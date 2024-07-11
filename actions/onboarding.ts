@@ -193,13 +193,16 @@ export async function updateDoctorProfile(id:string | undefined, data: any) {
             }
             }
 
-            export async function getDoctorProfileById(id:string | undefined) {
-              if (id) {
+            export async function getDoctorProfileById(userId:string | undefined) {
+              if (userId) {
                 try {
                   const profile = await prismaClient.doctorProfile.findUnique({
                     where: {
-                      id,
+                      userId,
                     },
+                    include : {
+                      availability : true,
+                    }
                   });
                   console.log(profile);
                   return {

@@ -1,13 +1,8 @@
-import { getAppointments, getPatientAppointments } from '@/actions/appointments'
-import Appointments from '@/components/Dashboard/Appointments/Appointments'
-import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel'
-import ListPannel from '@/components/Dashboard/Clinic/ListPannel'
-import NewButton from '@/components/Dashboard/Clinic/NewButton'
-import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
+import { getPatientAppointments } from '@/actions/appointments'
+import DisplayPannel from '@/components/Dashboard/Doctor/DisplayPannel'
+import NewButton from '@/components/Dashboard/Doctor/NewButton'
 import NotAuthorised from '@/components/NotAuthorised'
 import { authOptions } from '@/lib/auth'
-import { count } from 'console'
-import { Calendar } from 'lucide-react'
 import { getServerSession } from 'next-auth'
 import React from 'react'
 
@@ -24,10 +19,13 @@ export default async function page() {
     <div>
          <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
                 <div className="flex items-center gap-4">
-                    <NewButton title='New Appointment' href="/dashboard/user/appointments/new"/>
-        </div> 
-    </div>
-          <DisplayPannel title="Appointment" newAppointmentLink="/dashboard/user/appointments/new" count={appointments.length}/>  
+                  <NewButton title='New Appointment' href="/dashboard/user/appointments/new"/>
+                </div> 
+          </div>
+          <DisplayPannel 
+          title="Appointment" 
+          newAppointmentLink="/dashboard/user/appointments/new" 
+          count={appointments.length}/>  
     </div>
   );
 }

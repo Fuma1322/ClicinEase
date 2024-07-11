@@ -1,8 +1,7 @@
 import { getServices } from '@/actions/services'
+import NewButton from '@/components/Dashboard/Doctor/NewButton'
+import PannelHeader from '@/components/Dashboard/Doctor/PannelHeader'
 // import { getSpecialities } from "@/actions/specialities";
-import DisplayPannel from '@/components/Dashboard/Clinic/DisplayPannel'
-import NewButton from '@/components/Dashboard/Clinic/NewButton'
-import PannelHeader from '@/components/Dashboard/Clinic/PannelHeader'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Anvil, LayoutGrid, LayoutGridIcon } from 'lucide-react'
