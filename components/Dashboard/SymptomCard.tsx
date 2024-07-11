@@ -1,10 +1,10 @@
 "use client"
-import { ServiceProps } from '@/types/types'
+
 import { Link, Pencil, Trash } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-import toast from 'react-hot-toast'
-import { DeletePopup } from './DeletePopup'
+import { SpecialityProps } from './SpecialityForm'
+import { toast } from 'react-hot-toast'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,9 +17,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-export default function ServiceCard({service}:{service:Service}) {  //Service here comes from prisma
+export default function SymptomCard({
+  speciality,
+}:{
+  speciality: Speciality; //Speciality here comes from prisma
+}) {
   async function handleDelete(id:string) {
-    await deleteService(id)
+    await deleteSpeciality(id)
     toast.success("Speciality Deleted Successfully")
   }
   return (
@@ -28,17 +32,10 @@ export default function ServiceCard({service}:{service:Service}) {  //Service he
     py-3 px-4 w-full rounded-md dark:text-slate-900 flex items-center gap-4 justify-between'
   >
     <div className="flex items-center gap-3">
-    <Image 
-    src={service.imageUrl}
-    width={512}
-    height={512}
-    alt={service.title}
-    className="w-14 h-auto"
-    />
-    <h2>{service.title}</h2>
+    <h2>{speciality.title}</h2>
     </div>
     <div className="flex">
-        <Link className='text-blue-600' href={`/dashboard/services/update/${service.slug}`}>
+        <Link className='text-blue-600' href={`/dashboard/services/update/${speciality.slug}`}>
             <Pencil className='w-4 h-4'/>
         </Link>
         <AlertDialog>
@@ -49,15 +46,15 @@ export default function ServiceCard({service}:{service:Service}) {  //Service he
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle className="text-red-600" >Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your
-              Service
+              Speciality
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={()=>handleDelete(service.id)}>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={()=>handleDelete(speciality.id)}>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
