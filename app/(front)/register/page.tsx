@@ -12,7 +12,7 @@ export default function page({
   console.log(role, plan);
   return (
     <div className="">
-      <RegisterWithbBg/>  
+      <RegisterWithbBg role={role} plan={plan} />  
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { prismaClient } from "@/lib/db";
 
 export async function createUser (formdata:RegisterInputProps) {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { fullName, email, phone, password, role, plan } = formdata;
+    const { fullName, email, role, phone, password, plan} = formdata;
     try {
         const existingUser = await prismaClient.user.findUnique({
             where: {
@@ -49,7 +49,7 @@ export async function createUser (formdata:RegisterInputProps) {
      const message =
        "Thank you for registering with Clinicease. To complete your registration and verify your email address, please enter the following 6-digit verification code on our website :";
      const sendMail = await resend.emails.send({
-       from: "ClinicEase <clinic-ease.vercel.app>",
+       from: "ClinicEase <booking@clinicease.tech>",
        to: email,
        subject: "Verify Your Email Address",
        react: EmailTemplate({ firstName, token, linkText, message }),
@@ -62,7 +62,6 @@ export async function createUser (formdata:RegisterInputProps) {
         error: null,
         status: 200,
       };
-        // return data;
     } catch (error) {
         console.log(error)
         return {

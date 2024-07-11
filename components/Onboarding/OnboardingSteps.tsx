@@ -6,6 +6,7 @@ import React from 'react'
 import ContactInfo from './ContactInfo';
 import ProfessionInfo from './ProfessionInfo';
 import BioDataForm from './BioDataForm';
+import ProfileInfoForm from './ProfileInfoForm';
 
 export default function OnboardingSteps({id}:{id:string}) {
     const params = useSearchParams();
@@ -15,17 +16,22 @@ export default function OnboardingSteps({id}:{id:string}) {
         {
             title: "Bio Data",
             page: "bio-data",
-            component: <BioDataForm page={page} />,
+            component: <BioDataForm title="Bio Data" description="please fill in your Bio Data Info" page={page} />,
+        },
+        {
+            title: "Profile Information",
+            page: "profile",
+            component: <ProfileInfoForm title="Profile Information" description="please fill in your profile Info" page={page} />,
         },
         {
             title: "Contact Information",
             page: "contact",
-            component: <ContactInfo/>
+            component: <ContactInfo title="Contact Information" description="please fill in your contact Info" page={page}/>
         },
         {
             title: "Profession Information",
             page: "profession",
-            component: <ProfessionInfo/>
+            component: <ProfessionInfo title="Profession Information" description="please fill in your profession Info" page={page}/>
         },
         {
             title: "Education Information",
@@ -59,7 +65,7 @@ export default function OnboardingSteps({id}:{id:string}) {
             return(
                 <Link 
                 key={i} 
-                href={'/onboarding/${id}?page=${step.page}'} 
+                href={`/onboarding/${id}?page=${step.page}`} 
                 className={cn("py-3 block px-4 bg-slate-300text-slate-800 shadow-inner uppercase text-sm", step.page===page?"bg-teal-800 text-slate-100":"")}
                 >
                  {step.title}

@@ -115,12 +115,13 @@ export default function BioDataForm({page, title, description}:StepFormProps) {
 
           </div>
             <div className="mt-8 flex justify-center items-center">
-            <SubmitButton 
-            title="Save and Continue" 
-            isLoading={isLoading} 
-            loadingTitle="Saving please wait..." />
+            <SubmitButton title="Save and Continue" 
+                isLoading={isLoading} 
+                loadingTitle="Saving please wait..." />
             </div>
           </form>
         </div>
     )
   }
+
+  

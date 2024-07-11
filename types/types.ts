@@ -28,4 +28,22 @@ export type BioDataFormProps = {
     page: string;
     medicalLicense: string;
     medicalLicenseExpiry?: Date;
-}
+};
+
+export interface ContactFormProps {
+    email: string;
+    phone: string;
+    city: string;
+    country: string;
+    state: string;
+};
+
+export type professionFormProps = {
+    email: string;
+    phone: string;
+    city: string;
+    country: string;
+    state: string;
+    specialities: string[]; // Assuming you want to add this for the specialities
+    docs: string[]; // Assuming you want to handle document URLs
+  };

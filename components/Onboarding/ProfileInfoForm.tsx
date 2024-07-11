@@ -15,15 +15,14 @@ import { DatePickerInput } from "@components/FormInputs/DatePickerInput";
 import { TextAreaInput } from "@components/FormInputs/TextAreaInput";
 import RadioInput from "@components/FormInputs/RadioInput";
 import ImageInput from "@components/FormInputs/ImageInput";
+import { StepFormProps } from "./BioDataForm";
 
 
-export type StepFormProps={
-  page:string, 
-  title:string, 
-  description:string 
-}
-
-export default function BioDataForm({page, title, description}:StepFormProps) {
+export default function ProfileInfoForm({
+    page, 
+    title, 
+    description,
+}:StepFormProps) {
   const [isLoading, setIsLoading]=useState(false);
   const [dob, setDOB] = useState<Date>();
   const [expiry, setExpiry] = useState<Date>();
@@ -74,53 +73,40 @@ export default function BioDataForm({page, title, description}:StepFormProps) {
           <form className="py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
             
           <div className="grid gap-4 grid-cols-2">
-          <TextInput 
-            label="First Name" 
-            register={register} 
-            name="firstName" 
-            errors={errors}
-            placeholder="Enter your first name" // Add placeholder
-            className="col-span-full sm:col-span-1"
-            />
             <TextInput 
-             label="Last Name" 
+             label="Mdical License" 
              register={register} 
-             name="lastName"
+             name="medicalLicense"
              errors={errors}
-             placeholder="Eg. Ramoonyane"
-             className="col-span-full sm:col-span-1" 
-            />
-            <TextInput 
-             label="Middle Name (Optional)" 
-             register={register} 
-             name="middleName" 
-             errors={errors}
-             placeholder="Eg. Joseph"
-             className="col-span-full sm:col-span-1" 
+             placeholder="Enter Medical License" // Add placeholder
             />
             <DatePickerInput
             className="col-span-full sm:col-span-1" 
-            date={dob} 
-            setDate={setDOB} 
-            title="Date of Birth"
+            date={expiry} 
+            setDate={setExpiry} 
+            title="Medical License Expiry"
             />
-
-            <RadioInput
-            radioOptions={genderOptions} 
-            errors={errors} 
-            title="Gender" 
-            name="gender" 
-            register={register}
+            <TextAreaInput
+             label="Enter your Biography" 
+             register={register} 
+             name="bio"
+             errors={errors}
+             placeholder="Enter your Biography" // Add placeholder
             />
-
+            <ImageInput 
+            label= "Professional Profile Image"
+            imageUrl = {profileImage}
+            setImageUrl = {setProfileImage}
+            endpoint = "doctorProfileImage"/>
           </div>
             <div className="mt-8 flex justify-center items-center">
-            <SubmitButton 
-            title="Save and Continue" 
-            isLoading={isLoading} 
-            loadingTitle="Saving please wait..." />
+            <SubmitButton title="Save and Continue" 
+                isLoading={isLoading} 
+                loadingTitle="Saving please wait..." />
             </div>
           </form>
         </div>
     )
   }
+
+  

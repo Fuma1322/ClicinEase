@@ -10,16 +10,18 @@ import toast from "react-hot-toast";
 import { RegisterInputProps } from "@/types/types";
 import { Button } from "@components/ui/button";
 import Image from 'next/image';
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Console } from "console";
 
 
 export default function RegisterWithbBg({
   role="USER",
   plan = "",
 }:{
-  role?:string | string[] | undefined; 
+  role?: string | string[] | undefined; 
   plan?: string | string[] | undefined;
 }) {
+
   const [isLoading, setIsLoading]=useState(false)
   const {
     register,
@@ -27,7 +29,7 @@ export default function RegisterWithbBg({
     reset,
     formState:{errors},
   }=useForm<RegisterInputProps>();
-  const router = useRouter()
+  const router = useRouter();
   async function onSubmit (data: RegisterInputProps){
    // console.log(data)
    setIsLoading(true);
@@ -35,12 +37,12 @@ export default function RegisterWithbBg({
    data.plan = plan;    
     try{
      const user = await createUser(data);
-    if(user &&user.status===200) {
+    if(user && user.status===200) {
       console.log("User Created successfully");
       reset();
       setIsLoading(false);
       toast.success("User Created successfully");
-      router.push('/verify-account/${user.data?.id}')
+      router.push(`/verify-account/${user.data?.id}`)
       console.log(user.data);
       
     }else{

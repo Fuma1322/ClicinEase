@@ -15,7 +15,7 @@ export default async function VerifyAccount({
   const user = await getUserById(id);
   const userToken = user?.token;
   const role = user?.role;
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="mx-auto max-w-md">

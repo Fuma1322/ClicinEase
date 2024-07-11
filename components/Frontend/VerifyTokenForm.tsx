@@ -67,7 +67,7 @@ export default function VerifyTokenForm({
         // reset();
         toast.success("Account Verified");
         if(role === "DOCTOR"){
-          router.push('/onboarding/${id}'); 
+          router.push(`/onboarding/${id}`); 
         } else{
           router.push("/login"); 
         }
