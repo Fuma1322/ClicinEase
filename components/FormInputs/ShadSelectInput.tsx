@@ -13,7 +13,7 @@ import {
 type SelectInputProps = {
   label: string;
   optionTitle: string;
-  errors: any; 
+  //errors: any; 
   placeholder?: string;
   className?: string;
   options: SelectOption[];
@@ -25,10 +25,10 @@ export type SelectOption = {
     label: string;
   };
 
- export function ShadSelectInput({
+ export default function ShadSelectInput({
     label,
     optionTitle,
-    errors,
+    //errors,
     placeholder,
     className = "sm:col-span-2",
     options = [],

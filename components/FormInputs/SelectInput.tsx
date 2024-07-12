@@ -12,7 +12,7 @@ type SelectInputProps = {
 };
 export type SelectOption = {
   value: string;
-  label: string;
+  label: any; //string;
 };
 export default function SelectInput({
   label,

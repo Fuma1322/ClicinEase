@@ -115,7 +115,7 @@ export async function getSpecialtyBySlug(slug:string) {
            },
         });
         return {
-            data: speciality,
+            data: specialty,
             status: 200,
             error:null,
         };

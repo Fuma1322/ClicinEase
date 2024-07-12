@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from '@components/ui/checkbox'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export default function GeneralSettings() {
   return (
