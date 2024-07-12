@@ -11,8 +11,9 @@ import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
+import { createSymptom } from "@/actions/symptom";
 
-export type SpecialityProps = {
+export type SymptomProps = {
   title: string;
   slug:string;
 }
@@ -32,31 +33,31 @@ export default function SymptomForm({
     handleSubmit,
     reset,
     formState:{errors},
-  } = useForm<SpecialityProps>({
+  } = useForm<SymptomProps>({
     defaultValues: {
       title: initialData?.title,
     },
   });
   const router = useRouter();
-  async function onSubmit(data: SpecialityProps) {
+  async function onSubmit(data: SymptomProps) {
     setIsLoading(true)
     const slug = generateSlug(data.title);
     data.slug=slug;
     console.log(data);
     if (edititingId){
-      await UpdateSpeciality(edititingId, data);
-      toast.success("Speciality Updated Successfully");
+      await UpdateSymptom(edititingId, data);
+      toast.success("Symptoms Updated Successfully");
     }else {
-      await createSpeciality(data);
-      toast.success("Speciality Updated Successfully");
+      await createSymptom(data);
+      toast.success("Symptoms Updated Successfully");
     }
     reset();
-    router.push("/dashboard/speciality")
+    router.push("/dashboard/symptoms")
   }
 async function handleCreateMany(){
   setIsLoading(true);
   try {
-    await createManySpecialities()
+    await createManySymptoms()
     setIsLoading(false)
   } catch (error) {
     console.log(error);
@@ -74,7 +75,7 @@ async function handleCreateMany(){
               {isLoading ? "Creating...." : "Create Many"}
             </Button> */}
             <Button type="button" asChild variant={"outline"}>
-              <Link href="/dashboard/specialities">
+              <Link href="/dashboard/symptoms">
               <X className="w-4 h-4"/>
               </Link>
             </Button>
@@ -83,25 +84,25 @@ async function handleCreateMany(){
           <form onSubmit={handleSubmit(onSubmit)} className="py-4 px-4 mx-auto">
               <div className="grid gap-4 grid-cols-2">
               <TextInput 
-              label="Speciality Title" 
+              label="Symptom Title" 
               register={register} 
               name="title" 
               errors={errors} 
-              placeholder="Enter Speciality title"
+              placeholder="Enter Symptoms title"
               />
               </div>
         
               <div className="mt-8 flex justify-between gap-4 items-center">
               <Button asChild variant={"outline"}>
-              <Link href="/dashboard/specialities">
+              <Link href="/dashboard/symptoms">
               Cancel
               </Link>
             </Button>
-            <Button asChild variant={"outline"}>Create Many specialities</Button>
+            <Button asChild variant={"outline"}>Create Many Symptoms</Button>
             <SubmitButton 
-            title={edititingId ? "Update Speciality" : "Create Speciality"} 
+            title={edititingId ? "Update Symptoms" : "Create Symptoms"} 
             isLoading={isLoading} 
-            loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
+            LoadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>
             </form>
         </div>
