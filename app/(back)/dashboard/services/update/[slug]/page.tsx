@@ -1,9 +1,10 @@
+import ServiceForm from '@/components/Dashboard/ServiceForm'
 import React from 'react'
 
-export default function page() {
+export default function page({params:{id}} : {params:{id:string}}) {
   return (
     <div>
-        <h2>Update Existing service</h2>
+        <ServiceForm title="Update Service" />
     </div>
   )
 }

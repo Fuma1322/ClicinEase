@@ -5,7 +5,7 @@ import React from 'react'
 export default function page() {
   return (
     <div>
-        <SymptomForm title={''}/>
+        <SymptomForm title="New Symptom"/>
     </div>
   )
 }

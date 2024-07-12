@@ -29,7 +29,7 @@ export default function ServiceCard({service}:{service:Service}) {
     className='border mb-2 border-gray-100 shadow-sm text-xs 
     py-3 px-2 w-full rounded-md bg-white dark:text-slate-900 flex items-center gap-4 justify-between'
   >
-    <div className="flex items-center">
+    <div className="flex items-center gap-3">
     <Image 
     src={service.imageUrl} 
     alt={service.title} 

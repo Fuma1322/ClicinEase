@@ -39,6 +39,27 @@ export async function createSpeciality(data: SpecialityProps) {
         };
     }
 }
+export async function getSpecialityBySlug(slug:string) {
+    try {
+        const speciality = await prismaClient.speciality.findMany({
+           where:{
+                slug
+           },
+        });
+        return {
+            data: speciality,
+            status: 200,
+            error:null,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+    };
+    }
+}
 
 export async function getSpecialities() {
     try {
@@ -64,7 +85,7 @@ export async function getSpecialities() {
 export async function createManySpecialities() {
    
     try {
-        const services = [
+        const speciality = [
             {
                 title: "Primary Care",
                 slug: "primary-care",

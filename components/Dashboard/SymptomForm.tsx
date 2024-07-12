@@ -10,8 +10,8 @@ import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Speciality } from "@prisma/client";
-import { createSymptom } from "@/actions/symptom";
+import { Speciality, Symptom } from "@prisma/client";
+import { createManySymptoms, createSymptom, updateSymptomById } from "@/actions/symptom";
 
 export type SymptomProps = {
   title: string;
@@ -22,12 +22,12 @@ export default function SymptomForm({
   initialData,
 }:{
   title: string;
-  initialData?: Speciality;
+  initialData?: Symptom;
 }) {
   const edititingId = initialData?.id || "";
   const [isLoading, setIsLoading]=useState(false);
-  const initialImageUrl = initialData?.imageUrl || "";
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  // const initialImageUrl = initialData?.imageUrl || "";
+  // const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ export default function SymptomForm({
     data.slug=slug;
     console.log(data);
     if (edititingId){
-      await UpdateSymptom(edititingId, data);
+      await updateSymptomById(edititingId, data);
       toast.success("Symptoms Updated Successfully");
     }else {
       await createSymptom(data);
