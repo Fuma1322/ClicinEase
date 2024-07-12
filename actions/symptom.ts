@@ -62,31 +62,91 @@ export async function getSymptoms() {
         };
     }
 }
-export async function createManySpecialities() {
+export async function createManySymptoms() {
    
     try {
-        const services = [
+        const symptoms = [
             {
-                title: "Primary Care",
-                slug: "primary-care",
+                title: "Eczema",
+                slug: "eczema",
     
             },
             {
-                title: "Dermatology",
-                slug: "dermatolog",
+                title: "Dizziness",
+                slug: "dizziness",
     
             },
             {
-                title: "Dental",
-                slug: "dental",
+                title: "Fever",
+                slug: "fever",
             },
-            ,
+            {
+                title: "Sore Throat",
+                slug: "sore-throat",
+            },
+            {
+                title: "Itchy Skin",
+                slug: "itchy-skin",
+            },
+            {
+                title: "Ear Infection",
+                slug: "ear-infection",
+            },
+            {
+                title: "Vaginal Itching",
+                slug: "vaginal-itching",
+            },
+            {
+                title: "Asthma",
+                slug: "asthma",
+            },
+            {
+                title: "Erectile Dysfuction",
+                slug: "erectile-dysfunction",
+            },
+            {
+                title: "Back Pain",
+                slug: "back-pain",
+            },
+            {
+                title: "UTI",
+                slug: "uti",
+            },
+            {
+                title: "Depression",
+                slug: "depsression",
+            },
+            {
+                title: "Anxiety",
+                slug: "Anxiety",
+            },
+            {
+                title: "Diarrhoea",
+                slug: "diarrhoea",
+            },
+            {
+                title: "Rush",
+                slug: "rush",
+            },
+            {
+                title: "Acne",
+                slug: "acne",
+            },
+            {
+                title: "Tooth Pain",
+                slug: "tooth-pain",
+            },
+            {
+                title: "Flu, Cough or Cold",
+                slug: "flu-cough-cold",
+            },
+
         ];
-        for (const speciality of specialities) {
+        for (const symptom of symptoms) {
             try {
-                await createSpeciality(speciality);
+                await createSymptom(symptom);
             } catch (error) {
-                console.log(`Error creating service "${speciality.title}":`, error);
+                console.log(`Error creating service "${symptom.title}":`, error);
             }
         }
     } catch (error) {
@@ -98,14 +158,14 @@ export async function createManySpecialities() {
         };
     }
 }
-export async function deleteSpeciality( id : string) {
+export async function deleteSymptom( id : string) {
     try {
-        await prismaClient.speciality.delete({
+        await prismaClient.symptom.delete({
            where:{
                 id,
            },
         });
-        revalidatePath("/dashboard/specialities")
+        revalidatePath("/dashboard/symptoms")
         return {
             ok: true,
             status: 200,

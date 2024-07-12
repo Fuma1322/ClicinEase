@@ -35,7 +35,7 @@ export default function UpdateServiceForm({
         const initialServiceId = profile?.serviceId ?? "";
         const initialSpecialityId = profile?.specialityId ?? "";
         const initialOperationMode = profile?.operationMode ?? "";
-        const initialSymptomIds = profile?.symptomIds || []?? "";
+        const initialSymptomIds = profile?.symptomIds ?? [];
         const initialPrice = profile?.hourlyWage?? 100;
         const [selectedServiceId, setSelectedserviceId] = useState(initialServiceId);
         const [specialityId, setSpecialityId]=useState(initialSpecialityId );
