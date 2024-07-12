@@ -84,7 +84,7 @@ const router = useRouter();
             </nav>
           </div>
           <div className="mt-auto p-4">
-            <Button size="sm" className="w-full" variant="">
+            <Button size="sm" className="w-full">
               <Power className="w- h-4 mr-1" />
               Logout
             </Button>

@@ -2,7 +2,6 @@
 import { getSymptoms } from '@/actions/symptom';
 import NewButton from '@/components/Dashboard/Doctor/NewButton';
 import PannelHeader from '@/components/Dashboard/Doctor/PannelHeader';
-import ServiceCard from '@/components/Dashboard/ServiceCard'
 import SymptomCard from '@/components/Dashboard/SymptomCard';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Activity, LayoutGrid } from 'lucide-react'
@@ -28,7 +27,7 @@ export default async function page() {
        <div className="px-3">
        <ScrollArea className="h-96 w-full">
             {symptoms.map((symptoms) => (
-                <SymptomCard  key={symptoms.title} symptoms={symptoms}/>
+                <SymptomCard  key={symptoms.title} symptom={symptoms}/>
             ))}
         </ScrollArea>
        </div>
