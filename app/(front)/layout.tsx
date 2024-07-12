@@ -11,7 +11,7 @@ export default async function Layout({children}: {children:ReactNode}) {
     <div>
       <SiteHeader session={session} />
        {children}
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   )
 }

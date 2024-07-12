@@ -1,6 +1,12 @@
 import { getDoctors } from '@/actions/users';
 import DoctorList from '@/components/DoctorList'
+import Accordion from '@/components/Frontend/FAQ';
 import Hero from '@/components/Frontend/Hero'
+import CustomAccordion, { FAQItem } from '@/components/Frontend/CustomAccordion';
+import CustomButton from '@/components/CustomButton';
+import Footer from '@/components/Frontend/Footer';
+import TabbedSection from '@/components/Frontend/TabbedSection';
+import Brands from '@/components/Frontend/Brands';
 
 export default async function Home() {
   const doctors = await getDoctors() || [];
@@ -14,11 +20,14 @@ export default async function Home() {
   return ( 
     <section className="">
     <Hero />
+    <Brands />
+    <TabbedSection />
     <DoctorList doctors={telhealthDoctors}/>
     <DoctorList className="bg-blue-50 dark:bg-slate-900 py-8 lg:py-24"
      title="In-person doctor visit" 
      isInPerson={true}
      doctors={telhealthDoctors}/>
+     <Footer />
     </section>
   )
 }

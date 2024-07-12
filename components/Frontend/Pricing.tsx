@@ -27,21 +27,21 @@ export default function Pricing() {
         {
             name: "Professional",
             desc: "Perfect for small to medium-sized clinics.",
-            price: 59.9,
+            price: 1500,
             fee:2,
             isMostPop: true,
             features: [
                 "Unlimited appointments",
                 "Advanced patient record management",
                 "SMS reminders for appointments",
-                "Customizable clinic profile",
+                "Customizable profile",
             ],
             getStarted:"/register?role=DOCTOR&plan=professional",
         },
         {
             name: "Enterprise",
             desc: "Tailored for large healthcare institutions and hospistals.",
-            price: 99,
+            price: 5000,
             fee: 0,
             isMostPop: false,
             features: [
@@ -59,11 +59,11 @@ export default function Pricing() {
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
                 <div className='relative max-w-xl mx-auto sm:text-center'>
                     <h3 className='scroll-m-20 text-4xl dark:text-slate-300 dark:font-extrabold tracking-tight lg:text-5xl text-gray-800 sm:text-4xl'>
-                        Pricing for all sizes
+                        Pricing for all plans
                     </h3>
                     <div className='mt-3 max-w-xl'>
                         <p className='leading-7 [&:not(:first-child)]:mt-6 dark:text-slate-400'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur consequat nunc.
+                            Choose a plan that best suits your needs
                         </p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Pricing() {
                                         {item.name}
                                     </span>
                                     <div className='text-gray-800 text-3xl font-semibold dark:text-gray-300'>
-                                        ${item.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
+                                        M{item.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
                                     </div>
                                     <p className="text-xs" >
                                         {item.desc}

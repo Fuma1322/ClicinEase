@@ -8,10 +8,6 @@ export default function Footer() {
             label: "Company",
             items: [
                 {
-                    href: '/join/doctors',
-                    name: 'List your Service'
-                },
-                {
                     href: 'javascript:void()',
                     name: 'Blog'
                 },
@@ -23,6 +19,10 @@ export default function Footer() {
                     href: 'javascript:void()',
                     name: 'Careers'
                 },
+                {
+                    href: '/join/doctors',
+                    name: 'Are you a doctor?'
+                },
             ],
         },
         {
@@ -30,7 +30,7 @@ export default function Footer() {
             items: [
                 {
                     href: 'javascript:void()',
-                    name: 'contact'
+                    name: 'Contact'
                 },
                 {
                     href: 'javascript:void()',
@@ -103,7 +103,7 @@ export default function Footer() {
                     <div className="max-w-xs">
                         <Stethoscope className='h-10 w-10 text-red-600'/>
                         <p className="leading-relaxed mt-2 text-[15px]">
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                        Skip the wait and book your doctor&apos;s appointment online, anytime, anywhere. Your health, your schedule made simple and convenient.
                         </p>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ export default function Footer() {
             </div>
             <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
                 <div className="mt-4 sm:mt-0">
-                    &copy; {new Date().getFullYear()} Float UI All rights reserved.
+                    &copy; {new Date().getFullYear()} ClinicEase All rights reserved.
                 </div>
                 <div className="mt-6 sm:mt-0">
                     <ul className="flex items-center space-x-4">

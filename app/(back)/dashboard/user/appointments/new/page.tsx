@@ -3,7 +3,7 @@ import DoctorCard from '@/components/DoctorCard';
 
 
 export default async function NewAppointment() {
-  const doctors = await getDoctors() || [];
+  const doctors = (await getDoctors()) || [];
   const telhealthDoctors = doctors.filter(
   (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
   );

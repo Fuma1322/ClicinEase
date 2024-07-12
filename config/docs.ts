@@ -13,10 +13,6 @@ export const docsConfig: DocsConfig = {
       href: "/",
     },
     {
-      title: "Find A Doctor",
-      href: "/doctors",
-    },
-    {
       title: "Tele-Health",
       href: "/tele_health",
     },
@@ -25,24 +21,11 @@ export const docsConfig: DocsConfig = {
       href: "/in_person",
     },
     {
-      title: "Be A Service Provider",
-      href: "/service provider",
-    },
-    {
       title: "About",
       href: "/about",
     },
   ],
   sidebarNav: [
-    {
-      title: "Getting Started",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs",
-          items: [],
-        },
-      ],
-    },
+    
   ],
 }

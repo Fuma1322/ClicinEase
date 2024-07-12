@@ -1,10 +1,10 @@
 "use server"
 
+import { AppointmentUpdateProps } from "@/components/Dashboard/Doctor/UpdatedApointmentForm";
 import NewAppointmentEmail from "@/components/Emails/new-appointment";
 import { prismaClient } from "@/lib/db";
-import { AppointmentProps, ServiceProps } from "@/types/types";
+import { AppointmentProps } from "@/types/types";
 import { Appointment } from "@prisma/client";
-import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
@@ -205,7 +205,10 @@ export async function getDoctorAppointments(doctorId:string) {
     }
 }
 
-export async function updateAppointmentById(id:string,data:AppointmentProps) {
+export async function updatedAppointmentById(
+    id:string,
+    data:AppointmentUpdateProps
+) {
     try {
         const updateAppointment = await prismaClient.appointment.update({
             where: {
@@ -214,13 +217,16 @@ export async function updateAppointmentById(id:string,data:AppointmentProps) {
             data,
         });
         const patientId = updateAppointment.patientId;
-        const Patient = await prismaClient.user.findUnique({
+        const patient = await prismaClient.user.findUnique({
             where:{
-                id: patientId,
+                id : patientId, 
             },
         });
-        const firstName = Patient?.name;
-        const doctorMail = Patient?.email;
+
+        const firstName = patient?.name;
+        const doctorMail = patient?.email || undefined;
+
+
         const link = `${baseUrl}/dashboard/user/appointments/view/${updateAppointment.id}`;
         const message =
        "Your appointment has been approved. You can view the Details here";
@@ -230,8 +236,10 @@ export async function updateAppointmentById(id:string,data:AppointmentProps) {
        subject: "Appointment Approved",
        react: NewAppointmentEmail({ firstName, link, message }),
         });
+        
         revalidatePath("/dashboard/doctor/appointments");
         revalidatePath("/dashboard/user/appointments");
+
         console.log(updateAppointment);
         return {
             data:updateAppointment,

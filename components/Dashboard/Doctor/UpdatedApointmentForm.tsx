@@ -1,3 +1,4 @@
+import { updatedAppointmentById } from "@/actions/appointments";
 import RadioInput from "@/components/FormInputs/RadioInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
 import TextInput from "@/components/FormInputs/TextInput";

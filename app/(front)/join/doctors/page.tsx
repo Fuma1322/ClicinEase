@@ -114,10 +114,10 @@ export default function page() {
                 </div>
                 </div>
                 <Image 
-                src="/Doctor.jpeg" 
+                src="https://utfs.io/f/ed46bbbc-1a7b-462e-8137-21ed8f9f1737-1y1ii.avif" 
                 alt="" width={"275"} 
                 height={183} 
-                className="w-full" 
+                className="w-full rounded-3xl" 
                 />
             </div>
         </section>
@@ -125,10 +125,10 @@ export default function page() {
             <div className="max-w-6xl gap-8 mx-auto grid grid-cols-1 md:grid-cols-2">
 
             <Image 
-                src="/Doctor.jpeg" 
+                src="https://utfs.io/f/358f597c-2582-490e-a027-71620046322b-1obayw.jpg" 
                 alt="" width={"275"} 
                 height={183} 
-                className="w-full hidden md:block mr-4" 
+                className="w-full hidden md:block mr-4 rounded-3xl py-22" 
                 />
 
                 <div className="">
@@ -138,10 +138,9 @@ export default function page() {
                     today.
                     </h2>
                 <div className="grid grid-cols-2 gap-4 py-6">
-                    {
-                        cards.map((card,i)=>{
+                    {cards.map((card,i)=>{
                             return(
-                                <div key={i} className="bg-blue-900 p-4 rounded-lg shadow-2xl text-center">
+                        <div key={i} className="bg-blue-900 p-4 rounded-lg shadow-2xl text-center">
                         <h3 className="text-2xl font-semibold text-white">
                             {card.title}
                         </h3>

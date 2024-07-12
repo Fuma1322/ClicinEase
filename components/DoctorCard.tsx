@@ -31,7 +31,7 @@ export default function DoctorCard({
      <div className="flex items-center gap-4 py-4">
          <div className="relative">
          <Image 
-         src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"}
+         src={doctor.doctorProfile?.firstName ?? "/doc-profile.jpeg"}
          width={243} 
          height={243} 
          alt={doctor.name} 

@@ -4,6 +4,7 @@ import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import ServiceList from "./Services/ServiceList";
 import LinkCards from "./Doctors/LinkCards";
+import { LucideHospital, User2Icon } from "lucide-react";
 
 export default function TabbedItems() {
 
@@ -15,27 +16,27 @@ export default function TabbedItems() {
     },
     {
       title:"Video prescription",
-      image:"/Doctor.jpeg",
+      image:"https://utfs.io/f/d94d58bd-c32e-4ded-801e-f24f620a3639-1uswaj.jpg",
       slug:"telehealth"
     },
     {
       title:"UTI consult",
-      image:"/Doctor.jpeg",
+      image:"https://utfs.io/f/14aa68fa-36d3-46b4-aa16-bc57a92d9016-2hm2.jpg",
       slug:"telehealth"
     },
     {
       title:"Mental health",
-      image:"/Doctor.jpeg",
+      image:"https://utfs.io/f/eb967a61-3621-4dff-b9e5-a862a9b273da-htnc3b.jpg",
       slug:"telehealth"
     },
     {
       title:"ED consult",
-      image:"/Doctor.jpeg",
+      image:"https://utfs.io/f/c84e7f6f-f68f-4396-9324-7a9c75a02965-lxr081.jpg",
       slug:"telehealth"
     },
     {
       title:"Urgent care",
-      image:"/Doctor.jpeg",
+      image:"https://utfs.io/f/3a563e25-83ae-46be-a399-a70c9aa9c2a3-du9sxr.jpg",
       slug:"telehealth"
     }
   ]
@@ -46,28 +47,28 @@ export default function TabbedItems() {
       component: <ServiceList data={services} />,
       content: []
     },
-    {
-      title: "Doctors",
-      icon: HiClipboardList,
-      component: <LinkCards />,
-      content: []
-    },
+    // {
+    //   title: "Doctors",
+    //   icon: HiClipboardList,
+    //   component: <LinkCards />,
+    //   content: []
+    // },
     {
       title: "Specialists",
-      icon: HiUserCircle,
-      component: <LinkCards className="bg-blue-900" />, // Pass className here
+      icon: User2Icon,
+      component: <LinkCards />, // Pass className here
       content: []
     },
     {
       title: "Symptoms",
-      icon: HiUserCircle,
-      component: <LinkCards className="bg-pink-950" />, // Pass className here
+      icon: LucideHospital,
+      component: <LinkCards  />, // Pass className here
       content: []
     }
   ];
 
   return (
-    <Tabs aria-label="Default tabs" style="default">
+    <Tabs aria-label="Default tabs" style="underline">
       {tabs.map((tab, i) => (
         <Tabs.Item key={i} active title={tab.title} icon={tab.icon}>
           {tab.component}

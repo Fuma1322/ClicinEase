@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import SearchBar from "./SearchBar";
+import React from "react";
 import TransitionalText from "./TransitionalText";
-import { Pill } from "lucide-react";
+import { Pill, Stethoscope } from "lucide-react";
 import { CommandMenu } from "../ui/command-menu";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 
 const Hero = () => {
-    const TEXTS = [ 'Massage', "Dental", "Cosmetic", "Deititian"];
+    const TEXTS = [ "Dermatology", "Dental Health", "General Health", "Mental Health"];
   return (
     <>
       <div className="bg-blue-950 dark:bg-gray-950 ">
@@ -20,10 +21,8 @@ const Hero = () => {
                 <br />
                 <span>sessions now</span>
                 </h1>
-                <p className="mb-8 max-w-[480px] text-base text-gray-100 dark:text-dark-6">
-                  Health shouldn't be a puzzle, we are cutting
-                   through the B.S to bring you simple, affordable, and 
-                   transparent healthcare
+                <p className="mb-8 max-w-[480px] text-xl text-gray-200 dark:text-dark-6">
+                Your Health, Your Schedule: Book Doctors Online
                 </p>
                 {/* SEARCH BAR HERE */}
                 {/* <SearchBar /> */}
@@ -34,22 +33,27 @@ const Hero = () => {
                 <ul className="flex flex-wrap items-center mt-6">
                   <li>
                     <a
-                      href="/#"
-                      className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-700 lg:px-7"
+                      href="/register"
+                      className="inline-flex items-center justify-center rounded-md bg-gray-950 px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-700 lg:px-7"
                     >
-                      Need Doctor urgently
+                      Get Started
                     </a>
                   </li>
+                  {/* <Button variant="outline">
+                    <Link href="/register">
+                      Get Started
+                    </Link>
+                  </Button> */}
                   <li>
                     <a
-                      href="/#"
+                      href="/join/doctors"
                       className="inline-flex items-center justify-center px-5 py-3 text-center text-base font-medium text-gray-50 hover:text-blue-500 dark:text-white"
                     >
                       <span className="mr-2">
-                        <Pill className="flex-shrink-0 h-5 w-5 text-blue-600"/>
+                        <Stethoscope className="flex-shrink-0 h-5 w-5 text-red-600"/>
                         
                       </span>
-                      Need a Refill
+                     Are you a doctor?
                     </a>
                   </li>
                 </ul>
@@ -70,9 +74,9 @@ const Hero = () => {
               <div className="lg:ml-auto lg:text-right">
                 <div className="relative z-10 inline-block pt-11 lg:pt-0">
                   <img
-                    src="https://cdn.tailgrids.com/1.0/assets/images/hero/hero-image-01.png"
+                    src="https://utfs.io/f/e3e1c3d1-c780-4f2a-94c2-91d4de3e7033-1wkca.jpg"
                     alt="hero"
-                    className="max-w-full lg:ml-auto"
+                    className="max-w-full lg:ml-auto rounded-3xl"
                   />
                   <span className="absolute -bottom-8 -left-8 z-[-1]">
                     <svg
