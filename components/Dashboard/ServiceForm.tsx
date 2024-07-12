@@ -116,7 +116,7 @@ async function handleCreateMany(){
     );
   }
 
-function UpdateService(edititingId: string, data: ServiceProps) {
-  throw new Error("Function not implemented.");
-}
+// function UpdateService(edititingId: string, data: ServiceProps) {
+//   throw new Error("Function not implemented.");
+// }
   

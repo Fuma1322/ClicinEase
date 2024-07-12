@@ -1,9 +1,17 @@
+import { getServiceBySlug } from '@/actions/services'
+import ServiceForm from '@/components/Dashboard/ServiceForm'
 import React from 'react'
 
-export default function page() {
+export default async function page({
+  params:{ slug },
+}:{
+  params:{slug:string};
+}) {
+  const service = (await getServiceBySlug(slug))?.data;
   return (
     <div>
-        <h2>Update Existing service</h2>
+        {/* <ServiceForm title="Update Service" initialData={service} /> */}
+        {service && service.id && <ServiceForm title="Update Service" initialData={service} />}
     </div>
   )
 }

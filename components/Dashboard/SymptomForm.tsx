@@ -11,6 +11,7 @@ import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
+import { createManySymptoms, createSymptom } from "@/actions/symptoms";
 
 export type SymptomProps = {
   title: string;
@@ -25,7 +26,7 @@ export default function SymptomForm() {
     formState:{errors},
   } = useForm<SymptomProps>();
   const router = useRouter();
-  async function onSubmit(data: SpecialityProps) {
+  async function onSubmit(data: SymptomProps) {
     setIsLoading(true)
     const slug = generateSlug(data.title);
     data.slug=slug;
@@ -34,16 +35,16 @@ export default function SymptomForm() {
       await UpdateSpeciality(edititingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
-      await createSpeciality(data);
-      toast.success("Speciality Updated Successfully");
+      await createSymptom(data);
+      toast.success("Symptom created Successfully");
     }
     reset();
-    router.push("/dashboard/speciality")
+    router.push("/dashboard/symptoms")
   }
 async function handleCreateMany(){
   setIsLoading(true);
   try {
-    await createManySpecialities()
+    await createManySymptoms();
     setIsLoading(false)
   } catch (error) {
     console.log(error);
@@ -57,7 +58,7 @@ async function handleCreateMany(){
            <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">
               Create Symptom
             </h1>
-            {/* <Button onClick={handleCreateMany} className="">
+            {/* <Button type="button" onClick={handleCreateMany} >
               {isLoading ? "Creating...." : "Create Many"}
             </Button> */}
             <Button type="button" asChild variant={"outline"}>

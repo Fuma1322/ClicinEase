@@ -16,26 +16,24 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { deleteSymptom } from '@/actions/symptoms'
 
-export default function SymptomCard({
-  speciality,
-}:{
-  speciality: Speciality; //Speciality here comes from prisma
-}) {
+export default function SymptomCard({symptom}:{symptom: Symptom}) {
   async function handleDelete(id:string) {
-    await deleteSpeciality(id)
-    toast.success("Speciality Deleted Successfully")
+    await deleteSymptom(id)
+    toast.success("Symptom Deleted Successfully")
   }
   return (
     <div 
     className='border mb-2 border-gray-100 shadow-sm text-xs bg-slate-900 
     py-3 px-4 w-full rounded-md dark:text-slate-900 flex items-center gap-4 justify-between'
   >
-    <div className="flex items-center gap-3">
-    <h2>{speciality.title}</h2>
-    </div>
+    <h2>{symptom.title}</h2>
     <div className="flex">
-        <Link className='text-blue-600' href={`/dashboard/services/update/${speciality.slug}`}>
+        <Link 
+        className='text-blue-600' 
+        href={`/dashboard/symptoms/update/${speciality.slug}`}
+        >
             <Pencil className='w-4 h-4'/>
         </Link>
         <AlertDialog>
@@ -54,7 +52,7 @@ export default function SymptomCard({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={()=>handleDelete(speciality.id)}>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={()=>handleDelete(symptom.id)}>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
