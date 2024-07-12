@@ -47,6 +47,48 @@ export async function createSymptom(data:SpecialityProps) {
     }
 }
 
+export async function updateSymptomById(id:string, data:SpecialityProps) {
+    try {
+        const existingSymptom = await prismaClient.symptom.findUnique({
+            where: {
+              id 
+            },
+        });
+
+        if (!existingSymptom) {
+            return {
+                data: null,
+                status: 404,
+                error: "Symptom does not exist",
+            };
+        }
+
+        // const formattedTitle = { set: [data.title] };
+
+        const updatedSymptom = await prismaClient.symptom.update({
+         where:{
+            id
+         }, data,
+        });
+        revalidatePath("/dashboard/symptoms")
+        console.log(updatedSymptom);
+
+        return {
+            data: updatedSymptom,
+            status: 201,
+            error: null,
+        };
+    } catch (error) {
+        console.log(error);
+
+        return {
+            data: null,
+            status: 500,
+            error,
+        };
+    }
+}
+
 export async function getSymptoms() {
     try {
         const symptoms = await prismaClient.symptom.findMany({
@@ -56,6 +98,28 @@ export async function getSymptoms() {
         });
         return {
             data: symptoms,
+            status: 200,
+            error:null,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+    };
+    }
+}
+
+export async function getSymptomsBySlug(slug:string) {
+    try {
+        const symptom = await prismaClient.symptom.findUnique({
+           where:{
+                slug
+           }
+        });
+        return {
+            data: symptom,
             status: 200,
             error:null,
         };

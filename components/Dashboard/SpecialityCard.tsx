@@ -17,10 +17,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-export default function SpecialityCard({
-  speciality,
+export default function SpecialtyCard({
+  specialty,
 }:{
-  speciality: Speciality; //Speciality here comes from prisma
+  speciality: Specialty; //Speciality here comes from prisma
 }) {
   async function handleDelete(id:string) {
     await deleteSpeciality(id)
@@ -32,10 +32,10 @@ export default function SpecialityCard({
     py-3 px-4 w-full rounded-md dark:text-slate-900 flex items-center gap-4 justify-between'
   >
     <div className="flex items-center gap-3">
-    <h2>{speciality.title}</h2>
+    <h2>{specialty.title}</h2>
     </div>
     <div className="flex">
-        <Link className='text-blue-600' href={`/dashboard/services/update/${speciality.slug}`}>
+        <Link className='text-blue-600' href={`/dashboard/specialties/update/${specialty.slug}`}>
             <Pencil className='w-4 h-4'/>
         </Link>
         <AlertDialog>

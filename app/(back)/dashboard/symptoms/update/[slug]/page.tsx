@@ -1,9 +1,19 @@
+import { getSpecialtyBySlug } from '@/actions/specialities';
+import { getSymptomsBySlug } from '@/actions/symptoms';
+import SymptomForm from '@/components/Dashboard/SymptomForm';
 import React from 'react'
 
-export default function page() {
+export default async function page({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const symptom = (await getSymptomsBySlug(slug))?.data;
   return (
     <div>
-        <h2>Update Existing service</h2>
+      {symptom && symptom.id && (
+        <SymptomForm title="Update Symptom" initialData={symptom} />
+      )}
     </div>
-  )
+  );
 }

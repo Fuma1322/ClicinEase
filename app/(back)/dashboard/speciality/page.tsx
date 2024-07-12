@@ -1,13 +1,16 @@
+import { getSpecialtyBySlug } from '@/actions/specialities'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
 import PannelHeader from '@/components/Dashboard/Doctor/PannelHeader'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
+import SpecialityCard from '@/components/Dashboard/SpecialityCard'
 // import { getSpecialities } from "@/actions/specialities";
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Anvil, LayoutGrid, LayoutGridIcon } from 'lucide-react'
 import React from 'react'
 
 export default async function page() {
-  const specialities = (await getSpecialities()).data || [];
+  const specialty = (await getSpecialtyBySlug(slug))?.data;
+
   return (
     <div>
         {/* Header */}
@@ -27,8 +30,8 @@ export default async function page() {
         </div>
        <div className="px-3">
        <ScrollArea className="h-96 w-full">
-            {specialities.map((speciality) => (
-                <ServiceCard  key={speciality.title} speciality={speciality}/>
+            {specialties.map((specialty) => (
+                <SpecialityCard  key={specialty.title} specialty={specialty}/>
             ))}
         </ScrollArea>
        </div>

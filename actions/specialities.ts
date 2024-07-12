@@ -5,7 +5,7 @@ import { ServiceProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 
-export async function createService(data:ServiceProps) {
+export async function createSpecialty(data:SpecialtyProps) {
     try {
         const existingService = await prismaClient.service.findUnique({
             where: {
@@ -45,34 +45,32 @@ export async function createService(data:ServiceProps) {
     }
 }
 
-export async function updateService(id:string, data:ServiceProps) {
+export async function updateSpecialty(id:string, data:SpecialtyProps) {
     try {
-        const existingService = await prismaClient.service.findUnique({
+        const existingSpecialty = await prismaClient.speciality.findUnique({
             where: {
                 id,
             },
         });
 
-        if (!existingService) {
+        if (!existingSpecialty) {
             return {
                 data: null,
-                status: 409,
-                error: "Service with that does not exist"
+                status: 404,
+                error: "Specialty does not exist",
             };
         }
-
-        // const formattedTitle = { set: [data.title] };
-
-        const updatedService = await prismaClient.service.update({
-           where:{
-            id
-           }, data
+        const updatedSpecialty = await prismaClient.speciality.update({
+            where:{
+                id
+            },
+             data,
         });
-        revalidatePath("/dashboard/services")
-        console.log(updatedService);
+        revalidatePath("/dashboard/specialties")
+        console.log(updatedSpecialty);
 
         return {
-            data: updatedService,
+            data: updatedSpecialty,
             status: 201,
             error: null,
         };
@@ -81,21 +79,43 @@ export async function updateService(id:string, data:ServiceProps) {
 
         return {
             data: null,
-            status: 501,
-            error: "Service not created",
+            status: 500,
+            error,
         };
     }
 }
 
-export async function getServices() {
+export async function getSpecialties() {
     try {
-        const services = await prismaClient.service.findMany({
+        const specialties = await prismaClient.speciality.findMany({
            orderBy:{
                 createdAt: "desc"
            }
         });
         return {
-            data: services,
+            data: specialties,
+            status: 200,
+            error:null,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+    };
+    }
+}
+
+export async function getSpecialtyBySlug(slug:string) {
+    try {
+        const Specialty = await prismaClient.speciality.findMany({
+           where:{
+                slug
+           },
+        });
+        return {
+            data: speciality,
             status: 200,
             error:null,
         };

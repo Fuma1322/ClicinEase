@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
-import { createManyServices, createService } from "@/actions/services";
+import { createManyServices, createService, updateService } from "@/actions/services";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Service } from "@prisma/client";
@@ -47,7 +47,7 @@ export default function ServiceForm({
     data.slug=slug;
     console.log(data);
     if (edititingId) {
-      await UpdateService(edititingId, data);
+      await updateService(edititingId, data);
       toast.success("Service Updated Successfully");
     }else {
       await createService(data);

@@ -10,21 +10,26 @@ import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Speciality } from "@prisma/client";
-import { createManySymptoms, createSymptom } from "@/actions/symptoms";
+import { Speciality, Symptom } from "@prisma/client";
+import { createManySymptoms, createSymptom, updateSymptomById } from "@/actions/symptoms";
 
 export type SymptomProps = {
   title: string;
   slug:string;
 }
-export default function SymptomForm() {
+export default function SymptomForm({title, initialData}:{title:string, initialData?:Symptom}) {
   const [isLoading, setIsLoading]=useState(false);
+  const edititingId = initialData?.id ||""
   const {
     register,
     handleSubmit,
     reset,
     formState:{errors},
-  } = useForm<SymptomProps>();
+  } = useForm<SymptomProps>({
+    defaultValues: {
+      title: initialData?.title
+    }
+  });
   const router = useRouter();
   async function onSubmit(data: SymptomProps) {
     setIsLoading(true)
@@ -32,8 +37,8 @@ export default function SymptomForm() {
     data.slug=slug;
     console.log(data);
     if (edititingId){
-      await UpdateSpeciality(edititingId, data);
-      toast.success("Speciality Updated Successfully");
+      await updateSymptomById(edititingId, data);
+      toast.success("Symptom Updated Successfully");
     }else {
       await createSymptom(data);
       toast.success("Symptom created Successfully");
@@ -87,7 +92,7 @@ async function handleCreateMany(){
             </Button>
             <Button asChild variant={"outline"}>Create Many specialities</Button>
             <SubmitButton 
-            title={edititingId ? "Update Speciality" : "Create Symptom"} 
+            title={edititingId ? "Update Symptom" : "Create Symptom"} 
             isLoading={isLoading} 
             loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>

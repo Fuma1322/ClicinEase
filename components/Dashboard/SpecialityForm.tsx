@@ -11,6 +11,7 @@ import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
+import { updateSpecialty } from "@/actions/specialities";
 
 export type SpecialityProps = {
   title: string;
@@ -32,7 +33,7 @@ export default function SpecialityForm({
     handleSubmit,
     reset,
     formState:{errors},
-  } = useForm<SpecialityProps>({
+  } = useForm<SpecialtyProps>({
     defaultValues: {
       title: initialData?.title,
     },
@@ -44,7 +45,7 @@ export default function SpecialityForm({
     data.slug=slug;
     console.log(data);
     if (edititingId){
-      await UpdateSpeciality(edititingId, data);
+      await updateSpecialty(edititingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
       await createSpeciality(data);

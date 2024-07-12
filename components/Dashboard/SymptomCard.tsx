@@ -32,7 +32,7 @@ export default function SymptomCard({symptom}:{symptom: Symptom}) {
     <div className="flex">
         <Link 
         className='text-blue-600' 
-        href={`/dashboard/symptoms/update/${speciality.slug}`}
+        href={`/dashboard/symptoms/update/${symptom.slug}`}
         >
             <Pencil className='w-4 h-4'/>
         </Link>
