@@ -16,11 +16,18 @@ import { getServices } from '@/actions/services'
 import { getSymptoms } from '@/actions/symptoms'
 import { SelectOption } from '@/components/FormInputs/SelectInput'
 import { getSpecialties } from '@/actions/specialities'
+import { DoctorProfile } from '@prisma/client'
 
-export default async function DoctorServiceSettings() {
+export default async function DoctorServiceSettings({
+  profile,
+}:{
+  profile:DoctorProfile | undefined | null;
+ }) {
     const allServices =(await getServices()).data
     const allSpecialties =(await getSpecialties()).data
-    const allSymptoms =(await getSymptoms()).data
+    const allSymptoms =(await getSymptoms()).data;
+
+    console.log(profile)
 
     const services: SelectOption[] = (allServices?.map((item)=>{
         return {
@@ -53,7 +60,12 @@ export default async function DoctorServiceSettings() {
                   Used to identify your store in the marketplace.
                 </CardDescription>
               </CardHeader>
-              <UpdateServiceForm services={services} specialties={specialties} symptoms={symptoms} />
+              <UpdateServiceForm
+              profile={profile} 
+              services={services} 
+              specialties={specialties} 
+              symptoms={symptoms} 
+              />
               
             </Card>
             
