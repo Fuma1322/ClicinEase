@@ -11,13 +11,12 @@ import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
-import { createManySpecialities, createSpeciality } from "@/actions/specialities";
 
 export type SpecialityProps = {
   title: string;
   slug:string;
 }
-export default function SpecialityForm({
+export default function SymptomForm({
   title,
   initialData,
 }:{
@@ -102,7 +101,7 @@ async function handleCreateMany(){
             <SubmitButton 
             title={edititingId ? "Update Speciality" : "Create Speciality"} 
             isLoading={isLoading} 
-            LoadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
+            loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>
             </form>
         </div>

@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import generateTrackingNumber from "@/lib/generatetracking";
 import { createDoctorProfile, updateDoctorProfile } from "@/actions/onboarding";
 import { useOnboardingContext } from "@/context/context";
+import { Speciality } from "@prisma/client";
 
 export type StepFormProps = {
   page: string;
@@ -20,6 +21,7 @@ export type StepFormProps = {
   nextPage?: string;
   userId?: string;
   formId?: string;
+  specialities?: Speciality;  
 }
 export default function BioDataForm({
   page, 

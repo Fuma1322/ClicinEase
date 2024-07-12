@@ -1,16 +1,18 @@
 "use client"
-import {AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Settings, SettingsIcon, ShoppingCart, Users } from "lucide-react";
+import {AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Power, Settings, SettingsIcon, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Session } from 'next-auth'
+import { signOut } from "next-auth/react";
  
 export default function Sidebar({session}:{session:Session}) {
   const {user} = session;
   const role = user?.role;
+  const pathname = usePathname();
   const roles ={
     USER: [
       {title:"Dashboard", path:"/dashboard", icon: Home},
@@ -40,7 +42,11 @@ export default function Sidebar({session}:{session:Session}) {
 console.log(role);
 let sideBarLinks = roles[role] || [];
   
-  const pathname = usePathname();
+const router = useRouter();
+ async function handlelogOut() {
+  return signOut();
+  router.push("/login")
+ }
   return (
     <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
@@ -74,28 +80,15 @@ let sideBarLinks = roles[role] || [];
                 </Badge>} */}
               </Link>
             );
-          })}
-              
-            
-              
+          })}   
             </nav>
           </div>
-          {/* <div className="mt-auto p-4">
-            <Card x-chunk="dashboard-02-chunk-0">
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>Upgrade to Pro</CardTitle>
-                <CardDescription>
-                  Unlock all features and get unlimited access to our support
-                  team.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button size="sm" className="w-full">
-                  Upgrade
-                </Button>
-              </CardContent>
-            </Card>
-          </div> */}
+          <div className="mt-auto p-4">
+            <Button size="sm" className="w-full" variant="">
+              <Power className="w- h-4 mr-1" />
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
   );

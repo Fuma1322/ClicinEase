@@ -77,6 +77,7 @@ const initialPracticeData: PracticeFormProps = {
     servicesOffered: [],
     insuranceAccepted: "",
     page: "",
+    hourlyWage: 100,
 };
 
 const initialAdditionalData: AdditionalFormProps = {

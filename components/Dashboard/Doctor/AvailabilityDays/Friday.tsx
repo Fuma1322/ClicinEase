@@ -1,8 +1,4 @@
-import { createAvailability, updateAvailabilityById } from '@/actions/registry';
-import SubmitButton from '@/components/FormInputs/SubmitButton';
-import { Button } from '@/components/ui/button';
-import { ClinicProfile } from '@prisma/client';
-import { Loader, Plus, X } from 'lucide-react';
+import { createAvailability, updateAvailabilityById } from '@/actions/onboarding';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import SelectedTimes from './SelectedTimes';

@@ -1,9 +1,6 @@
 import { getDoctors } from '@/actions/users';
 import DoctorList from '@/components/DoctorList'
-import Accordion from '@/components/Frontend/FAQ';
 import Hero from '@/components/Frontend/Hero'
-import CustomAccordion, { FAQItem } from '@/components/Frontend/CustomAccordion';
-import CustomButton from '@/components/CustomButton';
 import Footer from '@/components/Frontend/Footer';
 import TabbedSection from '@/components/Frontend/TabbedSection';
 import Brands from '@/components/Frontend/Brands';

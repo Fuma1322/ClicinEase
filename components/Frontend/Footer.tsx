@@ -16,8 +16,8 @@ export default function Footer() {
                     name: 'Team'
                 },
                 {
-                    href: 'javascript:void()',
-                    name: 'Careers'
+                    href: '/onboarding/resume',
+                    name: 'Resume Your Application'
                 },
                 {
                     href: '/join/doctors',

@@ -21,6 +21,7 @@ export default function EducationInfo({
   formId,
   userId,
   nextPage,
+  specialities,
 }: StepFormProps) {
   const {educationData, savedDBData, setEducationData} = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);  
@@ -36,16 +37,12 @@ export default function EducationInfo({
     page: educationData.page || savedDBData.page,
   }
 });
-const specialities = [
-  {
-      label: "Medicine",
-      value: "medicine",
-    },
-    {
-      label: "Mental Health", 
-      value: "mental-health",
-    },
-];
+const allSpecialities = specialities?.map((item)=>{
+  return {
+    label: item.title, 
+    value: item.id,
+  };
+}) || [];
 const initialSpecialities = educationData.otherSpecialities.length > 0 ? educationData.otherSpecialities : savedDBData.otherSpecialities;
 const [otherSpecialities, setOtherSpecialities] = useState(initialSpecialities);
 const initialDocs = educationData.docCertificates || savedDBData.docCertificates;
@@ -114,7 +111,7 @@ const router = useRouter();
                 errors={errors}
                 placeholder="Enter Primary Specialities"
                 className="col-span-full sm:col-span-1"
-                options={specialities}
+                options={allSpecialities}
                 />
                 <ArrayItemsInput 
                 setItems={setOtherSpecialities}

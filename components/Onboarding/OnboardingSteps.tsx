@@ -11,9 +11,10 @@ import PracticeInfo from './PracticeInfo';
 import AdditionalInfo from './AdditionalInfo';
 import ProfileInfoForm from './ProfileInfoForm';
 import { useOnboardingContext } from '@/context/context';
+import { Speciality } from '@prisma/client';
 
 
-export default function OnboardingSteps({ id }:{ id: string }) {
+export default function OnboardingSteps({ id, specialities }:{ id: string, specialities:Speciality[] }) {
     const params = useSearchParams();
     const page = params.get("page")?? "bio-data";
     const {
@@ -63,6 +64,7 @@ export default function OnboardingSteps({ id }:{ id: string }) {
             title: "Education Information",
             page: "education",
             components: <EducationInfo 
+            specialities = {specialities}
             nextPage='practice' 
             page={page}
             userId={id}
