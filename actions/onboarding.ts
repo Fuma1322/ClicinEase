@@ -207,7 +207,7 @@ export async function updateDoctorProfile(id:string | undefined, data: any) {
                   console.log(profile);
                   return {
                       data: profile,
-                      status: 201,
+                      status: 200,
                       error: null,
                   };
                 } catch (error) {
