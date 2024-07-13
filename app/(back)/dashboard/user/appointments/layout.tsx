@@ -21,7 +21,7 @@ export default async function AppointmentLayout({children}:{children: ReactNode;
       
     <div className="grid grid-cols-12">
     <div className="col-span-4 py-3 border-r border-gray-100">
-     <PannelHeader title='Appointments' count={appointments.length??0} icon={Calendar}/>
+     <PannelHeader title='Appointments' count={(appointments.length).toString().padStart(2, "0")} icon={Calendar}/>
     <div className="px-3">
     <ListPannel appointments={appointments} role={user.role}/>
     </div>

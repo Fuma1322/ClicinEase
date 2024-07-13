@@ -47,7 +47,7 @@ export default async function PatientLayout({children}:{children: ReactNode;}) {
       
     <div className="grid grid-cols-12">
     <div className="col-span-4 py-3 border-r border-gray-100">
-     <PannelHeader title='Patients' count={patients.length??0} icon={Users}/>
+     <PannelHeader title='Patients' count={(patients.length).toString().padStart(2, "0")} icon={Users}/>
     <div className="px-3">
     <PatientPanel patients={patients} role={user?.role}/>
     </div>
