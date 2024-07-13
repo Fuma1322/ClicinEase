@@ -21,7 +21,7 @@ export default async function page() {
          icon={Anvil}
         />
         <div className="lg:hidden">
-        <NewButton title='New Speciality' href='/dashboard/specialities/new'/>
+        <NewButton title='New Speciality' href='/dashboard/speciality/new'/>
         </div>
         </div>
        <div className="px-3">
@@ -35,7 +35,7 @@ export default async function page() {
         <div className="lg:col-span-8 col-span-full hidden lg:block">
             <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
                 <div className="flex items-center gap-4">
-                    <NewButton title='New Speciality' href='/dashboard/specialities/new'/>
+                    <NewButton title='New Speciality' href='/dashboard/speciality/new'/>
       </div>
     </div>
     <div className="flex h-1/2 items-center justify-center">
@@ -45,7 +45,7 @@ export default async function page() {
                 {" "}
             <p>You have {specialities.length.toString().padStart(2,"0")}{" "} Specialities today.</p>
             </div>
-            <NewButton title='New Speciality' href="/dashboard/specialities/new"/>
+            <NewButton title='New Speciality' href="/dashboard/speciality/new"/>
         </div>
     </div>
         </div>

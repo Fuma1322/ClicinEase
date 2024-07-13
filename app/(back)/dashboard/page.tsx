@@ -1,3 +1,4 @@
+import Dashboard from '@/components/Dashboard/Dashboard';
 import DoctorDashboard from '@/components/Dashboard/DoctorDashboard';
 import PatientsDashboard from '@/components/Dashboard/UserDashboard';
 import { authOptions } from '@/lib/auth'
@@ -22,12 +23,12 @@ export default async function page () {
       <p>The user role is {user?.role}</p>
       <PatientsDashboard/>
       </>
-    )
+    );
+  }
   return (
     <div>
-      {/* <p>The user role is {user?.role}</p>
-        <Dashboard/> */}
+      <p>The user role is {user?.role}</p>
+        <Dashboard/> 
     </div>
   )
-}
 }

@@ -132,7 +132,7 @@ model Appointment {
 model Speciality {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
   doctors        User[]
-  title          String[]
+  title          String
   slug           String          @unique
   doctorProfiles DoctorProfile[]
 

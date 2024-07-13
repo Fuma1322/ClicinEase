@@ -8,7 +8,7 @@ export default function PannelHeader({
   icon
 }:{
   title:string,
-  count:number,icon:LucideIcon
+  count: string,icon:LucideIcon
 }) {
   const Icon = icon
   return (

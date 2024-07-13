@@ -10,8 +10,9 @@ import { X } from "lucide-react";
 import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { createSpeciality, updateSpeciality } from "@/actions/specialities";
 import { Speciality } from "@prisma/client";
-import { createManySpecialities, createSpeciality } from "@/actions/specialities";
+
 
 export type SpecialityProps = {
   title: string;
@@ -24,10 +25,8 @@ export default function SpecialityForm({
   title: string;
   initialData?: Speciality;
 }) {
-  const edititingId = initialData?.id || "";
+  const editingId = initialData?.id || "";
   const [isLoading, setIsLoading]=useState(false);
-  const initialImageUrl = initialData?.imageUrl || "";
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const {
     register,
     handleSubmit,
@@ -35,7 +34,7 @@ export default function SpecialityForm({
     formState:{errors},
   } = useForm<SpecialityProps>({
     defaultValues: {
-      title: initialData?.title,
+     title: initialData?.title,
     },
   });
   const router = useRouter();
@@ -44,25 +43,25 @@ export default function SpecialityForm({
     const slug = generateSlug(data.title);
     data.slug=slug;
     console.log(data);
-    if (edititingId){
-      await UpdateSpeciality(edititingId, data);
+    if (editingId){
+      await updateSpeciality(editingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
-      await createSpeciality(data);
+      await createSpeciality(editingId, data);
       toast.success("Speciality Updated Successfully");
     }
     reset();
     router.push("/dashboard/speciality")
   }
-async function handleCreateMany(){
-  setIsLoading(true);
-  try {
-    await createManySpecialities()
-    setIsLoading(false)
-  } catch (error) {
-    console.log(error);
-  }
-} 
+// async function handleCreateMany(){
+//   setIsLoading(true);
+//   try {
+//     await createManySpecialities()
+//     setIsLoading(false)
+//   } catch (error) {
+//     console.log(error);
+//   }
+// } 
    
     return (
         <div className=" w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto">
@@ -75,7 +74,7 @@ async function handleCreateMany(){
               {isLoading ? "Creating...." : "Create Many"}
             </Button> */}
             <Button type="button" asChild variant={"outline"}>
-              <Link href="/dashboard/specialities">
+              <Link href="/dashboard/speciality">
               <X className="w-4 h-4"/>
               </Link>
             </Button>
@@ -94,15 +93,15 @@ async function handleCreateMany(){
         
               <div className="mt-8 flex justify-between gap-4 items-center">
               <Button asChild variant={"outline"}>
-              <Link href="/dashboard/specialities">
+              <Link href="/dashboard/speciality">
               Cancel
               </Link>
             </Button>
             <Button asChild variant={"outline"}>Create Many specialities</Button>
             <SubmitButton 
-            title={edititingId ? "Update Speciality" : "Create Speciality"} 
-            isLoading={isLoading} 
-            LoadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
+             title={editingId ? "Update Speciality" : "Create Speciality"} 
+             isLoading={isLoading} 
+             LoadingTitle={editingId ? "Updating Please Wait..." : "Create please wait..."} />
               </div>
             </form>
         </div>

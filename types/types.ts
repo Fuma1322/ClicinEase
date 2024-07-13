@@ -9,6 +9,11 @@ export type ServiceProps={
     slug:string;
 }
 
+export type SpecialityProps={
+    title:string; 
+    slug:string;
+}
+
 export type RegisterInputProps={
     fullName: string;
     email: string;

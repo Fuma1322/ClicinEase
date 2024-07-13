@@ -1,5 +1,5 @@
 "use client"
-import {AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Power, Settings, SettingsIcon, ShoppingCart, Users } from "lucide-react";
+import {Activity, AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Power, Settings, SettingsIcon, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "@/components/ui/badge"
@@ -26,6 +26,7 @@ export default function Sidebar({session}:{session:Session}) {
       {title:"Appointments", path:"/dashboard/appointments", icon: Users},
       {title:"Services", path:"/dashboard/services", icon: Users},
       {title:"Speciality", path:"/dashboard/speciality", icon: Users},
+      {title:"Symptoms", path:"/dashboard/symptoms", icon: Activity},
       {title:"Settings", path:"/dashboard/settings", icon: SettingsIcon}
     ],
     DOCTOR: [

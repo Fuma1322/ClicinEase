@@ -2,14 +2,23 @@
 
 import { SpecialityProps } from "@/components/Dashboard/SpecialityForm";
 import { prismaClient } from "@/lib/db";
+
 import { revalidatePath } from "next/cache";
 
 
 export async function createSpeciality(data: SpecialityProps) {
     try {
+        if (!data.slug) {
+            return {
+                data: null,
+                status: 400,
+                error: "Slug is required",
+            };
+        }
+
         const existingSpeciality = await prismaClient.speciality.findUnique({
             where: {
-                slug: data.slug
+                slug: data.slug,
             },
         });
 
@@ -17,13 +26,14 @@ export async function createSpeciality(data: SpecialityProps) {
             return {
                 data: null,
                 status: 409,
-                error: "Speciality already exists"
+                error: "Speciality already exists",
             };
         }
+
         const newSpeciality = await prismaClient.speciality.create({
             data,
         });
-        revalidatePath("/dashboard/specialities")
+        revalidatePath("/dashboard/speciality");
         console.log(newSpeciality);
         return {
             data: newSpeciality,
@@ -39,6 +49,8 @@ export async function createSpeciality(data: SpecialityProps) {
         };
     }
 }
+
+
 export async function getSpecialityBySlug(slug:string) {
     try {
         const speciality = await prismaClient.speciality.findMany({
@@ -125,7 +137,7 @@ export async function deleteSpeciality( id : string) {
                 id,
            },
         });
-        revalidatePath("/dashboard/specialities")
+        revalidatePath("/dashboard/speciality")
         return {
             ok: true,
             status: 200,
@@ -169,4 +181,44 @@ export async function updateDoctorProfileWithService(
         };
     }
 }
+}
+
+export async function updateSpeciality(id:string, data:SpecialityProps) {
+    try {
+        const existingSpeciality = await prismaClient.speciality.findUnique({
+            where: {
+                id,
+            },
+        });
+
+        if (!existingSpeciality) {
+            return {
+                data: null,
+                status: 404,
+                error: "Specialty does not exist",
+            };
+        }
+        const updatedSpecialty = await prismaClient.speciality.update({
+            where:{
+                id
+            },
+             data,
+        });
+        revalidatePath("/dashboard/speciality")
+        console.log(updatedSpecialty);
+
+        return {
+            data: updatedSpecialty,
+            status: 201,
+            error: null,
+        };
+    } catch (error) {
+        console.error(error);
+
+        return {
+            data: null,
+            status: 500,
+            error,
+        };
+    }
 }

@@ -17,7 +17,7 @@ export default async function page() {
         <div className="flex items-center justify-between">
         <PannelHeader 
          title='Symptoms' 
-         count={symptoms.length} 
+         count={(symptoms.length).toString().padStart(2, "0")} 
          icon={Activity}
         />
         <div className="lg:hidden">
@@ -40,7 +40,7 @@ export default async function page() {
     </div>
     <div className="flex h-1/2 items-center justify-center">
         <div className=' py-4 px-6 text-center border-white shadow-md rounded-md flex flex-col items-center gap-1 text-sm'>
-            <LayoutGrid/>
+            <Activity/>
             <div className="py-3">
                 {" "}
             <p>You have {symptoms.length.toString().padStart(2,"0")}{" "} Symptoms today.</p>

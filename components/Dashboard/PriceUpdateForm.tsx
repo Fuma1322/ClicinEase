@@ -9,6 +9,7 @@ import generateSlug from "@/utils/generateSlug";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
+import { createManySpecialities, createSpeciality } from "@/actions/specialities";
 
 export type SpecialityProps = {
   title: string;
@@ -24,8 +25,6 @@ export default function PriceUpdateForm({
 }) {
   const edititingId = initialData?.id || "";
   const [isLoading, setIsLoading]=useState(false);
-  const initialImageUrl = initialData?.imageUrl || "";
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const {
     register,
     handleSubmit,
@@ -40,14 +39,13 @@ export default function PriceUpdateForm({
   async function onSubmit(data: SpecialityProps) {
     setIsLoading(true)
     const slug = generateSlug(data.title);
-    data.imageUrl = imageUrl;
     data.slug=slug;
     console.log(data);
     if (edititingId) {
       await UpdateService(edititingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
-      await createSpecialities(data);
+      await createSpeciality(data);
       toast.success("Speciality Updated Successfully");
     }
     reset();
@@ -85,7 +83,7 @@ async function handleCreateMany(){
         
               <div className="mt-8 flex justify-between gap-4 items-center">
               <Button asChild variant={"outline"}>
-              <Link href="/dashboard/specialities">
+              <Link href="/dashboard/speciality">
               Cancel
               </Link>
             </Button>
@@ -93,7 +91,7 @@ async function handleCreateMany(){
             <SubmitButton 
             title={edititingId ? "Update Speciality" : "Create Speciality"} 
             isLoading={isLoading} 
-            loadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
+            LoadingTitle={edititingId ? "Updating Please Wait..." : "Saving please wait..."} />
               </div>
             </form>
         </div>

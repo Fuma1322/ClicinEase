@@ -161,3 +161,27 @@ export async function updateDoctorProfileWithService(
     }
 }
 }
+
+export async function getServiceBySlug(slug: string) {
+    try {
+     if(slug){
+        const service = await prismaClient.service.findUnique({
+            where:{
+                 slug,
+            }
+         });
+         return {
+             data: service,
+             status: 200,
+             error:null,
+         };
+     }   
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+    };
+    }
+}
