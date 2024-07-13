@@ -57,7 +57,7 @@ export default function GeneralSettings() {
                 </form>
               </CardContent>
               <CardFooter className="border-t px-6 py-4">
-                <Button>Save<//Button>
+                <Button>Save</Button>
               </CardFooter>
             </Card>
           </div>
