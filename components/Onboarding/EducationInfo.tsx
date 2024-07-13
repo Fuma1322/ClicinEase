@@ -37,7 +37,7 @@ export default function EducationInfo({
     page: educationData.page || savedDBData.page,
   }
 });
-const allSpecialities = specialities?.map((item)=>{
+const allSpecialities = specialities?.map((item: { id: string; title: string })=>{
   return {
     label: item.title, 
     value: item.id,

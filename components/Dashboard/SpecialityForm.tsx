@@ -47,7 +47,7 @@ export default function SpecialityForm({
       await updateSpeciality(editingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
-      await createSpeciality(editingId, data);
+      await createSpeciality(data);
       toast.success("Speciality Updated Successfully");
     }
     reset();
@@ -97,7 +97,7 @@ export default function SpecialityForm({
               Cancel
               </Link>
             </Button>
-            <Button asChild variant={"outline"}>Create Many specialities</Button>
+            <Button asChild variant={"outline"}>Create Many Specialities</Button>
             <SubmitButton 
              title={editingId ? "Update Speciality" : "Create Speciality"} 
              isLoading={isLoading} 

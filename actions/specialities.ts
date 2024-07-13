@@ -52,25 +52,23 @@ export async function createSpeciality(data: SpecialityProps) {
 
 
 export async function getSpecialityBySlug(slug:string) {
-    try {
-        const speciality = await prismaClient.speciality.findMany({
+        const speciality = await prismaClient.speciality.findUnique({
            where:{
                 slug
            },
         });
+        if (!speciality) {
+        return {
+            data: null,
+            status: 404,
+            error: "Speciality not found",
+        };
+    }
         return {
             data: speciality,
             status: 200,
-            error:null,
-        };
-    } catch (error) {
-        console.log(error)
-        return {
-            data: null,
-            status: 500,
-            error,
+            error: null,
     };
-    }
 }
 
 export async function getSpecialities() {
@@ -94,42 +92,7 @@ export async function getSpecialities() {
         };
     }
 }
-export async function createManySpecialities() {
-   
-    try {
-        const speciality = [
-            {
-                title: "Primary Care",
-                slug: "primary-care",
-    
-            },
-            {
-                title: "Dermatology",
-                slug: "dermatolog",
-    
-            },
-            {
-                title: "Dental",
-                slug: "dental",
-            },
-            ,
-        ];
-        for (const speciality of specialities) {
-            try {
-                await createSpeciality(speciality);
-            } catch (error) {
-                console.log(`Error creating service "${speciality.title}":`, error);
-            }
-        }
-    } catch (error) {
-        console.log(error)
-        return {
-            data: null,
-            status: 500,
-            error,
-        };
-    }
-}
+
 export async function deleteSpeciality( id : string) {
     try {
         await prismaClient.speciality.delete({
@@ -222,3 +185,38 @@ export async function updateSpeciality(id:string, data:SpecialityProps) {
         };
     }
 }
+
+export async function createManySpecialities() {
+    try {
+        const specialities = [
+            {
+                title: "Primary Care",
+                slug: "primary-care",
+    
+            },
+            {
+                title: "Dermatology",
+                slug: "dermatolog",
+    
+            },
+            {
+                title: "Dental",
+                slug: "dental",
+            },
+        ];
+        for (const speciality of specialities) {
+            try {
+                await createSpeciality(speciality);
+            } catch (error) {
+                console.log(`Error creating speciality "${speciality.title}":`, error);
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            data: null,
+            status: 500,
+            error,
+        };
+    }
+}  
