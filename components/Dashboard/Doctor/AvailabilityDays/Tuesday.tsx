@@ -1,12 +1,8 @@
-import { createAvailability, updateAvailabilityById } from '@/actions/registry';
-import SubmitButton from '@/components/FormInputs/SubmitButton';
-import { Button } from '@/components/ui/button';
-import { ClinicProfile } from '@prisma/client';
-import { Loader, Plus, X } from 'lucide-react';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
+import { createAvailability, updateAvailabilityById } from '@/actions/onboarding';
 
 export default function Tuesday({profile,day}:{profile:any,day:string}) {
   let initialData: string[] = ["7:00 AM"];

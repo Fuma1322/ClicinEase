@@ -1,5 +1,5 @@
 "use client"
-import {Activity, AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Power, Settings, SettingsIcon, ShoppingCart, Users } from "lucide-react";
+import {Activity, AlarmClock, Bell, Globe, Home, LineChart, Mail, Package, Package2, Power, Settings, SettingsIcon, ShoppingCart, Stethoscope, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "@/components/ui/badge"
@@ -31,7 +31,7 @@ export default function Sidebar({session}:{session:Session}) {
     ],
     DOCTOR: [
       {title:"Dashboard", path:"/dashboard", icon: Home},
-      {title:"Apointments", path:"/dashboard/doctor/appointments", icon: AlarmClock},
+      {title:"Appointments", path:"/dashboard/doctor/appointments", icon: AlarmClock},
       {title:"Patients", path:"/dashboard/doctor/patients", icon: Users},
       {title:"Tasks", path:"/dashboard/doctor/tasks", icon: Users},
       {title:"Inbox", path:"/dashboard/doctor/inbox", icon: Mail},
@@ -53,7 +53,7 @@ const router = useRouter();
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Package2 className="h-6 w-6" />
+              <Stethoscope className="text-red-600 h-6 w-6" />
               <span className="">Clinic Ease</span>
             </Link>
             <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
@@ -85,7 +85,7 @@ const router = useRouter();
             </nav>
           </div>
           <div className="mt-auto p-4">
-            <Button size="sm" className="w-full">
+            <Button onClick={()=> handlelogOut} size="sm" className="w-full">
               <Power className="w- h-4 mr-1" />
               Logout
             </Button>

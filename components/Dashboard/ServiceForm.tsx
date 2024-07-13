@@ -73,9 +73,9 @@ async function handleCreateMany(){
            <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">
               {title}
             </h1>
-            {/* <Button onClick={handleCreateMany} className="">
+            <Button onClick={handleCreateMany} className="">
               {isLoading ? "Creating...." : "Create Many"}
-            </Button> */}
+            </Button>
             <Button type="button" asChild variant={"outline"}>
               <Link href="/dashboard/services">
               <X className="w-4 h-4"/>

@@ -27,8 +27,6 @@ export default function SymptomForm({
 }) {
   const edititingId = initialData?.id || "";
   const [isLoading, setIsLoading]=useState(false);
-  // const initialImageUrl = initialData?.imageUrl || "";
-  // const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const {
     register,
     handleSubmit,

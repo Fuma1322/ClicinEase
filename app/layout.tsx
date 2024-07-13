@@ -36,34 +36,6 @@ export const metadata: Metadata = {
       url: "https://shadcn.com",
     },
   ],
-  creator: "shadcn",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    images: [siteConfig.ogImage],
-    creator: "@shadcn",
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 }
 
 export default function RootLayout({
@@ -79,6 +51,7 @@ export default function RootLayout({
         <NextSSRPlugin
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
+           <Providers>
           <OnboardingContextProvider>
             <ThemeProvider
               attribute="class"
@@ -86,9 +59,10 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Providers>{children}</Providers>
+              {children}
             </ThemeProvider>
           </OnboardingContextProvider>
+          </Providers>
         </body>
       </html>
     </>

@@ -30,6 +30,7 @@ import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Session, User } from 'next-auth'
 import { signOut } from 'next-auth/react'
+import ModeToggle from '../ModeToggle'
 
 export default function NavBar({session}:{session:Session}) {
   const user =session.user;
@@ -120,6 +121,7 @@ export default function NavBar({session}:{session:Session}) {
         </div>
       </form>
     </div>
+    <ModeToggle />
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
       <Avatar className='cursor-pointer'>

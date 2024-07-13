@@ -2,10 +2,10 @@
 
 import {updateDoctorProfileWithService} from "@/actions/services";
 import {Button} from "@/components/ui/button";
-import {CardContent, CardFooter} from "@/components/ui/card";
+import {CardContent} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {DoctorProfile, Service, Speciality, Symptom} from "@prisma/client";
-import {Loader, Map,Video} from "lucide-react";
+import {Map,Video} from "lucide-react";
 import Image from "next/image";
 import React , {useState} from "react";
 import toast from "react-hot-toast";
@@ -22,7 +22,6 @@ export default function UpdateServiceForm({
     profile: DoctorProfile | undefined | null;
 }) {
    
-    
     // if (status === "loading") {
     //     return (
     //         <div className="flex items-center">
@@ -31,6 +30,7 @@ export default function UpdateServiceForm({
     //         </div>
     //     );
     // }
+    
         const profileId = profile?.id;
         const initialServiceId = profile?.serviceId ?? "";
         const initialSpecialityId = profile?.specialityId ?? "";

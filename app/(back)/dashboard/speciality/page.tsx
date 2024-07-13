@@ -1,7 +1,6 @@
 import { getSpecialities } from '@/actions/specialities'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
 import PannelHeader from '@/components/Dashboard/Doctor/PannelHeader'
-import ServiceCard from '@/components/Dashboard/ServiceCard'
 import SpecialityCard from '@/components/Dashboard/SpecialityCard'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Anvil, LayoutGrid } from 'lucide-react'
