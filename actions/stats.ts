@@ -13,7 +13,7 @@ export async function getStats() {
             appointments: "00",
             services: serviceCount.toString().padStart(2,"0"),
     };
-        return stat ;
+        return stats ;
     } catch (error) {
         console.log(error)
         return {
