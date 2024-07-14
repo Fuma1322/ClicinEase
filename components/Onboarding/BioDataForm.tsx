@@ -21,7 +21,7 @@ export type StepFormProps = {
   nextPage?: string;
   userId?: string;
   formId?: string;
-  specialities?: Speciality;  
+  specialities?: Speciality[];  
 }
 export default function BioDataForm({
   page, 

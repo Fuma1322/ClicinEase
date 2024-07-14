@@ -14,6 +14,7 @@ import { updateDoctorProfile } from "@/actions/onboarding";
 import toast from "react-hot-toast";
 import { useOnboardingContext } from "@/context/context";
 
+
 export default function EducationInfo({
   page,
   title, 

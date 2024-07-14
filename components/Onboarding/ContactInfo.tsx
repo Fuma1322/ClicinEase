@@ -27,7 +27,7 @@ export default function ContactInfo({
     formState:{errors},
 } = useForm<ContactFormProps>({
   defaultValues: {
-    email: contactData.email || savedDBData.emai,
+    email: contactData.email || savedDBData.email,
     phone: contactData.phone || savedDBData.phone,
     country: contactData.country || savedDBData.country,
     city: contactData.city || savedDBData.city,

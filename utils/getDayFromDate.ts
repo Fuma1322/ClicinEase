@@ -1,6 +1,6 @@
 import { DoctorProfileAvailability } from "@/types/types";
 
-export function getDayFromDate(dateString: string |undefined ): string{
+export function getDayFromDate(dateString: string |undefined ) {
   
     const daysOfWeek: (keyof DoctorProfileAvailability)[] = [
         "sunday",

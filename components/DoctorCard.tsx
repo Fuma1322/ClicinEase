@@ -2,7 +2,6 @@ import { Doctor, DoctorProfileAvailability } from '@/types/types';
 import generateSlug from '@/utils/generateSlug';
 import { getDayName } from '@/utils/getDayName';
 import { getFormattedDate } from '@/utils/getFormattedShortDate';
-import { User } from '@prisma/client';
 import { Stethoscope, Video } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ export default function DoctorCard({
     const today: keyof DoctorProfileAvailability = getDayName();
     const times = doctor.doctorProfile?.availability?.[today] ?? null;
     const formattedDate = getFormattedDate();
-    // const slug = generateSlug(doctor.slug);
+    const slug = generateSlug(doctor.slug);
     console.log(times);
   return (
    <>

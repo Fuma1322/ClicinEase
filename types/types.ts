@@ -118,17 +118,17 @@ export type stats = {
       name: string;
       email: string;
       phone:string;
-      slug:string[];
-      doctorProfile:DoctorProfile|null;
+      slug:string;
+      doctorProfile:DoctorProfileDetail | null;
   
   };
   export type Doctor = { 
       id: string;
       name: string;
       email: string;
-      phone:string;
-      slug:string[];
-      doctorProfile:DoctorProfile|null;
+      phone: string;
+      slug: string;
+      doctorProfile: DoctorProfile | null;
   
   };
   
@@ -173,7 +173,7 @@ export interface AppointmentProps{
     availability:DoctorProfileAvailability | null;
 
   }
-  interface DoctorProfileDetails extends DoctorProfile {
+  interface DoctorProfileDetail extends DoctorProfile {
     id:string | null;
     yearOfExperience:number | null;
     country:string | null;

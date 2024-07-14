@@ -137,7 +137,7 @@ export default function page() {
                     <span className="text-blue-600 font-semibold mx-2">revenue</span>{" "}
                     today.
                     </h2>
-                <div className="grid grid-cols-2 gap-4 py-6">
+                <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 py-6">
                     {cards.map((card,i)=>{
                             return(
                         <div key={i} className="bg-blue-900 p-4 rounded-lg shadow-2xl text-center">
@@ -150,13 +150,10 @@ export default function page() {
                         <CustomButton 
                           title={card.linkTitle} 
                           href={card.link} 
-                          className="bg-blue-600 hover:bg-blue-800" 
+                          className="bg-blue-600 hover:bg-blue-900 w-full" 
                         />
                     </div>
-
-                            )
-                        })
-                    }
+                    )})}
               </div>
             </div>                
         </div>

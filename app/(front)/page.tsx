@@ -6,7 +6,7 @@ import TabbedSection from '@/components/Frontend/TabbedSection';
 import Brands from '@/components/Frontend/Brands';
 
 export default async function Home() {
-  const doctors = await getDoctors() || [];
+  const doctors = (await getDoctors()) || [];
   const telhealthDoctors = doctors.filter(
   (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
   );

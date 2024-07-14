@@ -39,12 +39,12 @@ export default async function page({
             </div>
               </div>
               <Image 
-            src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"} 
-            width={243} 
-            height={207}  
-            alt="Doctor"
-            className='w-36 h-36 rounded-full object-cover' 
-            />
+                src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"} 
+                width={243} 
+                height={207}  
+                alt="Doctor"
+                className='w-36 h-36 rounded-full object-cover' 
+                />
             </div>
           </div>
           <div className="">

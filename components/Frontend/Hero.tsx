@@ -76,7 +76,7 @@ const Hero = () => {
                   <img
                     src="https://utfs.io/f/e3e1c3d1-c780-4f2a-94c2-91d4de3e7033-1wkca.jpg"
                     alt="hero"
-                    className="max-w-full lg:ml-auto rounded-3xl"
+                    className="max-w-full inline-block align-middle lg:ml-auto rounded-3xl"
                   />
                   <span className="absolute -bottom-8 -left-8 z-[-1]">
                     <svg

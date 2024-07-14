@@ -2,7 +2,6 @@
 "use client"
 
 import { AdditionalFormProps, BioDataFormProps, ContactFormProps, EducationFormProps, PracticeFormProps, ProfileFormProps } from "@/types/types";
-import DoctorProfile  from "@prisma/client";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface IOnBoardingContextData {

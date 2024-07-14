@@ -1,4 +1,5 @@
-import {DoctorProfileAvailability} from "@/types/types/";
+import { DoctorProfileAvailability } from "@/types/types";
+
 export const getDayName = (): keyof DoctorProfileAvailability => {
     const daysOfWeek: (keyof DoctorProfileAvailability)[] = [
       "sunday",

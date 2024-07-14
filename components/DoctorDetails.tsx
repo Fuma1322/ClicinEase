@@ -3,9 +3,8 @@ import { AppointmentProps, DoctorDetail } from "@/types/types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar, Loader2, MoveRight } from "lucide-react";
+import { Loader2, MoveRight } from "lucide-react";
 import toast from "react-hot-toast"; // For showing success or error messages
-import { date } from "zod";
 import { useSession } from "next-auth/react";
 import { File} from "./FormInputs/MultipleFile";
 import { createAppointments } from "@/actions/appointments";
@@ -17,6 +16,8 @@ import TextInput from "./FormInputs/TextInput";
 import { getDayFromDate } from "@/utils/getDayFromDate";
 import { getLongDate } from "@/utils/getLongDate";
 import { Appointment } from "@prisma/client";
+import { Calendar } from "@/components/ui/calendar"
+import React from "react";
 
 export default function DoctorDetails({ 
   doctor,
@@ -27,6 +28,7 @@ export default function DoctorDetails({
 }) {
 
   const [isActive, setIsActive] = useState("availability");
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
   const { data: session } = useSession();
   const patient = session?.user;
   const [step, setStep] = useState(1);
@@ -37,7 +39,8 @@ export default function DoctorDetails({
   const [loading, setLoading] = useState(false);
   const times = doctor.doctorProfile?.availability?.[day] ?? null;
   const [medicalDocs, setMedicalDocs] = useState<File[]>([]);
-  const { register, handleSubmit, formState: { errors } } = useForm<AppointmentProps>({
+  const { register, handleSubmit, formState: { errors } 
+  } = useForm<AppointmentProps>({
     defaultValues: {
       email: appointment?.email ?? "",
       firstName: appointment?.firstName ?? "",
@@ -123,11 +126,11 @@ export default function DoctorDetails({
             {isActive === "availability" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onselect={setDate}
-                    className="rounded-md border"
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="rounded-md border"
                   />
                 </div>
                 <div className="">
@@ -139,17 +142,22 @@ export default function DoctorDetails({
                   </h2>
                   {times && times.length > 0 && (
                     <div className="py-3 grid grid-cols-4 gap-4">
-                      {times.map((item, i) => (
+                      {times.map((item, i) => {
+                        return (
                         <Button
                           key={i}
                           onClick={() => setSelectedTimes(item)}
                           variant={selectedTimes === item ? "default" : "outline"}
-                        >
+                          >
                           {item}
                         </Button>
-                      ))}
+                      );
+                    })}
                     </div>
                   )}
+                  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+                    {doctor.doctorProfile?.hourlyWage}
+                  </h2>
                   <div className="py-4">
                     <button
                       onClick={initiateAppointment}
@@ -159,21 +167,26 @@ export default function DoctorDetails({
                         px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80
                         dark:focus:ring-[#FF9119]/40 me-2 mb-2"
                     >
-                      Book Appointment ($
+                      Book Appointment (M
                       {doctor.doctorProfile?.hourlyWage})
                       <MoveRight className="w-6 h-6 ml-3" />
                     </button>
                   </div>
                 </div>
-                Availability Details Component
               </div>
             ) : (
+              <div> Service Details Component</div>
+            )}
+            </div>
+        </div>
+           ):(  
               <div className="p-8">
                 <form className="py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
                   <h2 className="scroll-m-20 border-b pb-3 mb-6 text-3xl font-semibold tracking-tight first:mt-0">
                     Tell Us Few Details About You
                   </h2>
-                  {step === 2 ? (
+                  {
+                  step === 2 ? (
                     <div className="space-y-6">
                       <div className="grid grid-cols-2 gap-6">
                         <TextInput
@@ -224,7 +237,7 @@ export default function DoctorDetails({
                           date={dob}
                           setDate={setDob}
                           title="Date of Birth"
-                          // errors={errors}
+                          // error={errors}
                           className="col-span-1"
                         />
                       </div>
@@ -273,7 +286,6 @@ export default function DoctorDetails({
                         />
                         <MultipleFile
                           label="Medical Documents"
-                          register={register}
                           files={medicalDocs}
                           setFiles={setMedicalDocs}
                           endpoint="patientMedicalFiles"
@@ -303,9 +315,6 @@ export default function DoctorDetails({
                 </form>
               </div>
             )}
-          </div>
-        </div>
-      ) : null}
-    </>
-  );
-}
+          </>
+        );
+      }
