@@ -8,13 +8,13 @@ Tagline
 
 Team Members and Roles
 Frontend Developers:
-
 Mokonyana Emmanuel Ntsoereng
 Tankiso Leonard Fuma
-Backend Developers:
 
+Backend Developers:
 Tlali David Makhothi
 Thetele Ramoonyane
+
 Why these roles?
 By handling both frontend and backend development, our team has end-to-end ownership of the project, ensuring greater control over implementation, quality assurance, and deployment processes, leading to a cohesive and well-rounded product. Working on both fronts also challenges our team to develop strong problem-solving skills, enhancing personal and professional growth.
 
