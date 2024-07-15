@@ -4,9 +4,10 @@ import Hero from '@/components/Frontend/Hero'
 import Footer from '@/components/Frontend/Footer';
 import TabbedSection from '@/components/Frontend/TabbedSection';
 import Brands from '@/components/Frontend/Brands';
+import { Doctor } from '@/types/types';
 
 export default async function Home() {
-  const doctors = (await getDoctors()) || [];
+  const doctors: Doctor[] = (await getDoctors()) || [];
   const telhealthDoctors = doctors.filter(
   (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
   );

@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { DialogProps } from "@radix-ui/react-alert-dialog"
 import {
   CircleIcon,
   FileIcon,
@@ -25,6 +24,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command"
 import { Search } from "lucide-react"
+import { DialogProps } from "@radix-ui/react-dialog"
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter()

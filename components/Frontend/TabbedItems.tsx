@@ -1,45 +1,23 @@
 "use client"
 import { Tabs } from "flowbite-react";
-import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
-import { MdDashboard } from "react-icons/md";
+import { HiAdjustments } from "react-icons/hi";
 import ServiceList from "./Services/ServiceList";
 import LinkCards from "./Doctors/LinkCards";
-import { LucideHospital, User2Icon } from "lucide-react";
+import { Syringe, User2Icon } from "lucide-react";
+import { Service, Speciality, Symptom } from "@prisma/client";
 
-export default function TabbedItems() {
+type TabbedItemProps = {
+  services: Service[];
+  specialities: Speciality[];
+  symptoms: Symptom[];
+}
 
-  const services=[
-    {
-      title:"Telehealth",
-      image:"/Doctor.jpeg",
-      slug:"telehealth"
-    },
-    {
-      title:"Video prescription",
-      image:"https://utfs.io/f/d94d58bd-c32e-4ded-801e-f24f620a3639-1uswaj.jpg",
-      slug:"telehealth"
-    },
-    {
-      title:"UTI consult",
-      image:"https://utfs.io/f/14aa68fa-36d3-46b4-aa16-bc57a92d9016-2hm2.jpg",
-      slug:"telehealth"
-    },
-    {
-      title:"Mental health",
-      image:"https://utfs.io/f/eb967a61-3621-4dff-b9e5-a862a9b273da-htnc3b.jpg",
-      slug:"telehealth"
-    },
-    {
-      title:"ED consult",
-      image:"https://utfs.io/f/c84e7f6f-f68f-4396-9324-7a9c75a02965-lxr081.jpg",
-      slug:"telehealth"
-    },
-    {
-      title:"Urgent care",
-      image:"https://utfs.io/f/3a563e25-83ae-46be-a399-a70c9aa9c2a3-du9sxr.jpg",
-      slug:"telehealth"
-    }
-  ]
+export default function TabbedItems({
+  services,
+  specialities,
+  symptoms,
+}: TabbedItemProps) {
+
   const tabs = [
     {
       title: "Popular Services",
@@ -56,13 +34,13 @@ export default function TabbedItems() {
     {
       title: "Specialists",
       icon: User2Icon,
-      component: <LinkCards />, // Pass className here
+      component: <LinkCards className="bg-pink-950"  />, // Pass className here
       content: []
     },
     {
       title: "Symptoms",
-      icon: LucideHospital,
-      component: <LinkCards  />, // Pass className here
+      icon: Syringe,
+      component: <LinkCards />, // Pass className here
       content: []
     }
   ];

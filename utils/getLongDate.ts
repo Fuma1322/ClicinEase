@@ -2,7 +2,7 @@ export function getLongDate(dateString: string): string{
     const daysOfWeek = [
         "Sunday",
       "Monday",
-      "Tueday",
+      "Tuesday",
       "Wednesday",
       "Thursday",
       "Friday",

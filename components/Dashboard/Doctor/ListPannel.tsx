@@ -2,10 +2,11 @@
 import React from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from 'next/link';
-import { Briefcase, CalendarCheck, Check, CircleEllipsis, Dot, History, X } from 'lucide-react';
+import { CalendarCheck, Check, CircleEllipsis, History, X } from 'lucide-react';
 import timeAgo from '@/utils/timeAgo';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Appointment } from '@prisma/client';
 
 export default function ListPanel({appointments,role}:{appointments:Appointment[]; role:string}) {
     const pathname = usePathname()
@@ -21,7 +22,7 @@ export default function ListPanel({appointments,role}:{appointments:Appointment[
                         <h2>{item.firstName} {item.lastName}</h2>
                         <div className="flex items-center">
                             <History className='w-4 h-4 mr-2' />
-                            <span>{timeAgo(item.CreatedAt)}</span>
+                            <span>{timeAgo(item.createdAt)}</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">

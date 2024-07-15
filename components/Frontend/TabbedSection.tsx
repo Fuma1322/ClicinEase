@@ -14,7 +14,7 @@ const  TabbedSection= () => {
                 Browse your Doctors By.
               </h2>
               <p className="leading-7 [&:not(:first-child)]:mt-6 text-base text-body-color dark:text-dark-6">
-              Choose from thousands of providers at every day affordable prices. Book online today.
+              Choose from thousands of providers at every day affordable prices. 
               </p>
             </div>
           </div>
@@ -22,7 +22,7 @@ const  TabbedSection= () => {
 
 {/* TABS */}
 <div className="mx-auto max-w-6xl">
-    <TabbedItems />
+    <TabbedItems services={[]} specialities={[]} symptoms={[]} />
 </div>
       </div>
     </section>

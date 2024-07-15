@@ -7,6 +7,7 @@ import { getAppointmentsByPatientId } from '@/actions/appointments';
 import DoctorDetails from '@/components/DoctorDetails';
 import FixedBookButton from '@/components/FixedBookButton';
 import { Appointment } from '@prisma/client';
+import { Doctor, DoctorDetail } from '@/types/types';
 
 export default async function page({
   params: { slug },
@@ -48,7 +49,7 @@ export default async function page({
             </div>
           </div>
           <div className="">
-          <DoctorDetails appointment={appointment as Appointment| null} doctor={doctor}/>
+          <DoctorDetails appointment={appointment as Appointment| null} doctor={doctor as DoctorDetail}/>
           </div>
         </div> 
         <FixedBookButton price={doctor.doctorProfile?.hourlyWage}/>

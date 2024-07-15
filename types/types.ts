@@ -104,7 +104,7 @@ export type stats = {
   
   export type DoctorProfileAvailability = {
       monday: string[];
-      tueday: string[];
+      tuesday: string[];
       wednesday: string[];
       thursday: string[];
       friday: string[];
@@ -175,10 +175,10 @@ export interface AppointmentProps{
   }
   interface DoctorProfileDetail extends DoctorProfile {
     id:string | null;
-    yearOfExperience:number | null;
     country:string | null;
     city:string | null;
     state:string | null;
+    yearOfExperience:number | null;
     primaryspecialization:string | null;
     otherSpecialization:string | null;
     organizationName:string | null;

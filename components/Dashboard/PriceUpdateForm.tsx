@@ -1,4 +1,5 @@
 "use client"
+
 import { useForm } from "react-hook-form"
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
@@ -10,6 +11,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Speciality } from "@prisma/client";
 import { createManySpecialities, createSpeciality } from "@/actions/specialities";
+import { updateService } from "@/actions/services";
 
 export type SpecialityProps = {
   title: string;
@@ -42,7 +44,7 @@ export default function PriceUpdateForm({
     data.slug=slug;
     console.log(data);
     if (edititingId) {
-      await UpdateService(edititingId, data);
+      await updateService(edititingId, data);
       toast.success("Speciality Updated Successfully");
     }else {
       await createSpeciality(data);

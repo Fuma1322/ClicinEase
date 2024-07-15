@@ -185,3 +185,45 @@ export async function getServiceBySlug(slug: string) {
     };
     }
 }
+
+export async function updateService(id:string, data:ServiceProps) {
+    try {
+        const existingService = await prismaClient.service.findUnique({
+            where: {
+                id,
+            },
+        });
+
+        if (!existingService) {
+            return {
+                data: null,
+                status: 409,
+                error: "Service with that does not exist"
+            };
+        }
+
+        // const formattedTitle = { set: [data.title] };
+
+        const updatedService = await prismaClient.service.update({
+           where:{
+            id
+           }, data
+        });
+        revalidatePath("/dashboard/services")
+        console.log(updatedService);
+
+        return {
+            data: updatedService,
+            status: 201,
+            error: null,
+        };
+    } catch (error) {
+        console.error(error);
+
+        return {
+            data: null,
+            status: 501,
+            error: "Service not created",
+        };
+    }
+}

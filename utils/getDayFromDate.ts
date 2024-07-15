@@ -5,7 +5,7 @@ export function getDayFromDate(dateString: string |undefined ) {
     const daysOfWeek: (keyof DoctorProfileAvailability)[] = [
         "sunday",
         "monday",
-        "tueday",
+        "tuesday",
         "wednesday",
         "thursday",
         "friday",
