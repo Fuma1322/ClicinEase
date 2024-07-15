@@ -95,52 +95,52 @@ const router = useRouter()
             >
             <div className="grid gap-4 grid-cols-2">
             <TextInputs  
-                label="Clinic Name"
+                label="Organization Name"
                 register={register}
-                name="clinicName"
+                name="organizationName"
                 errors={errors} 
-                placeholder="Enter Clinic Name"
+                placeholder="Enter Organization Name"
                 className="col-span-full sm:col-span-1"
              />
              <TextInputs 
-                label="Clinic Address"
+                label="Organization Address"
                 register={register} 
-                name="clinicAddress"
+                name="organizationAddress"
                 errors={errors}
-                placeholder="Enter Clinic Address"
+                placeholder="Enter Organization Address"
                 className="col-span-full sm:col-span-1" 
              />
              <TextInputs 
-                label="Clinic Contact Number"
+                label="Organization Contact Number"
                 register={register} 
-                name="clinicContactNumber"
+                name="organizationContactNumber"
                 errors={errors}
-                placeholder="Enter Clinic Contact Number"
+                placeholder="Enter Organization Contact Number"
                 className="col-span-full sm:col-span-1" 
              />
              <TextInputs 
-                label="Clinic Email Address"
+                label="Organization Email Address"
                 register={register} 
-                name="clinicEmailAddress"
+                name="organizationEmailAddress"
                 errors={errors}
                 placeholder="Eg. clinicease03@gmail.com"
                 className="col-span-full sm:col-span-1" 
               />
               <TextInputs 
-                label="Clinic Website(Optional)"
+                label="Organization Website(Optional)"
                 register={register} 
-                name="clinicWebsite"
+                name="organizationWebsite"
                 errors={errors}
-                placeholder="Enter Clinic Website"
+                placeholder="Enter Organization Website"
                 isRequired = {false}
                 className="col-span-full sm:col-span-1" 
               />
               <TextInputs 
-                label="Clinic Hours Of Operation "
+                label="Organization Hours Of Operation "
                 register={register} 
-                name="clinicHoursOfOperarion"
+                name="organizationHoursOfOperarion"
                 errors={errors}
-                placeholder="Enter Clinic Hours Of Operation"
+                placeholder="Enter Organization Hours Of Operation"
                 className="col-span-full sm:col-span-1" 
               />
                 <ShadSelectInput 

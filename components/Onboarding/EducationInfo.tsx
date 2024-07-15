@@ -93,14 +93,14 @@ const router = useRouter();
             <TextInputs 
                 label="Medical School"
                 register={register} 
-                name="school"
+                name="medicalSchool"
                 errors={errors}
                 placeholder="Enter Your Grad School Name" 
               />
               <TextInputs  
                 label="Graduation Year"
                 register={register}
-                name="year"
+                name="graduationYear"
                 errors={errors} 
                 placeholder="Enter Your Grad Year"
                 className="col-span-full sm:col-span-1" 

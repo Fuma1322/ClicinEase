@@ -151,8 +151,8 @@ export async function getDoctors() {
       console.log(error);
       return null;
       
-    }
-    }
+  }
+}
 
 export async function getDoctorBySlug(slug:string){
   if (slug){

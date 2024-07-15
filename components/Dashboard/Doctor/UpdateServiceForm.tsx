@@ -50,6 +50,7 @@ export default function UpdateServiceForm({
         const [savingSymptoms, setSavingSymptoms] = useState(false);
         const [savingMode, setSavingMode] = useState(false);
         console.log(price);
+        
         const operationModes = [
         {
             title: "Telehealth visit",
