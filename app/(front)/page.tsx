@@ -7,7 +7,7 @@ import Brands from '@/components/Frontend/Brands';
 import { Doctor } from '@/types/types';
 
 export default async function Home() {
-  const doctors: Doctor[] = (await getDoctors()) || [];
+  const doctors = (await getDoctors()) || [];
   const telhealthDoctors = doctors.filter(
   (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
   );

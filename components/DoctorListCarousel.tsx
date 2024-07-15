@@ -9,7 +9,7 @@ export default function DoctorsListCarousel({
     doctors,
     isInperson,
  }: {
-    doctors:Doctor[];
+    doctors: any;
     isInperson?:boolean;
 }) {
   const responsive = {

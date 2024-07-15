@@ -11,8 +11,8 @@ export default function DoctorCard({
   isInPerson=false,
   doctor, 
 }:{
-    isInPerson?:boolean;
-    doctor:Doctor;
+    isInPerson?: boolean;
+    doctor: Doctor;
   }) {
    
     const today: keyof DoctorProfileAvailability = getDayName();

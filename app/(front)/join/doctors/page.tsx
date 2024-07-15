@@ -134,7 +134,7 @@ export default function page() {
                 <div className="">
                 <h2 className="sm:text-3xl text-2xl ">
                     Join ClinicEase to increase your
-                    <span className="text-blue-600 font-semibold mx-2">revenue</span>{" "}
+                    <span className="text-blue-600 font-semibold mx-2">patient-reach</span>{" "}
                     today.
                     </h2>
                 <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 py-6">

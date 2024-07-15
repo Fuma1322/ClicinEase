@@ -35,6 +35,8 @@ export default function EducationInfo({
     medicalSchool: educationData.medicalSchool || savedDBData.medicalSchool,
     graduationYear: educationData.graduationYear || savedDBData.graduationYear,
     primarySpecialization: educationData.primarySpecialization || savedDBData.primarySpecialization,
+    otherSpecialities: educationData.otherSpecialities || savedDBData.otherSpecialities,
+    docCertificates: educationData.docCertificates || savedDBData.docCertificates,  // This should be File[] instead of string[]
     page: educationData.page || savedDBData.page,
   }
 });

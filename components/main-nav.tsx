@@ -24,7 +24,7 @@ export function MainNav() {
           docsConfig.mainNav?.map((items,i) => {
             return (
               <Link key={i}
-              href=""
+              href="/"
               className={cn(
                 "transition-colors hover:text-foreground/80",
                 pathname === items.href ? "text-foreground" : "text-foreground/60"

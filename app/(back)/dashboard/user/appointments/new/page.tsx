@@ -5,12 +5,12 @@ import DoctorCard from '@/components/DoctorCard';
 export default async function NewAppointment() {
   const doctors = (await getDoctors()) || [];
   const telhealthDoctors = doctors.filter(
-  (doctor) => doctor.doctorProfile?.operationMode === "TeleHealth visit"
+  (doctor) => doctor.doctorProfile?.operationMode === "Telehealth visit"
   );
   const inpersonDoctors = doctors.filter(
     (doctor) => doctor.doctorProfile?.operationMode === "In-person visit"
   );
-  console.log(inpersonDoctors)
+  console.log(telhealthDoctors);
   return ( 
     <section className="">
         <h2 className=" px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">Select the Doctor to Continue</h2>

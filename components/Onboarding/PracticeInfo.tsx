@@ -43,13 +43,14 @@ export default function PracticeInfo({
     formState:{errors},
 } = useForm<PracticeFormProps>({
   defaultValues: {
-    organizationName: practiceData.organizationName || savedDBData.clinicName,
-    organizationAddress: practiceData.organizationAddress || savedDBData.clinicAddress,
-    organizationContactNumber: practiceData.organizationContactNumber || savedDBData.clinicEmailAddress,
-    organizationEmailAddress: practiceData.organizationEmailAddress || savedDBData.clinicEmailAddress,
-    organizationWebsite: practiceData.organizationWebsite || savedDBData.clinicWebsite,
-    organizationHoursOfOperarion: practiceData.organizationHoursOfOperarion || savedDBData.clinicHoursOfOperarion,
+    organizationName: practiceData.organizationName || savedDBData.organizationName,
+    organizationAddress: practiceData.organizationAddress || savedDBData.organizationAddress,
+    organizationContactNumber: practiceData.organizationContactNumber || savedDBData.organizationContactNumber,
+    organizationEmailAddress: practiceData.organizationEmailAddress || savedDBData.organizationEmailAddress,
+    organizationWebsite: practiceData.organizationWebsite || savedDBData.organizationWebsite,
+    organizationHoursOfOperarion: practiceData.organizationHoursOfOperarion || savedDBData.organizationHoursOfOperarion,
     insuranceAccepted: practiceData.insuranceAccepted || savedDBData.insuranceAccepted,
+    servicesOffered: practiceData.servicesOffered || savedDBData.servicesOffered,
     page: practiceData.page || savedDBData.page,
   }
 });
