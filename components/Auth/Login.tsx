@@ -1,3 +1,5 @@
+"use client"
+
 import TextInput from "../FormInputs/TextInput"; // Importing custom TextInput component
 import Link from "next/link"; // Importing Link component from Next.js
 import { useState } from "react"; // Importing useState hook from React

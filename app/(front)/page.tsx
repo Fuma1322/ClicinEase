@@ -1,3 +1,5 @@
+"use client"
+
 import { getDoctors } from '@/actions/users'; // Importing function to fetch doctors from actions/users
 import DoctorList from '@/components/DoctorList'; // Importing DoctorList component to display doctors
 import Hero from '@/components/Frontend/Hero'; // Importing Hero component for homepage hero section
