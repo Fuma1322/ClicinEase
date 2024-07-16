@@ -1,18 +1,21 @@
 "use server"
 
+// Import necessary modules and components
 import { prismaClient } from "@/lib/db";
 import { ServiceProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
-
-export async function createService(data:ServiceProps) {
+// Function to create a new service
+export async function createService(data: ServiceProps) {
     try {
+        // Check if service with the same slug already exists
         const existingService = await prismaClient.service.findUnique({
             where: {
                 slug: data.slug
             },
         });
 
+        // If service already exists, return conflict error
         if (existingService) {
             return {
                 data: null,
@@ -21,20 +24,21 @@ export async function createService(data:ServiceProps) {
             };
         }
 
-        // const formattedTitle = { set: [data.title] };
-
+        // Create new service in the database
         const newService = await prismaClient.service.create({
             data,
         });
 
         console.log(newService);
 
+        // Return success response
         return {
             data: newService,
             status: 201,
             error: null,
         };
     } catch (error) {
+        // Handle errors and return error response
         console.error(error);
 
         return {
@@ -45,42 +49,55 @@ export async function createService(data:ServiceProps) {
     }
 }
 
+// Function to fetch all services ordered by creation date
 export async function getServices() {
     try {
+        // Fetch all services ordered by creation date (descending)
         const services = await prismaClient.service.findMany({
            orderBy:{
                 createdAt: "desc"
            }
         });
+
+        // Return success response with fetched services
         return {
             data: services,
             status: 200,
             error:null,
         };
     } catch (error) {
-        console.log(error)
+        // Handle errors and return error response
+        console.log(error);
         return {
             data: null,
             status: 500,
             error,
-    };
+        };
     }
 }
-export async function deleteService( id : string) {
+
+// Function to delete a service by ID
+export async function deleteService(id: string) {
     try {
+        // Delete service with the specified ID from the database
         await prismaClient.service.delete({
            where:{
                 id,
            },
         });
+
+        // Invalidate cache for the services dashboard page
         revalidatePath("/dashboard/services")
+
+        // Return success response
         return {
             ok: true,
             status: 200,
             error:null,
         };
     } catch (error) {
-        console.log(error)
+        // Handle errors and return error response
+        console.log(error);
         return {
             data: null,
             status: 500,
@@ -88,9 +105,11 @@ export async function deleteService( id : string) {
         };
     }
 }
+
+// Function to create multiple predefined services
 export async function createManyServices() {
-   
     try {
+        // Array of predefined services to create
         const services = [
             {
                 title: "UTI Consult",
@@ -99,12 +118,12 @@ export async function createManyServices() {
     
             },
             {
-                title: "video prescription refill",
+                title: "Video Prescription Refill",
                 slug: "video-refill",
                 imageUrl: "",
             },
             {
-                title: "In person clinic visit",
+                title: "In-Person Clinic Visit",
                 slug: "in-person-visit",
                 imageUrl: "",
     
@@ -115,6 +134,8 @@ export async function createManyServices() {
                 imageUrl: "",
             },
         ];
+
+        // Iterate through services array and create each service
         for (const service of services) {
             try {
                 await createService(service);
@@ -123,7 +144,8 @@ export async function createManyServices() {
             }
         }
     } catch (error) {
-        console.log(error)
+        // Handle errors and return error response
+        console.log(error);
         return {
             data: null,
             status: 500,
@@ -132,98 +154,113 @@ export async function createManyServices() {
     }
 }
 
-export async function updateDoctorProfileWithService(
-    id: string | undefined,
-    data:any
-) {
+// Function to update a doctor profile with service details
+export async function updateDoctorProfileWithService(id: string | undefined, data: any) {
     if (id) {
         try {
-        const updatedProfile = await prismaClient.doctorProfile.update({
-            where: {
-                id,
-            },
-            data,
-        });
-        console.log(updatedProfile);
-        revalidatePath("/dashboard/doctor/settings");
-        return {
-            data: updatedProfile,
-            status: 201,
-            error: null,
-        };
-    } catch (error) {
-        console.log(error);
-        return {
-            data: null,
-            status:500,
-            error: "Profile was not updated",
-        };
+            // Update the doctor profile with the specified ID
+            const updatedProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id,
+                },
+                data,
+            });
+
+            console.log(updatedProfile);
+
+            // Invalidate cache for the doctor settings page
+            revalidatePath("/dashboard/doctor/settings");
+
+            // Return success response
+            return {
+                data: updatedProfile,
+                status: 201,
+                error: null,
+            };
+        } catch (error) {
+            // Handle errors and return error response
+            console.log(error);
+            return {
+                data: null,
+                status:500,
+                error: "Profile was not updated",
+            };
+        }
     }
 }
-}
 
+// Function to fetch a service by slug
 export async function getServiceBySlug(slug: string) {
     try {
-     if(slug){
+        // Fetch service with the specified slug
         const service = await prismaClient.service.findUnique({
             where:{
                  slug,
             }
          });
+
+         // Return success response with fetched service
          return {
              data: service,
              status: 200,
              error:null,
          };
-     }   
     } catch (error) {
-        console.log(error)
+        // Handle errors and return error response
+        console.log(error);
         return {
             data: null,
             status: 500,
             error,
-    };
+        };
     }
 }
 
-export async function updateService(id:string, data:ServiceProps) {
+// Function to update a service by ID
+export async function updateService(id: string, data: ServiceProps) {
     try {
+        // Check if service with the specified ID exists
         const existingService = await prismaClient.service.findUnique({
             where: {
                 id,
             },
         });
 
+        // If service does not exist, return conflict error
         if (!existingService) {
             return {
                 data: null,
                 status: 409,
-                error: "Service with that does not exist"
+                error: "Service with that ID does not exist"
             };
         }
 
-        // const formattedTitle = { set: [data.title] };
-
+        // Update the service with the provided data
         const updatedService = await prismaClient.service.update({
            where:{
             id
            }, data
         });
+
+        // Invalidate cache for the services dashboard page
         revalidatePath("/dashboard/services")
+
         console.log(updatedService);
 
+        // Return success response
         return {
             data: updatedService,
             status: 201,
             error: null,
         };
     } catch (error) {
+        // Handle errors and return error response
         console.error(error);
 
         return {
             data: null,
             status: 501,
-            error: "Service not created",
+            error: "Service not updated",
         };
     }
 }

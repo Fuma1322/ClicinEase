@@ -83,10 +83,9 @@ export default async function Dashboard() {
       </Card>
             )
         })
-      }
-      
+      } 
     </div>
-    <div className="grid gap-4 md:gap-8 lg:grid-cols-2 grid-1">
+    {/* <div className="grid gap-4 md:gap-8 lg:grid-cols-2 grid-1">
       <Card
         className="" x-chunk="dashboard-01-chunk-4"
       >
@@ -308,7 +307,7 @@ export default async function Dashboard() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </div> */}
   </main>
   )
 }

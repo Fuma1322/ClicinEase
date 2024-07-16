@@ -5,7 +5,7 @@ import { SymptomProps } from "@/components/Dashboard/SymptomForm";
 import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-
+// Function to create a new symptom
 export async function createSymptom(data: SymptomProps) {
     try {
         const existingSymptom = await prismaClient.symptom.findUnique({
@@ -21,11 +21,16 @@ export async function createSymptom(data: SymptomProps) {
                 error: "Symptom already exists"
             };
         }
+
         const newSymptom = await prismaClient.symptom.create({
             data,
         });
-        revalidatePath("/dashboard/symptoms")
+
+        // Invalidate cache for the dashboard symptoms page
+        revalidatePath("/dashboard/symptoms");
+
         console.log(newSymptom);
+
         return {
             data: newSymptom,
             status: 201,
@@ -41,53 +46,59 @@ export async function createSymptom(data: SymptomProps) {
     }
 }
 
+// Function to fetch all symptoms ordered by creation date
 export async function getSymptoms() {
     try {
         const symptoms = await prismaClient.symptom.findMany({
-           orderBy:{
+            orderBy: {
                 createdAt: "desc"
-           },
+            },
         });
+
         return {
             data: symptoms,
             status: 200,
-            error:null,
+            error: null,
         };
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return {
             data: null,
             status: 500,
             error,
         };
-    }
-}
-export async function getSymptomsBySlug(slug:string) {
-    try {
-        const symptom = await prismaClient.symptom.findUnique({
-           where:{
-                slug
-           }
-        });
-        return {
-            data: symptom,
-            status: 200,
-            error:null,
-        };
-    } catch (error) {
-        console.log(error)
-        return {
-            data: null,
-            status: 500,
-            error,
-    };
     }
 }
 
+// Function to fetch a symptom by its slug
+export async function getSymptomsBySlug(slug: string) {
+    try {
+        const symptom = await prismaClient.symptom.findUnique({
+            where: {
+                slug
+            }
+        });
+
+        return {
+            data: symptom,
+            status: 200,
+            error: null,
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            data: null,
+            status: 500,
+            error,
+        };
+    }
+}
+
+// Function to create multiple predefined symptoms
 export async function createManySymptoms() {
-   
     try {
         const symptoms = [
+            // List of predefined symptoms
             {
                 title: "Fever",
                 slug: "fever",
@@ -492,7 +503,9 @@ export async function createManySymptoms() {
                 title: "Slow Heart Rate",
                 slug: "slow-heart-rate",
             }
-        ]
+        ];
+
+        // Loop through symptoms and create each one
         for (const symptom of symptoms) {
             try {
                 await createSymptom(symptom);
@@ -501,7 +514,7 @@ export async function createManySymptoms() {
             }
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return {
             data: null,
             status: 500,
@@ -510,64 +523,71 @@ export async function createManySymptoms() {
     }
 }
 
-export async function deleteSymptom( id : string) {
+// Function to delete a symptom by its ID
+export async function deleteSymptom(id: string) {
     try {
         await prismaClient.symptom.delete({
-           where:{
-                id,
-           },
-        });
-        revalidatePath("/dashboard/symptoms")
-        return {
-            ok: true,
-            status: 200,
-            error:null,
-        };
-    } catch (error) {
-        console.log(error)
-        return {
-            data: null,
-            status: 500,
-            error,
-        };
-    }
-}
-
-export async function updateDoctorProfileWithService(
-    id: string | undefined,
-    data:any
-) {
-    if (id) {
-        try {
-        const updatedProfile = await prismaClient.doctorProfile.update({
             where: {
                 id,
             },
-            data,
         });
-        console.log(updatedProfile);
-        revalidatePath("/dashboard/doctor/settings");
+
+        // Invalidate cache for the dashboard symptoms page
+        revalidatePath("/dashboard/symptoms");
+
         return {
-            data: updatedProfile,
-            status: 201,
+            ok: true,
+            status: 200,
             error: null,
         };
     } catch (error) {
         console.log(error);
         return {
             data: null,
-            status:500,
-            error: "Profile was not updated",
+            status: 500,
+            error,
         };
     }
 }
+
+// Function to update a doctor's profile with new service data
+export async function updateDoctorProfileWithService(id: string | undefined, data: any) {
+    if (id) {
+        try {
+            const updatedProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id,
+                },
+                data,
+            });
+
+            // Invalidate cache for the doctor's settings page
+            revalidatePath("/dashboard/doctor/settings");
+
+            console.log(updatedProfile);
+
+            return {
+                data: updatedProfile,
+                status: 201,
+                error: null,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Profile was not updated",
+            };
+        }
+    }
 }
 
-export async function updateSymptomById(id:string, data:SpecialityProps) {
+// Function to update a symptom by its ID
+export async function updateSymptomById(id: string, data: SpecialityProps) {
     try {
         const existingSymptom = await prismaClient.symptom.findUnique({
             where: {
-              id 
+                id
             },
         });
 
@@ -579,14 +599,16 @@ export async function updateSymptomById(id:string, data:SpecialityProps) {
             };
         }
 
-        // const formattedTitle = { set: [data.title] };
-
         const updatedSymptom = await prismaClient.symptom.update({
-         where:{
-            id
-         }, data,
+            where: {
+                id
+            },
+            data,
         });
-        revalidatePath("/dashboard/symptoms")
+
+        // Invalidate cache for the dashboard symptoms page
+        revalidatePath("/dashboard/symptoms");
+
         console.log(updatedSymptom);
 
         return {
