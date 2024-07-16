@@ -128,7 +128,6 @@ export type stats = {
       email: string;
       phone: string;
       slug: string;
-      profilePicture: string;
       doctorProfile: DoctorProfile | null;
   
   };
