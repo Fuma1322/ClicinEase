@@ -195,7 +195,7 @@ model DoctorProfile {
   research         String?
   accomplishments  String?
   additionalDocs   String[]
-  operationMode    String?  @default("Telehealth visit")
+  operationMode    String?  @default("")
   hourlyWage       Int      @default(100)
 
   specialityId String?     @db.ObjectId

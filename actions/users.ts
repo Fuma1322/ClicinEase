@@ -164,6 +164,26 @@ export async function getDoctors() {
     }
 }
 
+
+// export async function getDoctors() {
+//         try {
+//             const doctors = await prismaClient.user.findMany({
+//                 where: {
+//                     role: "DOCTOR",
+//                 },
+//                 include : {
+//                     doctorProfile: true,
+//                 },
+//             });
+//         return doctors;
+//         } catch (error) {
+//             console.log(error);
+//             return null;
+//         }
+//     }
+
+
+
 // Function to fetch a doctor by slug
 export async function getDoctorBySlug(slug: string) {
     if (slug) {

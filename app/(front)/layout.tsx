@@ -1,4 +1,3 @@
-import Footer from "@/components/Frontend/Footer";
 import  SiteHeader from "@/components/site-header";
 import React, { ReactNode } from 'react'
 import { getServerSession } from "next-auth"

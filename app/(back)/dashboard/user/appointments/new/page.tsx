@@ -1,54 +1,54 @@
-import { getDoctors } from '@/actions/users'; // Importing getDoctors function from users actions
-import DoctorCard from '@/components/DoctorCard'; // Importing DoctorCard component to display doctor information
+import { getDoctors } from '@/actions/users';
+import DoctorCard from '@/components/DoctorCard';
 
 export default async function NewAppointment() {
-  // Fetching list of doctors from the server
-  const doctors = (await getDoctors()) || [];
+  try {
+    const doctors = (await getDoctors()) || [];
+    console.log("Fetched doctors in NewAppointment:", doctors);
 
-  // Filtering doctors based on operation mode for telehealth visits
-  const telhealthDoctors = doctors.filter(
-    (doctor) => doctor.doctorProfile?.operationMode === "Telehealth visit"
-  );
+    const telhealthDoctors = doctors.filter(
+      (doctor) => doctor.doctorProfile?.operationMode === "Telehealth visit"
+    );
+    const inpersonDoctors = doctors.filter(
+      (doctor) => doctor.doctorProfile?.operationMode === "In-person visit"
+    );
 
-  // Filtering doctors based on operation mode for in-person visits
-  const inpersonDoctors = doctors.filter(
-    (doctor) => doctor.doctorProfile?.operationMode === "In-person visit"
-  );
+    console.log("Telehealth doctors:", telhealthDoctors);
+    console.log("In-person doctors:", inpersonDoctors);
 
-  console.log(telhealthDoctors);
+    return (
+      <section className="">
+        <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">Select the Doctor to Continue</h2>
 
-  return ( 
-    <section className="">
-      {/* Section title for selecting a doctor */}
-      <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">Select the Doctor to Continue</h2>
-
-      {/* Display telehealth doctors section if there are any */}
-      {telhealthDoctors && telhealthDoctors.length > 0 && (
-        <div className="py-4">
-          {/* Subtitle for telehealth doctors */}
-          <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">TeleHealth Doctors</h2>
-          <div className="grid place-items-center">
-            {/* Mapping through telehealth doctors and displaying each DoctorCard */}
-            {telhealthDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor}/>
-            ))}
+        {telhealthDoctors.length > 0 && (
+          <div className="py-4">
+            <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">TeleHealth Doctors</h2>
+            <div className="grid place-items-center">
+              {telhealthDoctors.map((doctor) => {
+                console.log("Rendering Telehealth doctor:", doctor);
+                return <DoctorCard key={doctor.id} isInPerson={false} doctor={doctor} />;
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Display in-person doctors section if there are any */}
-      {inpersonDoctors && inpersonDoctors.length > 0 && (
-        <div className="py-4">
-          {/* Subtitle for in-person doctors */}
-          <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">Inperson Doctors</h2>
-          <div className="grid place-items-center">
-            {/* Mapping through in-person doctors and displaying each DoctorCard */}
-            {inpersonDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor}/>
-            ))}
+        {inpersonDoctors.length > 0 && (
+          <div className="py-4">
+            <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">In-person Doctors</h2>
+            <div className="grid place-items-center">
+              {inpersonDoctors.map((doctor) => {
+                console.log("Rendering In-person doctor:", doctor);
+                return <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor} />;
+              })}
+            </div>
           </div>
-        </div>
-      )}
-    </section>
-  );
+        )}
+      </section>
+    );
+  } catch (error) {
+    console.error("Error in NewAppointment component:", error);
+    return (
+      <div>Error loading doctors. Please try again later.</div>
+    );
+  }
 }

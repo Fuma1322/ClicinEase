@@ -4,7 +4,6 @@ import ToggleButton from './ToggleButton'
 import Link from 'next/link'
 import { Map } from 'lucide-react'
 import DoctorsListCarousel from './DoctorListCarousel'
-import { User } from '@prisma/client'
 import { Button } from './ui/button'
 import { Doctor } from '@/types/types'
 
@@ -25,7 +24,7 @@ export default function DoctorList({
         <SectionHeading title={title} />
         <div className="py-4 flex items-center justify-between" >
            {isInPerson?(
-            <Link href="" className='text-sm flex items-center text-blue-700 font-semibold ' >
+            <Link href="/" className='text-sm flex items-center text-blue-700 font-semibold ' >
               <Map className='mr-2 flex-shrink-0 w-4 h-4' />
               <span>Map View</span>
             </Link>

@@ -9,8 +9,8 @@ export default function DoctorsListCarousel({
     doctors,
     isInperson,
  }: {
-    doctors: any;
-    isInperson?:boolean;
+    doctors: Doctor[];
+    isInperson?: boolean;
 }) {
   const responsive = {
     desktop: {
@@ -48,7 +48,7 @@ export default function DoctorsListCarousel({
       dotListClass="custom-dot-list-style"
       itemClass="px-4"
     >
-      {doctors.map((doctor:Doctor,i:number)=>{
+      {doctors.map((doctor: Doctor, i: number)=>{
         return <DoctorCard doctor={doctor} key={i} isInPerson={isInperson} />;
               })}
     </Carousel>

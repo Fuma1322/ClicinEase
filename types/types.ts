@@ -168,6 +168,7 @@ export interface AppointmentProps{
     lastName:string;
     gender:string;
     bio:string | null;
+    profilePicture:string | null;
     operationMode:string | null;
     hourlyWage:number;
     availability:DoctorProfileAvailability | null;
