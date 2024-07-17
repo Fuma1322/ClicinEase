@@ -4,12 +4,19 @@ import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 import { createAvailability, updateAvailabilityById } from '@/actions/onboarding';
 
-export default function Monday({profile,day}:{profile:any,day:string}) {
+export default function Monday({
+  profile,
+  day
+}:{
+  profile:any,
+  day:string
+}) {
   let initialData: string[] = ["7:00 AM"];
    if (profile && profile?.availability){
     initialData = profile?.availability[day]|| [];
    }
   const availability = profile?.availablity || "";
+  
   const [selectedTimes, setSelectedTimes]=useState(initialData);
   // console.log(selectedTimes);
   function handleAddTime(time:string){

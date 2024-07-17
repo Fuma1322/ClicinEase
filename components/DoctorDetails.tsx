@@ -1,4 +1,5 @@
 "use client"
+
 import { AppointmentProps, DoctorDetail } from "@/types/types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";

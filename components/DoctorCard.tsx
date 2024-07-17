@@ -25,13 +25,13 @@ export default function DoctorCard({
 
   return (
    <div className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
-     <Link href={`/doctor/${doctor.slug}`}>
+     <Link href={`/doctors/${doctor.slug}`}>
        <h2 className='uppercase font-bold text-2xl tracking-widest'>{doctor.name}</h2>
-       {isInPerson && (<p className='py-3'>3250 Lincoln Highway, Kendall Pack, NJ 08824</p>)}
+       {isInPerson && (<p className='py-3'>{doctor.email}</p>)}
        <div className="flex items-center gap-4 py-4">
          <div className="relative">
            <Image 
-             src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"}
+             src={doctor.doctorProfile?.profilePicture ?? "/hero3.jpeg"}
              width={243} 
              height={243} 
              alt={doctor.name} 
@@ -45,15 +45,16 @@ export default function DoctorCard({
          </div>
          <div className="flex flex-col gap-2">
            <p className='flex items-center'>
-             <Stethoscope className='w-4 h-4 mr-2 flex-shrink-0'/>
+             <Stethoscope className='w-4 h-4 mr-2 flex-shrink-0 text-red-600'/>
              <span>Family Medicine</span>
            </p>
            {times && times.length > 0 ? (
-             <p className="bg-green-200 py-3 px-6 uppercase">
+             <p className="bg-green-200 py-3 px-6 rounded-lg uppercase">
                Available today
              </p>
            ) : (
-             <p className="bg-red-200 py-3 px-6 uppercase">
+             <p className="bg-red-200 rounded-lg
+              py-3 px-6 uppercase">
                Not available today
              </p>
            )}
@@ -68,11 +69,18 @@ export default function DoctorCard({
          </h3>
          <div className="py-3 grid grid-cols-3 gap-2">
            {times.slice(0,5).map((item,i)=>(
-             <Link className='bg-blue-600 text-sm text-white p-2 text-center' key={i} href={`/doctor/${doctor.slug}`}>
+             <Link 
+             className='bg-blue-600 text-sm text-white p-2 text-center rounded-lg' 
+             key={i} 
+             href={`/doctors/${doctor.slug}`}>
                {item}
              </Link>
            ))}
-           <Link className='text-[0.7rem] text-center bg-blue-900 text-white py-2 px-3 truncate' href={`/doctor/${doctor.slug}`}>More times</Link>
+           <Link 
+           className='text-[0.7rem] text-center bg-blue-900 text-white py-2 px-3 truncate rounded-lg' 
+           href={`/doctors/${doctor.slug}`}>
+            More times
+           </Link>
          </div>
        </div>
      ) : (

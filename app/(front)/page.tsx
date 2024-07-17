@@ -16,7 +16,7 @@ export default async function Home() {
 
   console.log(telhealthDoctors);
 
-  return ( 
+  return (
     <section className="">
       <Hero /> {/* Rendering Hero component for homepage */}
       <Brands /> {/* Rendering Brands component for brand display */}

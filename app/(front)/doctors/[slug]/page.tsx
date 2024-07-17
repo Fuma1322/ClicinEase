@@ -7,7 +7,7 @@ import { getAppointmentsByPatientId } from '@/actions/appointments'; // Importin
 import DoctorDetails from '@/components/DoctorDetails'; // Importing DoctorDetails component
 import FixedBookButton from '@/components/FixedBookButton'; // Importing FixedBookButton component
 import { Appointment } from '@prisma/client'; // Importing Appointment type from Prisma client
-import { Doctor, DoctorDetail } from '@/types/types'; // Importing Doctor and DoctorDetail types
+import { DoctorDetail } from '@/types/types'; // Importing Doctor and DoctorDetail types
 
 export default async function page({
   params: { slug }, // Destructuring params to get the slug
