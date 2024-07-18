@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, MoveRight } from "lucide-react";
 import toast from "react-hot-toast"; // For showing success or error messages
-import { useSession } from "next-auth/react";
+import { useSession,SessionProvider } from "next-auth/react";
 import { File} from "./FormInputs/MultipleFile";
 import { createAppointments } from "@/actions/appointments";
 import RadioInput from "./FormInputs/RadioInput";
@@ -73,7 +73,7 @@ export default function DoctorDetails({
     data.doctorId = doctor.id;
     data.charge = doctor.doctorProfile?.hourlyWage ?? 0;
     data.dob = dob;
-    data.patientId = patient?.id??"";
+    // data.patientId = patient?.id ?? "";
     console.log(data);
     try {
       setLoading(true);
@@ -118,7 +118,7 @@ export default function DoctorDetails({
               onClick={() => setIsActive("availability")}
               className={isActive === "availability"
                 ? 'py-4 px-8 w-full bg-blue-600 text-white uppercase tracking-widest'
-                : 'border border-gray-200 bg-slate-100 w-full text-slate-800 py-4 px-8 uppercase tracking-widest'}
+                : 'border border-gray-200 bg-slate-100 w-full text-slate-800 dark:text-slate-800 py-4 px-8 uppercase tracking-widest'}
             >
               Availability
             </button>
@@ -147,7 +147,7 @@ export default function DoctorDetails({
                         return (
                         <Button
                           key={i}
-                          onClick={() => setSelectedTimes(item)}
+                          onClick={initiateAppointment}
                           variant={selectedTimes === item ? "default" : "outline"}
                           >
                           {item}
@@ -156,18 +156,15 @@ export default function DoctorDetails({
                     })}
                     </div>
                   )}
-                  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-                    {doctor.doctorProfile?.hourlyWage}
-                  </h2>
                   <div className="py-4">
                     <button
-                      onClick={initiateAppointment}
+                      onClick={() => setStep((curr) => curr += 1)}
                       type="button"
                       className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:right-4 
                         focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm 
                         px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80
                         dark:focus:ring-[#FF9119]/40 me-2 mb-2"
-                    >
+                     >
                       Book Appointment (M
                       {doctor.doctorProfile?.hourlyWage})
                       <MoveRight className="w-6 h-6 ml-3" />
@@ -302,7 +299,7 @@ export default function DoctorDetails({
                           {loading ? (
                             <Button disabled>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Saving please wait
+                              Saving, please wait...
                             </Button>
                           ) : (
                             <Button type="submit">

@@ -1,29 +1,30 @@
 import React from 'react';
-import Image from 'next/image'; // Importing Image component from Next.js
-import { getDoctorBySlug } from "@/actions/users"; // Importing getDoctorBySlug function from user actions
-import { getServerSession } from 'next-auth'; // Importing getServerSession function from NextAuth
-import { authOptions } from '@/lib/auth'; // Importing authOptions from auth library
-import { getAppointmentsByPatientId } from '@/actions/appointments'; // Importing getAppointmentsByPatientId function from appointments actions
-import DoctorDetails from '@/components/DoctorDetails'; // Importing DoctorDetails component
-import FixedBookButton from '@/components/FixedBookButton'; // Importing FixedBookButton component
-import { Appointment } from '@prisma/client'; // Importing Appointment type from Prisma client
-import { DoctorDetail } from '@/types/types'; // Importing Doctor and DoctorDetail types
+import Image from 'next/image';
+import { getDoctorBySlug } from "@/actions/users";
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { getAppointmentsByPatientId } from '@/actions/appointments';
+import DoctorDetails from '@/components/DoctorDetails';
+import FixedBookButton from '@/components/FixedBookButton';
+import { Appointment } from '@prisma/client';
+import { DoctorDetail } from '@/types/types';
+import { SessionProvider } from 'next-auth/react'; // Import SessionProvider from NextAuth
 
 export default async function page({
-  params: { slug }, // Destructuring params to get the slug
+  params: { slug },
 }: {
-  params: { slug: string }; // Type definition for params containing a string slug
+  params: { slug: string };
 }) {
-  const session = await getServerSession(authOptions); // Fetching session data using getServerSession
-  const doctor = (await getDoctorBySlug(slug)) || null; // Fetching doctor data based on slug or null if not found
-  const user = session?.user; // Extracting user data from session
-  const appointment = await getAppointmentsByPatientId(user?.id ?? ""); // Fetching appointments based on patient id
+  const session = await getServerSession(authOptions);
+  const doctor = (await getDoctorBySlug(slug)) || null;
+  const user = session?.user;
+  const appointment = await getAppointmentsByPatientId(user?.id ?? "");
 
   return (
     <>
       {doctor && doctor.id ? (
-        <div className='bg-slate-50 min-h-screen '>
-          <div className="bg-white max-w-4xl border border-gray-200 mx-auto shadow-md rounded-md ">
+        <div className='bg-slate-50 min-h-screen'>
+          <div className="bg-white max-w-4xl border border-gray-200 mx-auto shadow-md rounded-md">
             <div className="py-8 px-6">
               <div className="flex items-center justify-between">
                 <div className="">
@@ -40,7 +41,7 @@ export default async function page({
                   </div>
                 </div>
                 <Image 
-                  src={doctor.doctorProfile?.profilePicture ?? "/doc-profile.jpeg"} 
+                  src={doctor.doctorProfile?.profilePicture ?? "/hero1.jpg"} 
                   width={243} 
                   height={207}  
                   alt="Doctor"

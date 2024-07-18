@@ -20,10 +20,12 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { generateInitials } from "@/utils/generateInitials"
 
 
 export default async function SiteHeader({session}:{session:Session | null}) {
 const user  = session?.user;
+const initials = generateInitials(user?.name);
 const router = useRouter();
 async function handleLogout() {
   await signOut()
@@ -46,7 +48,7 @@ async function handleLogout() {
                 {user.image ? (
                   <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                 ):(
-                  <AvatarFallback>CE</AvatarFallback>
+                  <AvatarFallback>{initials}</AvatarFallback>
                 )}   
                 </Avatar>
               </DropdownMenuTrigger>

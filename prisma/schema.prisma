@@ -107,12 +107,12 @@ model Appointment {
   id                       String    @id @default(auto()) @map("_id") @db.ObjectId
   appointmentDate          DateTime?
   appointmentFormattedDate String
-  doctorId                 String
-  patientId                String
+  doctorId                 String?
+  patientId                String?
   charge                   Int
   appointmentTime          String?
 
-  firstName         String
+  firstName         String?
   lastName          String?
   gender            String?
   phone             String?

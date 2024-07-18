@@ -19,9 +19,11 @@ import { Session, User } from 'next-auth'
 import { signOut } from "next-auth/react"
 import { MainNav } from "../main-nav"
 import { MobileNav } from "../mobile-nav"
+import { generateInitials } from "@/utils/generateInitials"
 
 export function SiteHeader({session}:{session:Session|null}) {
   const user =session?.user;
+  const initials = generateInitials(user?.name)
   const router = useRouter();
   async function handleLogout() {
     await signOut()
@@ -44,7 +46,7 @@ export function SiteHeader({session}:{session:Session|null}) {
                     {user.image ? (
                       <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                     ):(
-                      <AvatarFallback>CE</AvatarFallback>
+                      <AvatarFallback>{initials}</AvatarFallback>
                     )}   
                     </Avatar>
                   </DropdownMenuTrigger>

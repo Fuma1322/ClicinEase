@@ -33,7 +33,7 @@ export const NewAppointmentEmail = ({
           src={`${baseUrl}/static/logo.png`}
           width="32"
           height="32"
-          alt="Claridy"
+          alt="ClinicEase"
         />
  
         {/* <Text style={title}>

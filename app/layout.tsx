@@ -9,6 +9,8 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from './api/uploadthing/core';
 import { Inter as FontSans } from 'next/font/google'
 import { OnboardingContextProvider } from '@/context/context'
+import { cn } from '@/lib/utils'
+import AuthProvider from './AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -47,7 +49,13 @@ export default function RootLayout({
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body>
+        <AuthProvider>
+        <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+        >
         <NextSSRPlugin
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
@@ -55,15 +63,16 @@ export default function RootLayout({
           <OnboardingContextProvider>
             <ThemeProvider
               attribute="class"
-              defaultTheme="dark"
+              defaultTheme="system"
               enableSystem
               disableTransitionOnChange
-            >
+             >
               {children}
             </ThemeProvider>
           </OnboardingContextProvider>
           </Providers>
         </body>
+        </AuthProvider>
       </html>
     </>
   )
