@@ -31,7 +31,7 @@ ClinicEase is a comprehensive healthcare management application designed to stre
 
 - **Project Manager**: Mokonyana Ntsoereng
 - **Frontend Developers**: Tankiso Leonard Fuma
-- **Backend Developers**:  Thetele Ramoonyane
+- **Backend Developer**:  Thetele Ramoonyane
 
 ---
 
