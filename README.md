@@ -15,9 +15,9 @@ ClinicEase is a comprehensive healthcare management application designed to stre
 - **Deployed Site**: [ClinicEase](https://www.clinicease.tech)
 - **Project Blog Article**: [ClinicEase Final Project](https://link-to-blog-article)
 - **Team LinkedIn Profiles**:
-  - [Mokonyana Emmanuel Ntsoereng](https://www.linkedin.com/in/emmanuel-ntsoereng)
-  - [Tankiso Leonard Fuma](https://www.linkedin.com/in/tankiso-fuma)
-  - [Thetele Ramoonyane](https://www.linkedin.com/in/thetele-ramoonyane)
+  - [Mokonyana Emmanuel Ntsoereng](https://www.linkedin.com/in/mokonyana​-ntsoereng-b4367795/)
+  - [Tankiso Leonard Fuma](https://www.linkedin.com/in/tankiso​-leonard-fuma-2b16352a5/)
+  - [Thetele Ramoonyane](https://www.linkedin.com/in/thetele-​ramoonyane-982312291/)
 
 ---
 
@@ -30,7 +30,7 @@ ClinicEase is a comprehensive healthcare management application designed to stre
 ## Team Members and Roles
 
 - **Project Manager**: Mokonyana Ntsoereng
-- **Frontend Developers**: Tankiso Leonard Fuma
+- **Frontend Developer**: Tankiso Leonard Fuma
 - **Backend Developer**:  Thetele Ramoonyane
 
 ---
@@ -78,7 +78,7 @@ To set up the ClinicEase project locally, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/your-username/clinicease.git
+    git clone https://github.com/Fuma1322/clinicease.git
     cd clinicease
     ```
 
@@ -136,7 +136,7 @@ We welcome contributions from the community! To contribute, please follow these 
 
 ## Licensing
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the Gorvenment of Lesotho License. See the [LICENSE](LICENSE) file for more information.
 
 ---
 
@@ -160,14 +160,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - `POST /api/appointments/cancel/:id`: Cancel an appointment by ID.
 - `GET /api/appointments/:id`: Fetch a specific appointment by ID.
 
-### Clinic Information Routes
+### Doctor Information Routes
 
-- `GET /api/clinics`: Fetch all clinics.
-- `GET /api/clinics/:id`: Fetch clinic information by ID.
+- `GET /api/doctors`: Fetch all doctors.
+- `GET /api/doctors/:id`: Fetch doctor information by ID.
 
 ### Search Routes
 
-- `GET /api/search/clinics`: Search for clinics based on filters like location, specialty, etc.
+- `GET /api/search/doctors`: Search for clinics based on filters like location, specialty, etc.
 
 ### 3rd Party APIs
 
@@ -209,7 +209,6 @@ As a registered user, I want to manage my appointments on ClinicEase.
 
 As a user, I want to receive notifications and reminders on ClinicEase.
 - Receive email reminders for upcoming appointments.
-- Receive SMS notifications for appointment confirmations and reminders.
 
 ### Administrative Functions
 
@@ -219,57 +218,9 @@ As an administrator, I want to handle admin roles on ClinicEase.
 
 ---
 
-## Mockups
-
-![User Interface Mockup](path/to/mockup.png) <!-- Make sure to replace this path with the actual path to your mockup image -->
-
----
-
-## Progress
-
-### Weekly Progress Rating
-
-- **Rating**: 4/10
-
-### Measuring Progress
-
-- **Task Completion**: Tracked using Trello, with tasks categorized as "To Do," "In Progress," or "Done."
-- **Milestones**: Specific milestones set for key features, reviewed in team meetings.
-- **Code Quality**: Code reviews and testing conducted to ensure quality and functionality.
-
-### Reason for Rating
-
-- **Task Completion**: Core functionalities like user registration and multi-factor authentication implemented, but features like appointment management are still in progress.
-- **Team Dynamics**: Initial disruptions due to team member departure and mentor absence, but the team adapted and is now working cohesively.
-
-### Project Completion Assessment
-
-- **On-Time Completion**: Feasible with adjusted timeline prioritizing critical features and increased team effort.
-
----
-
-## Challenges
-
-### User Interface Design
-
-**Challenge**: Designing an intuitive UI for both tech-savvy and non-tech-savvy users.
-- **Adaptation**: Extensive user testing, feedback incorporation, and working with UX/UI experts.
-
-### Security Threats
-
-**Challenge**: Protecting against hacking, data breaches, and unauthorized access.
-- **Adaptation**: Implementing robust security measures, including NextAuth for user authentication and encrypted data storage.
-
-### Team Dynamics
-
-**Challenge**: Managing non-technical challenges and adapting to changes in team composition.
-- **Adaptation**: Establishing clear roles, utilizing project management tools like Trello, and regular video meetings to facilitate communication and track progress.
-
----
-
 ## Conclusion
 
-ClinicEase represents a significant advancement in healthcare management, providing convenience and efficiency for both patients and clinic administrators. Despite challenges, the project's successful implementation of core features and robust security measures demonstrates the team's resilience and dedication. Further development and refinement will ensure ClinicEase continues to meet the evolving needs of its users.
+ClinicEase represents a significant advancement in healthcare management, providing convenience and efficiency for both patients and doctors. Despite challenges, the project's successful implementation of core features and robust security measures demonstrates the team's resilience and dedication. Further development and refinement will ensure ClinicEase continues to meet the evolving needs of its users.
 
 For detailed information about the project, please refer to the following:
 - **Deployed Site**: [ClinicEase](https://www.clinicease.tech)
