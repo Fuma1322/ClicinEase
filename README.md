@@ -4,7 +4,7 @@
 
 ---
 
-![ClinicEase Screenshot](https://x.com/TRamoonyane/status/1813656520418357423/photo/1) <!-- Make sure to replace this path with the actual path to your screenshot -->
+![ClinicEase Screenshot](path/to/screenshot.png) <!-- Make sure to replace this path with the actual path to your screenshot -->
 
 ---
 
