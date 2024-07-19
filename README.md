@@ -55,7 +55,7 @@ ClinicEase is a comprehensive healthcare management application designed to stre
 
 ### UI/UX Design
 
-- **Figma**: A vector graphics editor and prototyping tool used for designing user interfaces, creating wireframes, and collaborating on design projects in real-time.
+- **Balsamiq**: A vector graphics editor and prototyping tool used for designing user interfaces, creating wireframes, and collaborating on design projects in real-time.
 
 
 ## Challenge Statement
