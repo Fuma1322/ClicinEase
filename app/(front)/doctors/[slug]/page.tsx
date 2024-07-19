@@ -8,7 +8,6 @@ import DoctorDetails from '@/components/DoctorDetails';
 import FixedBookButton from '@/components/FixedBookButton';
 import { Appointment } from '@prisma/client';
 import { DoctorDetail } from '@/types/types';
-import { SessionProvider } from 'next-auth/react'; // Import SessionProvider from NextAuth
 
 export default async function page({
   params: { slug },
@@ -23,14 +22,16 @@ export default async function page({
   return (
     <>
       {doctor && doctor.id ? (
-        <div className='bg-slate-50 min-h-screen'>
-          <div className="bg-white max-w-4xl border border-gray-200 mx-auto shadow-md rounded-md">
+        <div className='bg-slate-50 dark:bg-slate-800 py-8 min-h-screen'>
+          <div className="bg-white dark:bg-slate-950 max-w-4xl border border-gray-200 dark:border-slate-600 mx-auto shadow-md rounded-md">
             <div className="py-8 px-6">
               <div className="flex items-center justify-between">
                 <div className="">
                   <div className="flex flex-col">
-                    <h2 className='uppercase font-bold text-2xl tracking-widest'>{doctor.name}</h2>
-                    <p className='text-gray-500 text-xs uppercase '>Adult Health</p>
+                    <h2 className='uppercase font-bold text-2xl tracking-widest'>
+                      {doctor.name}
+                    </h2>
+                    <p className='text-gray-500 text-xs uppercase'>Adult Health</p>
                   </div>
                   <div className="py-3">
                     <p>{doctor.doctorProfile?.operationMode}</p>
@@ -41,7 +42,7 @@ export default async function page({
                   </div>
                 </div>
                 <Image 
-                  src={doctor.doctorProfile?.profilePicture ?? "/hero1.jpg"} 
+                  src={doctor.doctorProfile?.profilePicture ?? "/steph.jpg"} 
                   width={243} 
                   height={207}  
                   alt="Doctor"
@@ -50,7 +51,7 @@ export default async function page({
               </div>
             </div>
             <div className="">
-              <DoctorDetails appointment={appointment as Appointment | null} doctor={doctor as DoctorDetail}/>
+              <DoctorDetails appointment={appointment as Appointment | null} doctor={doctor as DoctorDetail} />
             </div>
           </div> 
           <FixedBookButton price={doctor.doctorProfile?.hourlyWage}/>

@@ -1,9 +1,12 @@
 import React from 'react'
+import { Welcome } from '../Frontend/PatientDashboardWelcome'
 
 export default function UserDashboard() {
   return (
     <div>
-        <div className="h2">HelloUser</div>
+        <div className="">
+          <Welcome />
+        </div>
     </div>
   )
 }

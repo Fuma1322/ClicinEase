@@ -1,5 +1,4 @@
 import { Doctor, DoctorProfileAvailability } from '@/types/types';
-import generateSlug from '@/utils/generateSlug';
 import { getDayName } from '@/utils/getDayName';
 import { getFormattedDate } from '@/utils/getFormattedShortDate';
 import { Stethoscope, Video } from 'lucide-react'
@@ -18,7 +17,7 @@ export default function DoctorCard({
     const today: keyof DoctorProfileAvailability = getDayName();
     const times = doctor.doctorProfile?.availability?.[today] ?? null;
     const formattedDate = getFormattedDate();
-    const slug = generateSlug(doctor.slug);
+    console.log(times);
 
     // console.log("DoctorCard received doctor:", doctor);
     // console.log("Times for today:", times);
@@ -26,12 +25,14 @@ export default function DoctorCard({
   return (
    <div className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
      <Link href={`/doctors/${doctor.slug}`}>
-       <h2 className='uppercase font-bold text-2xl tracking-widest'>{doctor.name}</h2>
+       <h2 className='uppercase font-bold text-2xl tracking-widest'>
+        {doctor.name}
+       </h2>
        {isInPerson && (<p className='py-3'>{doctor.email}</p>)}
        <div className="flex items-center gap-4 py-4">
          <div className="relative">
            <Image 
-             src={doctor.doctorProfile?.profilePicture ?? "/hero3.jpeg"}
+             src={doctor.doctorProfile?.profilePicture ?? "/steph.jpg"}
              width={243} 
              height={243} 
              alt={doctor.name} 
@@ -64,11 +65,15 @@ export default function DoctorCard({
      {times && times.length > 0 ? (
        <div className="pt-6 border-t border-gray-400 dark:border-gray-600">
          <h3 className='flex gap-4 justify-between items-center'>
-           <span className='text-gray-600 dark:text-gray-400'>{formattedDate}</span>{" "}
-           <span className='fond-bold'>M{doctor.doctorProfile?.hourlyWage}</span>
+           <span className='text-gray-600 dark:text-gray-400'>
+            {formattedDate}
+            </span>{" "}
+           <span className='fond-bold'>
+            M{doctor.doctorProfile?.hourlyWage}
+            </span>
          </h3>
          <div className="py-3 grid grid-cols-3 gap-2">
-           {times.slice(0,5).map((item,i)=>(
+           {times.slice(0,5).map((item,i) => (
              <Link 
              className='bg-blue-600 text-sm text-white p-2 text-center rounded-lg' 
              key={i} 

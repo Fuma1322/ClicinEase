@@ -15,7 +15,7 @@ export default async function page() {
     return (
       <>
         {/* Displaying user's role */}
-        <p>The user role is {user?.role}</p>
+        <p>{user?.role} {user?.name}</p>
         <DoctorDashboard /> {/* Rendering DoctorDashboard for doctors */}
       </>
     );
@@ -25,7 +25,7 @@ export default async function page() {
     return (
       <>
         {/* Displaying user's role */}
-        <p>The user role is {user?.role}</p>
+        {/* <p className='opacity-90'> {user?.role}</p> */}
         <PatientsDashboard /> {/* Rendering PatientsDashboard for users */}
       </>
     );
