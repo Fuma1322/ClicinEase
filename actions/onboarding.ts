@@ -183,31 +183,85 @@ export async function createAvailability(data: any) {
 }
 
 // Function to update availability by ID
+// export async function updateAvailabilityById(id: string | undefined, data: any) {
+//     if (id) {
+//         try {
+//             // Update availability record with specified ID
+//             const updateAva = await prismaClient.availability.update({
+//                 where: {
+//                     id,
+//                 },
+//                 data,
+//             });
+//             console.log(updateAva);
+//             return {
+//                 data: updateAva,
+//                 status: 201,
+//                 error: null,
+//             };
+//         } catch (error) {
+//             // Handle errors and return error response
+//             console.log(error);
+//             return {
+//                 data: null,
+//                 status: 500,
+//                 error: "Availability was not updated",
+//             }
+//         }
+//     }
+// }
+
+
 export async function updateAvailabilityById(id: string | undefined, data: any) {
-    if (id) {
-        try {
+    try {
+        let updateAva;
+
+        if (id) {
             // Update availability record with specified ID
-            const updateAva = await prismaClient.availability.update({
+            updateAva = await prismaClient.availability.update({
                 where: {
                     id,
                 },
                 data,
             });
-            console.log(updateAva);
-            return {
-                data: updateAva,
-                status: 201,
-                error: null,
-            };
-        } catch (error) {
-            // Handle errors and return error response
-            console.log(error);
-            return {
-                data: null,
-                status: 500,
-                error: "Availability was not updated",
+        } else if (data.doctorProfileId) {
+            // Check if availability already exists for the doctorProfileId
+            const existingAvailability = await prismaClient.availability.findUnique({
+                where: {
+                    doctorProfileId: data.doctorProfileId,
+                },
+            });
+
+            if (existingAvailability) {
+                // Update existing availability
+                updateAva = await prismaClient.availability.update({
+                    where: {
+                        id: existingAvailability.id,
+                    },
+                    data,
+                });
+            } else {
+                // Create new availability if it doesn't exist
+                updateAva = await prismaClient.availability.create({
+                    data,
+                });
             }
         }
+
+        console.log(updateAva);
+        return {
+            data: updateAva,
+            status: 201,
+            error: null,
+        };
+    } catch (error) {
+        // Handle errors and return error response
+        console.log(error);
+        return {
+            data: null,
+            status: 500,
+            error: "Availability was not updated",
+        };
     }
 }
 
@@ -293,7 +347,7 @@ export async function getDoctorProfileById(userId: string | undefined) {
             console.log(profile);
             return {
                 data: profile,
-                status: 201,
+                status: 200,
                 error: null,
             };
         } catch (error) {

@@ -16,7 +16,7 @@ export default function ListPanel({appointments,role}:{appointments:Appointment[
                 <Link
                     key={item.id}
                     href={`/dashboard/${role==="USER"?"user":"doctor"}/appointments/view/${item.id}`}  
-                    className={cn('border mb-2 border-gray-100 shadow-sm text-xs bg-slate-900 py-3 px-2 inline-block w-full rounded-md',pathname===`/dashboard/clinic/appointments/view/${item.id}`&& "border-green-700 bg-green-50 border-2")}
+                    className={cn('border mb-2 border-gray-100 shadow-sm text-xs dark:bg-slate-900 py-3 px-2 inline-block w-full rounded-md',pathname===`/dashboard/clinic/appointments/view/${item.id}`&& "border-green-700 bg-green-50 border-2")}
                 >
                     <div className="flex justify-between items-center pb-2">
                         <h2>{item.firstName} {item.lastName}</h2>

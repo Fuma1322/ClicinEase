@@ -60,7 +60,7 @@ export default function AvailabilitySettings({
     // Render the component
     return (
         <div>
-            <p className='py-3'>Please Add the Availability for the Whole Week</p> {/* Instructional text */}
+            <p className='py-3 font-semibold'>Please Add the Availability for the Whole Week</p> {/* Instructional text */}
             {/* Tabs component for navigation */}
             <Tabs aria-label="Tabs with underline" style="underline">
               {

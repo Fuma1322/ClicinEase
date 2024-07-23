@@ -16,7 +16,6 @@ export default async function page({ params }: { params: { id: string } }) {
         {/* Displaying patient's full name and additional details */}
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           {`${appointment?.firstName} ${appointment?.lastName}`}
-          {appointment?.lastName}
         </h2>
         <div className="flex space-x-2 divide-x-2 divide-gray-200 text-sm">
           {/* Displaying patient's gender and phone number */}
@@ -26,9 +25,9 @@ export default async function page({ params }: { params: { id: string } }) {
         <div className="">
           {/* Displaying appointment date and time */}
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+              <Calendar className="w-4 h-4 mr-2 inline"/> 
             {appointment?.appointmentFormattedDate}
             <div className="flex items-center text-sm">
-              <Calendar className="w-4 h-4 mr-2"/> 
               <span>{appointment?.appointmentTime}</span>
             </div>
           </h2>
@@ -45,7 +44,7 @@ export default async function page({ params }: { params: { id: string } }) {
               <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
                 Appointment Approved
               </h2>
-              <Button>{`${appointment?.appointmentFormattedDate} at ${appointment?.appointmentFormattedDate}`}</Button>
+              <Button>{`${appointment?.appointmentFormattedDate} at ${appointment?.appointmentTime}`}</Button>
             </div>
             <div className="py-4 space-x-4">
               {/* Displaying meeting provider and join meeting button */}

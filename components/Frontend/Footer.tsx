@@ -62,7 +62,7 @@ export default function Footer() {
                     name: 'Privacy'
                 },
                 {
-                    href: 'javascript:void()',
+                    href: 'https://clinicease.my.canva.site/white-and-black-simple-lined-white-ui-blank-prototypes-website',
                     name: 'About US'
                 },
             ]

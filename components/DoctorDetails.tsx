@@ -1,6 +1,6 @@
 "use client"
 
-import { AppointmentProps, DoctorDetail, DoctorProfileAvailability } from "@/types/types";
+import { AppointmentProps, DoctorDetail } from "@/types/types";
 import { useForm } from "react-hook-form";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ import { getDayFromDate } from "@/utils/getDayFromDate";
 import { getLongDate } from "@/utils/getLongDate";
 import { Appointment } from "@prisma/client";
 import { Calendar } from "@/components/ui/calendar";
-import { getDayName } from "@/utils/getDayName";
+import { getFormattedDate } from "@/utils/getFormattedShortDate";
 
 export default function DoctorDetails({
   doctor,
@@ -33,9 +33,9 @@ export default function DoctorDetails({
   const [selectedTimes, setSelectedTimes] = useState("");
 
   const day = getDayFromDate(date?.toDateString());
-  const today: keyof DoctorProfileAvailability = getDayName();
-  const times = doctor.doctorProfile?.availability?.[today] ?? null;
+  const times = doctor.doctorProfile?.availability?.[day] ?? null;
   const longDate = getLongDate(date!.toDateString());
+  const formattedDate = getFormattedDate();
   const [dob, setDob] = useState<Date | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   // const [medicalDocs, setMedicalDocs] = useState<File[]>([]);
@@ -113,7 +113,7 @@ export default function DoctorDetails({
     <>
       {step === 1 ? (
         <div className="">
-          <div className="flex items-center justify-between ">
+          <div className="flex">
             <button
               onClick={() => setIsActive("details")}
               className={
@@ -128,8 +128,8 @@ export default function DoctorDetails({
               onClick={() => setIsActive("availability")}
               className={
                 isActive === "availability"
-                  ? "py-4 px-8 w-full bg-blue-600 text-white uppercase tracking-widest"
-                  : "border border-gray-200 bg-slate-100 w-full text-slate-800py-4 px-8 uppercase tracking-widest"
+                  ? "py-4 px-8 w-full uppercase tracking-widest bg-blue-600 text-white"
+                  : "border border-gray-200 bg-slate-100 w-full text-slate-800 py-4 px-8 uppercase tracking-widest"
               }
             >
               Availability
@@ -151,13 +151,13 @@ export default function DoctorDetails({
                   <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
                     {longDate}
                   </h2>
-                  {times && times.length > 0 ? (
+                  {times && times.length > 0 && (
                     <div className="py-3 grid grid-cols-4 gap-4">
                       {times.map((item, i) => {
                         return (
                         <Button
                           key={i}
-                          onClick={() => setSelectedTimes(item)}
+                          onClick={initiateAppointment}
                           variant={selectedTimes === item ? "default" : "outline"}
                         >
                           {item}
@@ -165,9 +165,8 @@ export default function DoctorDetails({
                         );
                       })}
                     </div>
-                  ) : (
-                    <p>No available times for the selected date.</p>
                   )}
+                    <p>No available times for the selected date</p>
                   <div className="py-4">
                     <button
                       onClick={() => setStep((curr) => curr + 1)}
@@ -274,7 +273,7 @@ export default function DoctorDetails({
                     register={register}
                     name="location"
                     errors={errors}
-                    className="col-span-1"
+                    // className="col-span-1"
                     placeholder="Enter your Location"
                   />
                   <TextInput

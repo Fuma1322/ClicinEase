@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import SelectedTimes from './SelectedTimes';
 import { timesArray } from '@/config/constants';
 import { createAvailability, updateAvailabilityById } from '@/actions/onboarding';
+import { prismaClient } from '@/lib/db';
 
 export default function Tuesday({profile,day}:{profile:any,day:string}) {
   let initialData: string[] = ["7:00 AM"];
@@ -31,33 +32,56 @@ export default function Tuesday({profile,day}:{profile:any,day:string}) {
   function clearAll(){
     setSelectedTimes([]);
   }
+  // async function handleSubmit() {
+  //   setLoading(true);
+  //  try {
+  //   if (profile?.id && availability?.id){
+  //     const data = {
+  //       tuesday: selectedTimes,
+  //       doctorProfileId: profile.id,
+  //     };
+  //     await updateAvailabilityById(availability?.id,data);
+  //     setLoading(false);
+  //     toast.success("Settings Updated Successfully");
+  //    } else if (profile?.id){
+  //     const data = {
+  //       tuesday: selectedTimes,
+  //       doctorProfileId: profile.id,
+  //     };
+  //     await createAvailability(data);
+  //     toast.success("Settings Updated Successfully");
+  //     setLoading(false);
+  //    } else {
+  
+  //    }
+  //  } catch (error) {
+  //   setLoading(false)
+  //   console.log(error);
+  //  }
+  // }
+
   async function handleSubmit() {
     setLoading(true);
-   try {
-    if (profile?.id && availability?.id){
-      const data = {
-        tuesday: selectedTimes,
-        doctorProfileId: profile.id,
-      };
-      await updateAvailabilityById(availability?.id,data);
-      setLoading(false);
-      toast.success("Settings Updated Successfully");
-     } else if (profile?.id){
-      const data = {
-        tuesday: selectedTimes,
-        doctorProfileId: profile.id,
-      };
-      await createAvailability(data);
-      toast.success("Settings Updated Successfully");
-      setLoading(false);
-     } else {
+    try {
+      if (profile?.id) {
+        const data = {
+          tuesday: selectedTimes,
+          doctorProfileId: profile.id,
+        };
   
-     }
-   } catch (error) {
-    setLoading(false)
-    console.log(error);
-   }
+        await updateAvailabilityById(availability?.id, data);
+        toast.success("Settings Updated Successfully");
+      }
+  
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   }
+  
+
   const [loading, setLoading]=useState(false);
   return (
     <SelectedTimes 

@@ -18,8 +18,7 @@ export default function Monday({
   const availability = profile?.availablity || "";
   
   const [selectedTimes, setSelectedTimes]=useState(initialData);
-  // console.log(selectedTimes);
-  function handleAddTime(time:string){
+    function handleAddTime(time:string){
     if (!selectedTimes.includes(time)){
       setSelectedTimes((prevTimes)=>[...prevTimes,time]);
     }else {
@@ -37,35 +36,57 @@ export default function Monday({
   function clearAll(){
     setSelectedTimes([]);
   }
+  // async function handleSubmit() {
+  //   setLoading(true);
+  //  try {
+  //   if (profile?.id && availability?.id){
+  //     const data = {
+  //       monday: selectedTimes,
+  //       doctorProfileId: profile.id,
+  //     };
+  //     await updateAvailabilityById(availability?.id,data);
+  //     setLoading(false);
+  //     toast.success("Settings Updated Successfully");
+  //     // console.log(data);
+  //    } else if (profile?.id){
+  //     // console.log("Id not set")
+  //     const data = {
+  //       monday: selectedTimes,
+  //       doctorProfileId: profile.id,
+  //     };
+  //     await createAvailability(data);
+  //     toast.success("Settings Created Successfully");
+  //     setLoading(false);
+  //    } else {
+  //     // console.log("Profile id not set")
+  //    }
+  //  } catch (error) {
+  //   setLoading(false);
+  //   console.log(error);
+  //  }
+  // }
+
   async function handleSubmit() {
     setLoading(true);
-   try {
-    if (profile?.id && availability?.id){
-      const data = {
-        monday: selectedTimes,
-        doctorProfileId: profile.id,
-      };
-      await updateAvailabilityById(availability?.id,data);
+    try {
+      if (profile?.id) {
+        const data = {
+          monday: selectedTimes,
+          doctorProfileId: profile.id,
+        };
+  
+        await updateAvailabilityById(availability?.id, data);
+        toast.success("Settings Updated Successfully");
+      }
+  
       setLoading(false);
-      toast.success("Settings Updated Successfully");
-      // console.log(data);
-     } else if (profile?.id){
-      // console.log("Id not set")
-      const data = {
-        monday: selectedTimes,
-        doctorProfileId: profile.id,
-      };
-      await createAvailability(data);
-      toast.success("Settings Updated Successfully");
+    } catch (error) {
       setLoading(false);
-     } else {
-      // console.log("Profile id not set")
-     }
-   } catch (error) {
-    setLoading(false);
-    console.log(error);
-   }
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   }
+  
   const [loading, setLoading]=useState(false);
   return (
     <SelectedTimes 

@@ -56,7 +56,9 @@ export default function SelectedTimes({day,timesArray,handleAddAll,handleAddTime
           <Loader className='animate-spin w-4 h-4'/>
           Saving Please wait...
         </Button>):(
-       <Button onClick={handleSubmit} className='bg-gray-800 text-white border border-gray-600'>Save Settings</Button>)}
+       <Button onClick={handleSubmit} className='bg-gray-800 text-white border border-gray-600'>
+         Save Settings
+       </Button>)}
        
         <button  onClick={clearAll} className="flex text-white items-center px-3 border border-red-600 bg-gray-800 rounded-md text-sm gap-6 justify-center">
               <span>Clear All</span>
