@@ -12,23 +12,22 @@ import {
   } from "@/components/ui/dropdown-menu"
   import { Input } from "@/components/ui/input"
   import { Button } from "@/components/ui/button"
-  import { Badge } from "@/components/ui/badge"
   import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
   import Link from "next/link"
   import {
-    Hospital,
-    LucideHome,
+    Activity,
+    AlarmClock,
+    Home,
+    Mail,
     Menu,
     Search,
-    Settings,
-    UserCircle2Icon,
-    UserPlus2Icon,
+    SettingsIcon,
     Users,
   } from "lucide-react"
 import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Session, User } from 'next-auth'
+import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import ModeToggle from '../ModeToggle'
 import { generateInitials } from '@/utils/generateInitials'
@@ -41,40 +40,39 @@ export default function NavBar({session}:{session:Session}) {
     await signOut()
     router.push("/login");
   }
-  const pathName = usePathname()
-  const sideBarLinks =[
-    {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: LucideHome,
-      badgeCount: 6,
-    },
-    {
-      name: "Patients",
-      path: "/dashboard/patients",
-      icon: UserPlus2Icon,
-    },
-    {
-      name: "Clinics",
-      path: "/dashboard/clinics",
-      icon: Hospital,
-    },
-    {
-      name: "Appointments",
-      path: "/dashboard/appointments",
-      icon: Users,
-    },
-    {
-      name: "Settings",
-      path: "/dashboard/settings",
-      icon: Settings,
-    },
-    {
-      name: "Logout",
-      path: "/dashboard/logout",
-      icon: UserCircle2Icon,
-    },
-  ]
+  const pathName = usePathname();
+  const role = user?.role;
+  const roles = {
+    USER: [
+      {title:"Dashboard", path:"/dashboard", icon: Home},
+      {title:"My Appointments", path:"/dashboard/user/appointments", icon: AlarmClock},
+      {title:"Settings", path:"/dashboard/user/settings", icon: SettingsIcon}
+    ],
+    ADMIN: [
+      {title:"Dashboard", path:"/dashboard", icon: Home},
+      {title:"Doctors", path:"/dashboard/doctors", icon: Users},
+      {title:"Patients", path:"/dashboard/patients", icon: Users},
+      {title:"Appointments", path:"/dashboard/appointments", icon: Users},
+      {title:"Services", path:"/dashboard/services", icon: Users},
+      {title:"Speciality", path:"/dashboard/speciality", icon: Users},
+      {title:"Symptoms", path:"/dashboard/symptoms", icon: Activity},
+      {title:"Settings", path:"/dashboard/settings", icon: SettingsIcon}
+    ],
+    DOCTOR: [
+      {title:"Dashboard", path:"/dashboard", icon: Home},
+      {title:"Appointments", path:"/dashboard/doctor/appointments", icon: AlarmClock},
+      {title:"Patients", path:"/dashboard/doctor/patients", icon: Users},
+      {title:"Tasks", path:"/dashboard/doctor/tasks", icon: Users},
+      {title:"Inbox", path:"/dashboard/doctor/inbox", icon: Mail},
+      {title:"Settings", path:"/dashboard/doctor/settings", icon: SettingsIcon},
+    ],
+  };
+
+  // Console log the user's role for debugging
+  console.log(role);
+
+  // Determine sidebar links based on user's role
+  let sideBarLinks = roles[role] || [];
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
     <Sheet>
@@ -101,10 +99,7 @@ export default function NavBar({session}:{session:Session}) {
                   )}
                     >
                   <Icon className="h-4 w-4" />
-                  {item.name}
-                  {item.badgeCount && <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                  {item.badgeCount}
-                </Badge>}
+                  {item.title}
                 </Link>
                 )
               })}
