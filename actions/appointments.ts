@@ -279,7 +279,7 @@ export async function updatedAppointmentById(
         const patientId = updatedAppointment.patientId;
         const patient = await prismaClient.user.findUnique({
             where: {
-                id: patientId,
+                id: patientId ?? undefined,
             },
         });
 

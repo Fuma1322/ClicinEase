@@ -157,7 +157,7 @@ export interface AppointmentProps{
     appointmentReason:string;
     medicalDocuments:string[];
     occupation:string;
-    patientId:string;
+    patientId?:string;
     status: AppointmentStatus;
     meetingLink: string;
     meetingProvider: string;
