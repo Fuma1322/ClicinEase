@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import { AppointmentProps, DoctorDetail } from "@/types/types";
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, MoveRight } from "lucide-react";
 import toast from "react-hot-toast"; // For showing success or error messages
@@ -17,6 +17,7 @@ import { getLongDate } from "@/utils/getLongDate";
 import { Appointment } from "@prisma/client";
 import { Calendar } from "@/components/ui/calendar";
 import { getFormattedDate } from "@/utils/getFormattedShortDate";
+import { TextAreaInput } from "./FormInputs/TextAreaInput";
 
 export default function DoctorDetails({
   doctor,
@@ -26,19 +27,23 @@ export default function DoctorDetails({
   appointment: Appointment | null;
 }) {
   const [isActive, setIsActive] = useState("availability");
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [step, setStep] = useState(1);
   const { data: session } = useSession();
   const patient = session?.user;
-  const [step, setStep] = useState(1);
-  const [selectedTimes, setSelectedTimes] = useState("");
-
-  const day = getDayFromDate(date?.toDateString());
-  const times = doctor.doctorProfile?.availability?.[day] ?? null;
-  const longDate = getLongDate(date!.toDateString());
-  const formattedDate = getFormattedDate();
-  const [dob, setDob] = useState<Date | undefined>(undefined);
+  const [selectedTimes, setSelectedTimes] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  // const [medicalDocs, setMedicalDocs] = useState<File[]>([]);
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const day = getDayFromDate(date?.toDateString());
+  const longDate = getLongDate(date!.toDateString());
+  const [dob, setDob] = useState<Date | undefined>(undefined);
+
+  console.log("Doctor Object:", doctor);
+  console.log("Selected Day:", day);
+  console.log("Availability Object:", doctor.doctorProfile?.availability);
+  
+  const times = doctor.doctorProfile?.availability?.[day] ?? null;
+  console.log("Logged Time:", times);
+
   const {
     register,
     handleSubmit,
@@ -68,13 +73,7 @@ export default function DoctorDetails({
 
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("Day:", day);
-    console.log("Times:", times);
-  }, [day, times]);
-
   async function onSubmit(data: AppointmentProps) {
-    // data.medicalDocuments = medicalDocs.map((item) => item.url);
     data.appointmentDate = date;
     data.appointmentFormattedDate = longDate;
     data.appointmentTime = selectedTimes;
@@ -100,7 +99,7 @@ export default function DoctorDetails({
   function initiateAppointment() {
     if (patient?.id) {
       if (!selectedTimes) {
-        toast.error("Please select time");
+        toast.error("Please select a time");
         return;
       }
       setStep((curr) => curr + 1);
@@ -151,25 +150,24 @@ export default function DoctorDetails({
                   <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
                     {longDate}
                   </h2>
-                  {times && times.length > 0 && (
+                  {times && times.length > 0 ? (
                     <div className="py-3 grid grid-cols-4 gap-4">
-                      {times.map((item, i) => {
-                        return (
+                      {times.map((item, i) => (
                         <Button
                           key={i}
-                          onClick={initiateAppointment}
+                          onClick={() => setSelectedTimes(item)}
                           variant={selectedTimes === item ? "default" : "outline"}
                         >
                           {item}
                         </Button>
-                        );
-                      })}
+                      ))}
                     </div>
-                  )}
+                  ) : (
                     <p>No available times for the selected date</p>
+                  )}
                   <div className="py-4">
                     <button
-                      onClick={() => setStep((curr) => curr + 1)}
+                      onClick={initiateAppointment}
                       type="button"
                       className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:right-4 
                         focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm 
@@ -245,8 +243,7 @@ export default function DoctorDetails({
                     date={dob}
                     setDate={setDob}
                     title="Date of Birth"
-                    // error={errors}
-                    className="col-span-1"
+
                   />
                 </div>
                 <div className="mt-8 flex justify-between gap-4 items-center">
@@ -273,7 +270,7 @@ export default function DoctorDetails({
                     register={register}
                     name="location"
                     errors={errors}
-                    // className="col-span-1"
+                    className="col-span-1"
                     placeholder="Enter your Location"
                   />
                   <TextInput
@@ -284,20 +281,13 @@ export default function DoctorDetails({
                     className="col-span-1"
                     placeholder="Enter your Occupation"
                   />
-                  <TextInput
+                  <TextAreaInput
                     label="Reason for making Appointment"
                     register={register}
                     name="appointmentReason"
                     errors={errors}
-                    className="col-span-1"
                     placeholder="Enter the reason for the Appointment"
                   />
-                  {/* <MultipleFile
-                    label="Medical Documents"
-                    files={medicalDocs}
-                    setFiles={setMedicalDocs}
-                    endpoint="patientMedicalFiles"
-                  /> */}
                   <div className="mt-8 flex justify-between gap-4 items-center">
                     <Button
                       variant={"outline"}

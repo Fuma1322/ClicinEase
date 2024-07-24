@@ -18,9 +18,9 @@ export default async function page() {
   return (
     <div>
          <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
-                <div className="flex items-center gap-4">
-                    <NewButton title='New Appointment' href="/dashboard/user/appointments/new"/>
-        </div> 
+            <div className="flex items-center gap-4">
+              <NewButton title='New Appointment' href="/dashboard/user/appointments/new"/>
+            </div> 
     </div>
           <DisplayPannel title="Appointment" newAppointmentLink="/dashboard/user/appointments/new" count={appointments.length}/>  
     </div>

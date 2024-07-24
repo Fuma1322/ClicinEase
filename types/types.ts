@@ -119,7 +119,7 @@ export type stats = {
       email: string;
       phone:string;
       slug:string;
-      doctorProfile:DoctorProfileDetail | null;
+      doctorProfile: DoctorProfileDetail | null;
   
   };
   export type Doctor = { 
@@ -171,26 +171,28 @@ export interface AppointmentProps{
     profilePicture:string | null;
     operationMode:string | null;
     hourlyWage:number;
-    availability:DoctorProfileAvailability | null;
-
+    availability: DoctorProfileAvailability
+    
   }
   interface DoctorProfileDetail extends DoctorProfile {
-    id:string | null;
-    country:string | null;
-    city:string | null;
-    state:string | null;
-    yearOfExperience:number | null;
-    primaryspecialization:string | null;
-    otherSpecialization:string | null;
-    organizationName:string | null;
-    organizationAddress:string | null;
-    organizationContactNumber:string | null;
-    organizationEmailAddress:string | null;
-    organizationWebsite:string | null;
-    organizationHoursOfOperation:number | null;
-    serviceOffered:string | null;
-    insuranceAccepted:string | null;
-    educatioHistory:string | null;
-    research:string | null;
-    accomplishments:string | null;
+    id: string | null;
+    country: string | null;
+    city: string | null;
+    state: string | null;
+    yearOfExperience: number | null;
+    primarySpecialization: string | null;
+    otherSpecialization: string | null;
+    organizationName: string | null;
+    organizationAddress: string | null;
+    organizationContactNumber: string | null;
+    organizationEmailAddress: string | null;
+    organizationWebsite: string | null;
+    organizationHoursOfOperation: number | null;
+    serviceOffered: string | null;
+    insuranceAccepted: string | null;
+    educationHistory: string | null;
+    research: string | null;
+    accomplishments: string | null;
+    availability: DoctorProfileAvailability; // Add this field if missing
   }
+  

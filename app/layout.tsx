@@ -12,8 +12,6 @@ import { OnboardingContextProvider } from '@/context/context'
 import { cn } from '@/lib/utils'
 import AuthProvider from './AuthProvider'
 
-const inter = Inter({ subsets: ['latin'] })
-
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",

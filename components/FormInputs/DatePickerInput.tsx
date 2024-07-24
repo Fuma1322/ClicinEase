@@ -20,7 +20,12 @@ type DatePickerInputProps = {
     title: string;
 }
 
-export function DatePickerInput({date, setDate, className="col-span-full", title}: DatePickerInputProps) {
+export function DatePickerInput({
+  date, 
+  setDate, 
+  className="col-span-full", 
+  title
+}: DatePickerInputProps) {
 
   return (
     <div className={cn("grid", className)}>

@@ -21,10 +21,10 @@ export default async function page({ params: { id } }: { params: { id: string } 
         </div>
         <div className="">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            <Calendar className="w-4 h-4 mr-2" />
             {appointment?.appointmentFormattedDate}
           </h2>
           <div className="flex items-center text-sm">
+            <Calendar className="w-4 h-4 mr-2" />
             <span>{appointment?.appointmentTime}</span>
           </div>
         </div>

@@ -225,6 +225,7 @@ export async function getDoctorBySlug(slug: string) {
                             educationHistory: true,
                             research: true,
                             accomplishments: true,
+                            availability:true,
                         },
                     },
                 },

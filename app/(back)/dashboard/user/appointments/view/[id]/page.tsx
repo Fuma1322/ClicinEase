@@ -25,9 +25,9 @@ export default async function page({ params }: { params: { id: string } }) {
         <div className="">
           {/* Displaying appointment date and time */}
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-              <Calendar className="w-4 h-4 mr-2 inline"/> 
             {appointment?.appointmentFormattedDate}
             <div className="flex items-center text-sm">
+              <Calendar className="w-4 h-4 mr-2 inline"/> 
               <span>{appointment?.appointmentTime}</span>
             </div>
           </h2>
