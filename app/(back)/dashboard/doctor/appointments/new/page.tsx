@@ -1,5 +1,6 @@
 import { getDoctors } from '@/actions/users';
 import DoctorCard from '@/components/DoctorCard';
+import { Doctor } from '@/types/types';
 
 // Component for selecting doctors for new appointments
 export default async function NewAppointment() {
@@ -25,7 +26,7 @@ export default async function NewAppointment() {
           <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">TeleHealth Doctors</h2>
           <div className="grid place-items-center">
             {telhealthDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} isInPerson={false} doctor={doctor} />
+              <DoctorCard key={doctor.id} isInPerson={false} doctor={doctor as Doctor} />
             ))}
           </div>
         </div>
@@ -37,7 +38,7 @@ export default async function NewAppointment() {
           <h2 className="px-4 border-b font-semibold text-xl lg:text-3xl py-3 mb-3">In-person Doctors</h2>
           <div className="grid place-items-center">
             {inpersonDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor} />
+              <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor as Doctor} />
             ))}
           </div>
         </div>
