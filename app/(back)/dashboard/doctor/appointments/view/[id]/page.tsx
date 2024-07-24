@@ -1,7 +1,7 @@
 import { getAppointmentById } from '@/actions/appointments';
 import UpdatedAppointmentForm from '@/components/Dashboard/Doctor/UpdatedApointmentForm';
 import { Button } from '@/components/ui/button';
-import { Calendar } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -24,7 +24,7 @@ export default async function page({ params: { id } }: { params: { id: string } 
             {appointment?.appointmentFormattedDate}
           </h2>
           <div className="flex items-center text-sm">
-            <Calendar className="w-4 h-4 mr-2" />
+            <Clock className="w-4 h-4 mr-2" />
             <span>{appointment?.appointmentTime}</span>
           </div>
         </div>

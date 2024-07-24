@@ -21,13 +21,7 @@ export default async function Home() {
       <Hero /> {/* Rendering Hero component for homepage */}
       <Brands /> {/* Rendering Brands component for brand display */}
       <TabbedSection /> {/* Rendering TabbedSection component for tabbed content */}
-      <DoctorList doctors={telhealthDoctors} /> {/* Rendering DoctorList with TeleHealth doctors */}
-      <DoctorList
-        className="bg-blue-50 dark:bg-slate-900 py-8 lg:py-24"
-        title="In-person doctor visit"
-        isInPerson={true}
-        doctors={inpersonDoctors} // Rendering DoctorList with In-person doctors
-      />
+      
       <Footer /> {/* Rendering Footer component for page footer */}
     </section>
   );

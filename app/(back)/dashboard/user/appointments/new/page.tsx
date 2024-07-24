@@ -1,5 +1,6 @@
 import { getDoctors } from '@/actions/users';
 import DoctorCard from '@/components/DoctorCard';
+import { Doctor } from '@/types/types';
 
 export default async function NewAppointment() {
   try {
@@ -26,7 +27,7 @@ export default async function NewAppointment() {
             <div className="grid place-items-center">
               {telhealthDoctors.map((doctor) => {
                 console.log("Rendering Telehealth doctor:", doctor);
-                return <DoctorCard key={doctor.id} isInPerson={false} doctor={doctor} />;
+                return <DoctorCard key={doctor.id} isInPerson={false} doctor={doctor as Doctor} />;
               })}
             </div>
           </div>
@@ -38,7 +39,7 @@ export default async function NewAppointment() {
             <div className="grid place-items-center">
               {inpersonDoctors.map((doctor) => {
                 console.log("Rendering In-person doctor:", doctor);
-                return <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor} />;
+                return <DoctorCard key={doctor.id} isInPerson={true} doctor={doctor as Doctor} />;
               })}
             </div>
           </div>

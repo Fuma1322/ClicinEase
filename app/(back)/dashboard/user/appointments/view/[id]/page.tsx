@@ -1,7 +1,7 @@
 import { getAppointmentById } from '@/actions/appointments'; // Importing getAppointmentById function from appointments actions
 import { Button } from '@/components/ui/button'; // Importing Button component from UI components
 import { Item } from '@radix-ui/react-dropdown-menu'; // Importing Item component from Radix UI dropdown menu
-import { Calendar, Mail, Phone, Video } from 'lucide-react'; // Importing icons from Lucide React
+import { Calendar, Clock, Mail, Phone, Video } from 'lucide-react'; // Importing icons from Lucide React
 import Link from 'next/link'; // Importing Link component from Next.js
 import React from 'react'; // Importing React
 
@@ -27,7 +27,7 @@ export default async function page({ params }: { params: { id: string } }) {
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
             {appointment?.appointmentFormattedDate}
             <div className="flex items-center text-sm">
-              <Calendar className="w-4 h-4 mr-2 inline"/> 
+              <Clock className="w-4 h-4 mr-2 inline"/> 
               <span>{appointment?.appointmentTime}</span>
             </div>
           </h2>
