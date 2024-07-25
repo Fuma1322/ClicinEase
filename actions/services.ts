@@ -76,8 +76,10 @@ export async function getServices() {
                 select:{
                     doctorProfiles:true,
                 },
-            }
-           }
+            },
+            createdAt: true,
+            updatedAt: true,
+           },
         });
 
         // Return success response with fetched services
