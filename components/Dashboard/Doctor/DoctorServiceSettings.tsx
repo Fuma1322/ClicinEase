@@ -24,9 +24,7 @@ export default async function DoctorServiceSettings({
     return(
         <div className="grid gap-6 w-full">
             <Card className="w-full">
-                <CardHeader>
-                  <CardTitle>Choose Service</CardTitle>
-                </CardHeader>
+                
                 <UpdateServiceForm 
                         profile={profile}
                         services={services}

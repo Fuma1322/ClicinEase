@@ -29,11 +29,13 @@ export default async function page() {
           />
         </div> 
       </div>
+      <div className="hidden lg:block">
       <DisplayPannel 
         title="Appointments" 
         newAppointmentLink="/dashboard/doctor/appointments/new" 
         count={appointments.length}
-      />  
+      />
+      </div>  
     </div>
   );
 }

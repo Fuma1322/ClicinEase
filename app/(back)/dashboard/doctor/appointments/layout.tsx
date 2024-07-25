@@ -22,8 +22,8 @@ export default async function AppointmentLayout({ children }: { children: ReactN
 
   return (
     <div>
-      <div className="grid grid-cols-12">
-        <div className="col-span-4 py-3 border-r border-gray-100">
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        <div className="col-span-1 lg:col-span-4 py-3 lg:border-r border-gray-100">
           <PannelHeader
             title="Appointments"
             count={(appointments.length).toString().padStart(2, "0")}
@@ -33,7 +33,7 @@ export default async function AppointmentLayout({ children }: { children: ReactN
             <ListPannel appointments={appointments} role={user?.role} />
           </div>
         </div>
-        <div className="col-span-8">
+        <div className="col-span-1 lg:col-span-8">
           {children}
         </div>
       </div>

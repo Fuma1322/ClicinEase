@@ -27,9 +27,7 @@ export default async function PatientLayout({ children }: { children: ReactNode;
 
   // Check if user is authorized as a doctor, otherwise show NotAuthorised component
   if (user?.role !== "DOCTOR") {
-    return (
-      <NotAuthorised />
-    );
+    return <NotAuthorised />;
   }
 
   // Initialize a map to store unique patients
@@ -62,9 +60,9 @@ export default async function PatientLayout({ children }: { children: ReactNode;
   // Render the PatientLayout component
   return (
     <div>
-      <div className="grid grid-cols-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12">
         {/* Sidebar section for patient list */}
-        <div className="col-span-4 py-3 border-r border-gray-100">
+        <div className="col-span-1 lg:col-span-4 py-3 lg:border-r border-gray-100">
           {/* Panel header with Patients title and count */}
           <PannelHeader title='Patients' count={(patients.length).toString().padStart(2, "0")} icon={Users} />
           <div className="px-3">
@@ -73,7 +71,7 @@ export default async function PatientLayout({ children }: { children: ReactNode;
           </div>
         </div>
         {/* Main content section */}
-        <div className="col-span-8">
+        <div className="col-span-1 lg:col-span-8">
           {/* Render children components */}
           {children}
         </div>

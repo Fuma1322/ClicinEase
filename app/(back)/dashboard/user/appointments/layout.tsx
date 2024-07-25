@@ -8,7 +8,7 @@ import { getServerSession } from 'next-auth';
 import React, { ReactNode } from 'react'
 
 export default async function AppointmentLayout({children}:{children: ReactNode;}) {
-    const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
   const user = session?.user
   if (user?.role !=="USER"){
     return (
@@ -16,21 +16,19 @@ export default async function AppointmentLayout({children}:{children: ReactNode;
     )
   }
   const appointments = (await getPatientAppointments(user.id)).data || [];
-    return (
+  return (
     <div>
-      
-    <div className="grid grid-cols-12">
-    <div className="col-span-4 py-3 border-r border-gray-100">
-     <PannelHeader title='Appointments' count={(appointments.length).toString().padStart(2, "0")} icon={Calendar}/>
-    <div className="px-3">
-    <ListPannel appointments={appointments} role={user.role}/>
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        <div className="col-span-1 lg:col-span-4 py-3 lg:border-r border-gray-100">
+          <PannelHeader title='Appointments' count={(appointments.length).toString().padStart(2, "0")} icon={Calendar}/>
+          <div className="px-3">
+            <ListPannel appointments={appointments} role={user.role}/>
+          </div>
+        </div>
+        <div className="col-span-1 lg:col-span-8"> 
+          {children}
+        </div>
+      </div>
     </div>
-    </div>
-     <div className="col-span-8"> 
-         {children}
-     </div>
-    </div>
-     
- </div>
   );
 }

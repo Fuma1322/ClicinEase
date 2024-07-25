@@ -155,7 +155,7 @@ const router = useRouter()
               <ArrayItemsInput 
                 setItems={setServices}
                 items={services} 
-                itemTitle="Add Clinic Services" 
+                itemTitle="Add Organization Services" 
               />
             </div>
               <div className="mt-8 flex justify-center items-center">

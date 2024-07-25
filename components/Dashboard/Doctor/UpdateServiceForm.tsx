@@ -151,7 +151,7 @@ export default function UpdateServiceForm({
                     <div className="sm:col-span-4">
                         <div className="flex items-center justify-between border-b">
                             <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
-                                Update Hour Price
+                                Update Hourly Price
                             </h2>
                             <Button disabled={savingPrice} onClick={handleUpdatePrice}>
                                 {savingPrice ? "Saving please wait..." : "Update Price"}
@@ -187,7 +187,7 @@ export default function UpdateServiceForm({
                                 {savingMode ? "Saving please wait..." : "Update Operation Mode"}
                             </Button>
                         </div>
-                        <div className="grid grid-cols-4 gap-2 py-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3">
                             {operationModes &&
                                 operationModes.map((item, i) => {
                                     const Icon = item.icon;
@@ -202,26 +202,26 @@ export default function UpdateServiceForm({
                                                     : ""
                                             )}
                                         >
-                                            <Icon className="w-8 h-8" />
-                                            <p className="text-xs">{item.title}</p>
+                                            <Icon />
+                                            <h2 className="text-sm">{item.title}</h2>
                                         </button>
                                     );
                                 })}
                         </div>
                     </div>
                 </div>
-                {/* SERVICES */}
+                {/* SERVICE */}
                 <div className="border shadow rounded-md p-4 mt-4">
                     <div className="sm:col-span-4">
                         <div className="flex items-center justify-between border-b">
                             <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
-                                Choose A Service You Want To Offer
+                                Choose Your Service
                             </h2>
                             <Button disabled={savingServices} onClick={handleUpdateservice}>
                                 {savingServices ? "Saving please wait..." : "Update Service"}
                             </Button>
                         </div>
-                        <div className="grid grid-cols-4 gap-2 py-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3">
                             {services &&
                                 services.map((item, i) => {
                                     return (
@@ -236,13 +236,13 @@ export default function UpdateServiceForm({
                                             )}
                                         >
                                             <Image
-                                                src={item.imageUrl}
+                                                src={item.imageUrl ?? ""}
                                                 alt={item.title}
-                                                width={100}
-                                                height={100}
-                                                className="w-14 h-14"
+                                                width={30}
+                                                height={30}
+                                                className="rounded-full"
                                             />
-                                            <p className="text-xs">{item.title}</p>
+                                            <h2 className="text-sm">{item.title}</h2>
                                         </button>
                                     );
                                 })}
@@ -254,13 +254,13 @@ export default function UpdateServiceForm({
                     <div className="sm:col-span-4">
                         <div className="flex items-center justify-between border-b">
                             <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
-                                Select Your Speciality
+                                Choose Your Speciality
                             </h2>
                             <Button disabled={savingSpeciality} onClick={handleUpdateSpeciality}>
                                 {savingSpeciality ? "Saving please wait..." : "Update Speciality"}
                             </Button>
                         </div>
-                        <div className="grid grid-cols-4 gap-2 py-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3">
                             {specialities &&
                                 specialities.map((item, i) => {
                                     return (
@@ -274,7 +274,7 @@ export default function UpdateServiceForm({
                                                     : ""
                                             )}
                                         >
-                                            <p className="text-xs">{item.title}</p>
+                                            <h2 className="text-sm">{item.title}</h2>
                                         </button>
                                     );
                                 })}
@@ -286,19 +286,19 @@ export default function UpdateServiceForm({
                     <div className="sm:col-span-4">
                         <div className="flex items-center justify-between border-b">
                             <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">
-                                Select Your Symptoms
+                                Choose Symptoms You Treat
                             </h2>
                             <Button disabled={savingSymptoms} onClick={handleUpdateSymptoms}>
                                 {savingSymptoms ? "Saving please wait..." : "Update Symptoms"}
                             </Button>
                         </div>
-                        <div className="grid grid-cols-4 gap-2 py-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3">
                             {symptoms &&
                                 symptoms.map((item, i) => {
                                     return (
                                         <button
                                             key={i}
-                                            onClick={() => setSymptomIds([...symptomIds, item.id])}
+                                            onClick={() => setSymptomIds([item.id])}
                                             className={cn(
                                                 "border flex items-center justify-center flex-col py-2 px-3 rounded-md cursor-pointer",
                                                 symptomIds.includes(item.id)
@@ -306,7 +306,8 @@ export default function UpdateServiceForm({
                                                     : ""
                                             )}
                                         >
-                                            <p className="text-xs">{item.title}</p>
+                                            
+                                            <h2 className="text-sm">{item.title}</h2>
                                         </button>
                                     );
                                 })}

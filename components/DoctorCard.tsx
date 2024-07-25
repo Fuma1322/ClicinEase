@@ -23,7 +23,7 @@ export default function DoctorCard({
     // console.log("Times for today:", times);
 
   return (
-   <div className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
+   <div className='border border-gray-200 dark:bg-slate-950 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
      <Link href={`/doctors/${doctor.slug}`}>
        <h2 className='uppercase font-bold text-2xl tracking-widest'>
         {doctor.name}
@@ -50,7 +50,7 @@ export default function DoctorCard({
              <span>Family Medicine</span>
            </p>
            {times && times.length > 0 ? (
-             <p className="bg-green-200 py-3 px-6 rounded-lg uppercase">
+             <p className="bg-green-200 text-gray-600 py-3 px-6 rounded-lg uppercase">
                Available today
              </p>
            ) : (

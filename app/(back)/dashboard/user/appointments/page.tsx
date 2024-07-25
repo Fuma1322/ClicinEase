@@ -9,20 +9,22 @@ import React from 'react'
 export default async function page() {
   const session = await getServerSession(authOptions);
   const user = session?.user
-  if (user?.role !=="USER"){
+  if (user?.role !== "USER") {
     return (
-      <NotAuthorised/>
+      <NotAuthorised />
     )
   }
   const appointments = (await getPatientAppointments(user.id)).data || [];
   return (
     <div>
-         <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
-            <div className="flex items-center gap-4">
-              <NewButton title='New Appointment' href="/dashboard/user/appointments/new"/>
-            </div> 
-    </div>
-          <DisplayPannel title="Appointment" newAppointmentLink="/dashboard/user/appointments/new" count={appointments.length}/>  
+      <div className="py-2 px-4 border-b border-gray-200 flex items-center justify-end">
+        <div className="flex items-center gap-4">
+          <NewButton title='New Appointment' href="/dashboard/user/appointments/new" />
+        </div>
+      </div>
+      <div className="hidden lg:block">
+        <DisplayPannel title="Appointment" newAppointmentLink="/dashboard/user/appointments/new" count={appointments.length} />
+      </div>
     </div>
   );
 }

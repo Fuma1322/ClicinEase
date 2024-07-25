@@ -58,7 +58,9 @@ export default async function page() {
       </div>
       
       {/* Display panel for patients */}
+      <div className="hidden lg:block">
       <DisplayPannel title="Patient" newAppointmentLink={`/doctor/${slug}`} count={patients.length} />
+      </div>
     </div>
   );
 }
