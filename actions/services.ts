@@ -49,6 +49,16 @@ export async function createService(data: ServiceProps) {
     }
 }
 
+export interface ServiceWithDoctorProfileCount {
+    id: string;
+    title: string;
+    slug: string;
+    imageUrl: string;
+    _count:{
+        doctorProfiles: number;
+    };
+}
+
 // Function to fetch all services ordered by creation date
 export async function getServices() {
     try {
@@ -56,6 +66,17 @@ export async function getServices() {
         const services = await prismaClient.service.findMany({
            orderBy:{
                 createdAt: "desc"
+           },
+           select: {
+            id: true,
+            title: true,
+            slug: true,
+            imageUrl: true,
+            _count: {
+                select:{
+                    doctorProfiles:true,
+                },
+            }
            }
         });
 

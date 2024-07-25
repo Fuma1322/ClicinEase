@@ -240,3 +240,59 @@ export async function getDoctorBySlug(slug: string) {
         }
     }
 }
+
+export async function getDoctorById(id: string) {
+    if (id) {
+        try {
+            const doctor = await prismaClient.user.findFirst({
+                where: {
+                    role: "DOCTOR",
+                    id,
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    slug: true,
+                    phone: true,
+                    doctorProfile: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            gender: true,
+                            bio: true,
+                            profilePicture: true,
+                            operationMode: true,
+                            hourlyWage: true,
+                            yearsOfExperience: true,
+                            country: true,
+                            city: true,
+                            state: true,
+                            primarySpecialization: true,
+                            otherSpecialities: true,
+                            organizationName: true,
+                            organizationAddress: true,
+                            organizationContactNumber: true,
+                            organizationEmailAddress: true,
+                            organizationWebsite: true,
+                            organizationHoursOfOperarion: true,
+                            servicesOffered: true,
+                            insuranceAccepted: true,
+                            educationHistory: true,
+                            research: true,
+                            accomplishments: true,
+                        },
+                    },
+                },
+            });
+
+            if (!doctor) {
+                return null;
+            }
+
+            return doctor;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

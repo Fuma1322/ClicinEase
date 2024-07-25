@@ -17,19 +17,18 @@ export default function DoctorCard({
     const today: keyof DoctorProfileAvailability = getDayName();
     const times = doctor.doctorProfile?.availability?.[today] ?? null;
     const formattedDate = getFormattedDate();
-    console.log(times);
-
-    // console.log("DoctorCard received doctor:", doctor);
-    // console.log("Times for today:", times);
+    
 
   return (
-   <div className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
-     <Link href={`/doctors/${doctor.slug}`}>
+   <>
+    <div className='border border-gray-200 bg-white inline-flex flex-col py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all'>
+     <Link href={`/doctors/${doctor.slug}?id=${doctor.id}`}>
        <h2 className='uppercase font-bold text-2xl tracking-widest'>
-        {doctor.name}
+        {`${doctor.doctorProfile?.firstName} ${doctor.doctorProfile?.lastName}`}
        </h2>
        {isInPerson && (<p className='py-3'>{doctor.email}</p>)}
        <div className="flex items-center gap-4 py-4">
+         
          <div className="relative">
            <Image 
              src={doctor.doctorProfile?.profilePicture ?? "/steph.jpg"}
@@ -77,13 +76,13 @@ export default function DoctorCard({
              <Link 
              className='bg-blue-600 text-sm text-white p-2 text-center rounded-lg' 
              key={i} 
-             href={`/doctors/${doctor.slug}`}>
+             href={`/doctors/${doctor.slug}?id=${doctor.id}`}>
                {item}
              </Link>
            ))}
            <Link 
            className='text-[0.7rem] text-center bg-blue-900 text-white py-2 px-3 truncate rounded-lg' 
-           href={`/doctors/${doctor.slug}`}>
+           href={`/doctors/${doctor.slug}?id=${doctor.id}`}>
             More times
            </Link>
          </div>
@@ -94,5 +93,6 @@ export default function DoctorCard({
        </div>
      )}
    </div>
+   </>
   )
 }

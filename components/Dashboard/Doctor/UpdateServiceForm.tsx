@@ -1,7 +1,7 @@
 "use client"
 
 // Import necessary components and libraries
-import { updateDoctorProfileWithService } from "@/actions/services"; // Function to update doctor profile with service
+import { ServiceWithDoctorProfileCount, updateDoctorProfileWithService } from "@/actions/services"; // Function to update doctor profile with service
 import { Button } from "@/components/ui/button"; // Button component
 import { CardContent } from "@/components/ui/card"; // CardContent component
 import { cn } from "@/lib/utils"; // Utility function for classNames
@@ -18,7 +18,7 @@ export default function UpdateServiceForm({
     symptoms, // List of symptoms
     profile, // Doctor profile
 }: {
-    services: Service[] | null; // Array of services or null
+    services: ServiceWithDoctorProfileCount[] | null; // Array of services or null
     specialities: Speciality[] | null; // Array of specialities or null
     symptoms: Symptom[] | null; // Array of symptoms or null
     profile: DoctorProfile | undefined | null; // Doctor profile or undefined or null

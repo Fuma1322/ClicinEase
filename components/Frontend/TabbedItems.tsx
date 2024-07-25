@@ -2,12 +2,15 @@
 import { Tabs } from "flowbite-react";
 import { HiAdjustments } from "react-icons/hi";
 import ServiceList from "./Services/ServiceList";
-import LinkCards from "./Doctors/LinkCards";
-import { Syringe, User2Icon } from "lucide-react";
+import LinkCards from "./Doctors/SymptomCard";
+import { Activity, Stethoscope, Syringe, User2Icon } from "lucide-react";
 import { Service, Speciality, Symptom } from "@prisma/client";
+import { ServiceWithDoctorProfileCount } from "@/actions/services";
+import SymptomCards from "./Doctors/SymptomCard";
+import SpecialityCards from "./Doctors/SpecialityCards";
 
 type TabbedItemProps = {
-  services: Service[];
+  services: ServiceWithDoctorProfileCount[];
   specialities: Speciality[];
   symptoms: Symptom[];
 }
@@ -21,7 +24,7 @@ export default function TabbedItems({
   const tabs = [
     {
       title: "Popular Services",
-      icon: HiAdjustments,
+      icon: Stethoscope,
       component: <ServiceList data={services} />,
       content: []
     },
@@ -33,14 +36,14 @@ export default function TabbedItems({
     // },
     {
       title: "Specialists",
-      icon: User2Icon,
-      component: <LinkCards className="bg-pink-950"  />, // Pass className here
+      icon: Activity,
+      component: (<SpecialityCards className="bg-blue-900" specialities={specialities} />), // Pass className here
       content: []
     },
     {
       title: "Symptoms",
       icon: Syringe,
-      component: <LinkCards />, // Pass className here
+      component: <SymptomCards symptoms={symptoms} className="bg-pink-950"/>, // Pass className here
       content: []
     }
   ];

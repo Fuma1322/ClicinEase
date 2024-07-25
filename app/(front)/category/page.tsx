@@ -1,4 +1,6 @@
 import { DataProps, getDoctorsByServiceSlug } from '@/actions/doctors';
+import { getServices } from '@/actions/services';
+import { getDoctors } from '@/actions/users';
 import DoctorCard from '@/components/DoctorCard';
 import { Doctor } from '@/types/types';
 import Link from 'next/link';
@@ -11,15 +13,16 @@ export default async function page({
     params: {slug: string};
     searchParams: {[key: string]: string | string[]| undefined}
 }) {
-    const {type} = searchParams;
-    const title = slug.split("-").join(" ");
-    const data = await getDoctorsByServiceSlug(slug) as DataProps;
-    const doctors = data?.doctors as Doctor[];
-    const services = data?.services;
+    const {mode} = searchParams;
+    const allDoctors = (await getDoctors()) || []; // Fetching list of doctors asynchronously
+    const doctors = allDoctors.filter(
+      (doctor) => doctor.doctorProfile?.operationMode === mode // Filtering doctors by mode
+    );
+    const services = await (await getServices()).data || [];
   return (
     <div className='container p-8'>
         <h1 className='scroll-m-20 pb-6 text-3xl capitalize font-extrabold tracking-tight lg:text-4xl'>
-            {title} ({doctors.length.toString().padStart(2, "0")})
+            {mode} ({doctors.length.toString().padStart(2, "0")})
         </h1>
         <div className='max-w-5xl mx-auto grid grid-cols-12 gap-6 lg:gap-10'>
             <div className='col-span-3 border border-gray-200/50 rounded-sm p-6'>

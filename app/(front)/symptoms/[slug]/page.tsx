@@ -1,4 +1,4 @@
-import { DataProps, getDoctorsByServiceSlug } from '@/actions/doctors';
+import { DataProps, getDoctorsByServiceSlug, getDoctorsBySpecialitySlug, getDoctorsBySymptomId } from '@/actions/doctors';
 import DoctorCard from '@/components/DoctorCard';
 import { Doctor } from '@/types/types';
 import Link from 'next/link';
@@ -11,15 +11,15 @@ export default async function page({
     params: {slug: string};
     searchParams: {[key: string]: string | string[]| undefined}
 }) {
-    const {type} = searchParams;
+    const {id} = searchParams;
     const title = slug.split("-").join(" ");
-    const data = await getDoctorsByServiceSlug(slug) as DataProps;
+    const data = (await getDoctorsBySymptomId(id as string)) as DataProps;
     const doctors = data?.doctors as Doctor[];
     const services = data?.services;
   return (
     <div className='container p-8'>
         <h1 className='scroll-m-20 pb-6 text-3xl capitalize font-extrabold tracking-tight lg:text-4xl'>
-            {title} ({doctors.length.toString().padStart(2, "0")})
+            {title} ({doctors.length.toString().padStart(2, "0") || "0"})
         </h1>
         <div className='max-w-5xl mx-auto grid grid-cols-12 gap-6 lg:gap-10'>
             <div className='col-span-3 border border-gray-200/50 rounded-sm p-6'>
@@ -30,11 +30,11 @@ export default async function page({
                          {services.map((service,i)=>{
                             return (
                                 <Link key={i} 
-                                href={`/service/${service.slug}`} 
+                                href={`/symptoms/${service.slug}?id=${service.id}}`} 
                                 className="hover:text-blue-600">
                                 {service.title}
                                 </Link>
-                            )
+                            );
                          })}
                         </div>
                     )}
@@ -60,5 +60,5 @@ export default async function page({
         </div>
         </div>
     </div>
-  );
+  )
 }

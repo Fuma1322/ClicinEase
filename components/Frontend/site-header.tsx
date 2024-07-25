@@ -14,12 +14,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Session, User } from 'next-auth'
-import { signOut } from "next-auth/react"
-import { MainNav } from "../main-nav"
-import { MobileNav } from "../mobile-nav"
-import { generateInitials } from "@/utils/generateInitials"
+} from "@/components/ui/dropdown-menu";
+import { Session, User } from 'next-auth';
+import { signOut } from "next-auth/react";
+import { MainNav } from "../main-nav";
+import { MobileNav } from "../mobile-nav";
+import { generateInitials } from "@/utils/generateInitials";
+import SearchBar from "./SearchBar"
 
 export function SiteHeader({session}:{session:Session|null}) {
   const user =session?.user;
@@ -35,8 +36,8 @@ export function SiteHeader({session}:{session:Session|null}) {
         <MainNav />
         <MobileNav />
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <CommandMenu />
+          <div className="w-full flex-1">
+            <SearchBar />
           </div>
           <nav className="flex items-center gap-4">
             {session && session.user && user?.email?(

@@ -8,14 +8,19 @@ import DoctorDetails from '@/components/DoctorDetails';
 import FixedBookButton from '@/components/FixedBookButton';
 import { Appointment } from '@prisma/client';
 import { DoctorDetail } from '@/types/types';
+import { getDoctorById } from '@/actions/users';
 
 export default async function page({
-  params: { slug },
+  params:{slug},
+  searchParams,
 }: {
-  params: { slug: string };
+  params: {slug: string};
+  searchParams: {[key: string]: string | string[]| undefined};
 }) {
+  const {id} = searchParams
   const session = await getServerSession(authOptions);
-  const doctor = (await getDoctorBySlug(slug)) || null;
+  // const doctor = (await getDoctorBySlug(slug)) || null;
+  const doctor = (await getDoctorById(id as string)) || null;
   const user = session?.user;
   const appointment = await getAppointmentsByPatientId(user?.id ?? "");
 

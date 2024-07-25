@@ -1,9 +1,9 @@
 import React from 'react';
 import ServiceCard from './ServiceCard';
-import { ServiceProps } from '@/types/types';// Adjust the import path according to your project structure
 import { Service } from '@prisma/client';
+import { ServiceWithDoctorProfileCount } from '@/actions/services';
 
-export default function ServiceList({ data }: { data: Service[] }) {
+export default function ServiceList({ data }: { data: ServiceWithDoctorProfileCount[] }) {
   return (
     <div className='grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-col-1 gap-6'>
       {data.map((service, i) => {
