@@ -201,6 +201,35 @@ export async function getPatientAppointments(patientId: string) {
     }
 }
 
+export async function getInboxMessages(patientId: string) {
+    try {
+        // Fetch appointments for the specified patient ID
+        const appointments = await prismaClient.appointment.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            where: {
+                patientId
+            }
+        });
+
+        // Return success response with fetched appointments
+        return {
+            data: appointments,
+            status: 200,
+            error: null,
+        };
+    } catch (error) {
+        // Handle errors and return error response
+        console.log(error);
+        return {
+            data: null,
+            status: 500,
+            error,
+        };
+    }
+}
+
 // Function to fetch the latest appointment for a specific patient
 export async function getAppointmentsByPatientId(patientId: string | undefined) {
     if (patientId) {

@@ -1,7 +1,19 @@
 "use server"
 
 import { prismaClient } from "@/lib/db";
+import { count } from "console";
+import { AlarmClock, DollarSign, LucideIcon, Mail, User, Users } from "lucide-react";
+import { getDoctorAppointments } from "./appointments";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
+export type DoctorAnalyticProps = {
+    title: string;
+    count: number;
+    icon:LucideIcon;
+    unit: string;
+    detailLink: string
+};
 // Function to fetch statistics (counts) from the database
 export async function getStats() {
     try {
@@ -33,5 +45,46 @@ export async function getStats() {
             appointments: null,
             services: null,
         };
+    }
+}
+
+export async function getDoctorAnalytics() {
+    try {
+        const session = await getServerSession(authOptions);
+        const user = session?.user;
+        const appointments = (await getDoctorAppointments(user?.id??"")).data || [];
+
+        const analytics = [
+            {
+                title: "Appointments",
+                count: appointments.length??0,
+                icon: AlarmClock,
+                unit:"",
+                detailLink:"/dashboard/doctor/appointments"
+            },
+            {
+                title: "Patients",
+                count: 100,
+                icon: Users,
+                unit:"",
+                detailLink:"/dashboard/doctor/patients"
+            },
+            {
+                title: "Inbox",
+                count: 100,
+                icon: Mail,
+                unit:"",
+                detailLink:"/dashboard/doctor/inbox"
+            },
+            
+        ]
+       
+
+        // Return the constructed stats object
+        return analytics as DoctorAnalyticProps[];
+    } catch (error) {
+        // Handle errors and return null values for all stats in case of error
+        console.log(error);
+        return [];
     }
 }

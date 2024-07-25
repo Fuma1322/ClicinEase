@@ -14,9 +14,7 @@ export default async function page() {
   if (role === "DOCTOR") {
     return (
       <>
-        {/* Displaying user's role */}
-        <p>{user?.role} {user?.name}</p>
-        <DoctorDashboard /> {/* Rendering DoctorDashboard for doctors */}
+        <DoctorDashboard session={session}/> {/* Rendering DoctorDashboard for doctors */}
       </>
     );
   }
